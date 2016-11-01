@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Source for BuanView.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">Buan<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="../classtrees_Buan.html" class="menu">class tree: Buan</a> ]
+		[ <a href="../elementindex_Buan.html" class="menu">index: Buan</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Buan</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_Buan.html">Buan</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file BuanView.php</h1>
+<p>Documentation is available at <a href="../Buan/_BuanView.php.html">BuanView.php</a></p>
+<div class="src-code"><span class="php">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-tag">@event</span><span class="src-doc">&nbsp;onrender</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">*&nbsp;&nbsp;Invoked&nbsp;after&nbsp;the&nbsp;View&nbsp;has&nbsp;rendered&nbsp;it's&nbsp;template&nbsp;and&nbsp;stored&nbsp;the&nbsp;result&nbsp;in&nbsp;$this-&gt;buffer</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;Buan</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">*/</span></div></li>
+<li><div class="src-line"><a name="a8"></a>namespace&nbsp;<span class="src-id">Buan</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-key">class&nbsp;</span><a href="../Buan/View.html">View</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../Buan/Object.html">Object</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a10"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a11"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;string&nbsp;$buffer</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Stores&nbsp;the&nbsp;result&nbsp;of&nbsp;calling&nbsp;&quot;this-&gt;render()&quot;.</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a15"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><a href="../Buan/View.html#var$buffer">$buffer</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a16"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a17"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;Controller&nbsp;$controller</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;This&nbsp;View's&nbsp;Controller.</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a21"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/View.html#var$controller">$controller</a>&nbsp;=&nbsp;<span class="src-id">NULL</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a22"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a23"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;View&nbsp;$globalView</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;A&nbsp;singleton&nbsp;instance&nbsp;of&nbsp;the&nbsp;&quot;GlobalView&quot;.</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a27"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static&nbsp;</span><span class="src-key">private&nbsp;</span><a href="../Buan/View.html#var$globalView">$globalView</a>&nbsp;=&nbsp;<span class="src-id">NULL</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a28"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a29"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$headers</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Contains&nbsp;all&nbsp;headers&nbsp;that&nbsp;will&nbsp;be&nbsp;included&nbsp;in&nbsp;the&nbsp;HTTP&nbsp;response.</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a33"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/View.html#var$headers">$headers</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a34"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a35"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$renderQueue</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Stores&nbsp;all&nbsp;View&nbsp;objects&nbsp;that&nbsp;will&nbsp;be&nbsp;rendered&nbsp;when&nbsp;this&nbsp;View's&nbsp;&quot;onrender&quot;&nbsp;event&nbsp;is&nbsp;invoked.</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/View.html#var$renderQueue">$renderQueue</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a41"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a42"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$slots</span></div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Each&nbsp;slot&nbsp;contains&nbsp;a&nbsp;nested&nbsp;View&nbsp;object,&nbsp;indexed&nbsp;by&nbsp;a&nbsp;unique&nbsp;identifier.</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a45"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/View.html#var$slots">$slots</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a46"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a47"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;string&nbsp;$source</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;The&nbsp;template&nbsp;source&nbsp;file's&nbsp;path.</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a51"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">protected&nbsp;</span><a href="../Buan/View.html#var$source">$source</a>&nbsp;=&nbsp;<span class="src-id">NULL</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a52"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a53"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;string&nbsp;$rawSource</span></div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;The&nbsp;template's&nbsp;raw&nbsp;source&nbsp;markup.&nbsp;This&nbsp;will&nbsp;NOT&nbsp;be&nbsp;evaluated&nbsp;as&nbsp;PHP&nbsp;so&nbsp;any</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;markup&nbsp;it&nbsp;contains&nbsp;will&nbsp;be&nbsp;rendered&nbsp;as-written.</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a58"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">protected&nbsp;</span><a href="../Buan/View.html#var$rawSource">$rawSource</a>&nbsp;=&nbsp;<span class="src-id">NULL</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a59"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a60"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a61"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$v</span></div></li>
+<li><div class="src-line"><a name="a62"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Holds&nbsp;all&nbsp;template&nbsp;variables.</span></div></li>
+<li><div class="src-line"><a name="a63"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a64"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/View.html#var$v">$v</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a67"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;View&nbsp;__construct(&nbsp;[Controller&nbsp;$controller]&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a68"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$controller&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;The&nbsp;Controller&nbsp;object&nbsp;that&nbsp;is&nbsp;associated&nbsp;with&nbsp;this&nbsp;View</span></div></li>
+<li><div class="src-line"><a name="a69"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a70"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Constructor.</span></div></li>
+<li><div class="src-line"><a name="a71"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a72"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#method__construct">__construct</a><span class="src-sym">(</span><span class="src-var">$controller</span>=<span class="src-id">NULL</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a73"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;controller</span></div></li>
+<li><div class="src-line"><a name="a75"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$controller">controller</a>&nbsp;=&nbsp;<span class="src-var">$controller</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a77"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Setup&nbsp;listeners&nbsp;for&nbsp;'onrender'&nbsp;event</span></div></li>
+<li><div class="src-line"><a name="a78"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/Object.html#methodaddEventListener">addEventListener</a><span class="src-sym">(</span><span class="src-str">'onrender'</span><span class="src-sym">,&nbsp;</span><span class="src-key">array</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">,&nbsp;</span><span class="src-str">'processRenderQueue'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a82"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;__set(&nbsp;string&nbsp;$varName,&nbsp;mixed&nbsp;$varValue&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a83"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$varName&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Variable&nbsp;name</span></div></li>
+<li><div class="src-line"><a name="a84"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$varValue&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Variable&nbsp;value</span></div></li>
+<li><div class="src-line"><a name="a85"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a86"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Stores&nbsp;the&nbsp;given&nbsp;variable&nbsp;in&nbsp;the&nbsp;self::$v&nbsp;array.</span></div></li>
+<li><div class="src-line"><a name="a87"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Enables&nbsp;you&nbsp;to&nbsp;set&nbsp;a&nbsp;template&nbsp;variable&nbsp;using&nbsp;&quot;$template-&gt;myVar&nbsp;=&nbsp;TRUE&quot;,&nbsp;rather&nbsp;than&nbsp;&quot;$template-&gt;v['myVar']&nbsp;=&nbsp;TRUE&quot;</span></div></li>
+<li><div class="src-line"><a name="a88"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Because&nbsp;all&nbsp;properties&nbsp;in&nbsp;this&nbsp;class&nbsp;are&nbsp;private&nbsp;they&nbsp;will&nbsp;be&nbsp;seen&nbsp;as&nbsp;non-existent&nbsp;to&nbsp;instances&nbsp;and&nbsp;extended&nbsp;classes.</span></div></li>
+<li><div class="src-line"><a name="a89"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a90"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#method__set">__set</a><span class="src-sym">(</span><span class="src-var">$varName</span><span class="src-sym">,&nbsp;</span><span class="src-var">$varValue</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a91"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a92"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Set</span></div></li>
+<li><div class="src-line"><a name="a93"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$varValue</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a94"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a95"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a96"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a97"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;mixed&nbsp;__get(&nbsp;string&nbsp;$varName&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a98"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$varName&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Variable&nbsp;to&nbsp;retrieve</span></div></li>
+<li><div class="src-line"><a name="a99"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a100"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;$this-&gt;v[$varName],&nbsp;or&nbsp;sets&nbsp;it&nbsp;to&nbsp;NULL&nbsp;if&nbsp;it&nbsp;doesn't&nbsp;exist.</span></div></li>
+<li><div class="src-line"><a name="a101"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a102"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#method__get">__get</a><span class="src-sym">(</span><span class="src-var">$varName</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a103"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a104"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Return</span></div></li>
+<li><div class="src-line"><a name="a105"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;NOTE:&nbsp;Setting&nbsp;a&nbsp;non-existent&nbsp;variable&nbsp;allows&nbsp;us&nbsp;to&nbsp;use&nbsp;&quot;$template-&gt;myVar[]&nbsp;=&nbsp;TRUE&quot;</span></div></li>
+<li><div class="src-line"><a name="a106"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(see&nbsp;http://uk2.php.net/manual/en/language.oop5.overloading.php#69370)</span></div></li>
+<li><div class="src-line"><a name="a107"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;NOTE:&nbsp;This&nbsp;still&nbsp;doesn't&nbsp;work,&nbsp;seemingly&nbsp;when&nbsp;an&nbsp;array&nbsp;element&nbsp;contains&nbsp;an&nbsp;Object</span></div></li>
+<li><div class="src-line"><a name="a108"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;eg.&nbsp;&nbsp;&nbsp;&nbsp;$view-&gt;objectList[7]&nbsp;=&nbsp;&quot;something&quot;;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&quot;something&quot;&nbsp;never&nbsp;gets&nbsp;stored</span></div></li>
+<li><div class="src-line"><a name="a109"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a110"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-id">NULL</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a111"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a112"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a113"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Explicitly&nbsp;casting&nbsp;an&nbsp;array&nbsp;fixes&nbsp;the&nbsp;&quot;Indirect&nbsp;modification&nbsp;of&nbsp;overloaded&nbsp;property&quot;&nbsp;bug(?)&nbsp;in&nbsp;PHP5.2+.</span></div></li>
+<li><div class="src-line"><a name="a114"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Converting&nbsp;the&nbsp;array&nbsp;to&nbsp;an&nbsp;ArrayObject&nbsp;returns&nbsp;the&nbsp;variable&nbsp;in&nbsp;read/write&nbsp;mode&nbsp;rather&nbsp;than&nbsp;just&nbsp;read-mode.</span></div></li>
+<li><div class="src-line"><a name="a115"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><a href="http://www.php.net/is_array">is_array</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a116"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id">ArrayObject</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]</span><span class="src-sym">,&nbsp;</span><span class="src-id">ArrayObject</span><span class="src-sym">::</span><span class="src-id">ARRAY_AS_PROPS</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a117"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a118"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a119"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">[</span><span class="src-var">$varName</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a120"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a121"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a122"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a123"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;setSource(&nbsp;string&nbsp;$templatePath&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a124"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$templatePath&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Absolute&nbsp;path&nbsp;to&nbsp;the&nbsp;template&nbsp;file</span></div></li>
+<li><div class="src-line"><a name="a125"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a126"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Defines&nbsp;this&nbsp;View's&nbsp;source&nbsp;template&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;at&nbsp;render-time.</span></div></li>
+<li><div class="src-line"><a name="a127"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a128"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodsetSource">setSource</a><span class="src-sym">(</span><span class="src-var">$templatePath</span>=<span class="src-id">NULL</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a129"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a130"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;source</span></div></li>
+<li><div class="src-line"><a name="a131"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$source">source</a>&nbsp;=&nbsp;<span class="src-var">$templatePath</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a132"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a133"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a134"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a135"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;setRawSource(&nbsp;string&nbsp;$src&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a136"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$src&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Template&nbsp;source</span></div></li>
+<li><div class="src-line"><a name="a137"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a138"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Sets&nbsp;the&nbsp;raw&nbsp;template&nbsp;code,&nbsp;meaning&nbsp;you&nbsp;don't&nbsp;need&nbsp;to&nbsp;specify&nbsp;an&nbsp;external</span></div></li>
+<li><div class="src-line"><a name="a139"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;template&nbsp;file.</span></div></li>
+<li><div class="src-line"><a name="a140"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a141"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodsetRawSource">setRawSource</a><span class="src-sym">(</span><span class="src-var">$src</span>=<span class="src-id">NULL</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a142"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a143"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;source</span></div></li>
+<li><div class="src-line"><a name="a144"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$rawSource">rawSource</a>&nbsp;=&nbsp;<span class="src-var">$src</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a145"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a146"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a147"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a148"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;setHeader(&nbsp;string&nbsp;$header,&nbsp;[string&nbsp;$value]&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a149"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$header&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Name&nbsp;of&nbsp;the&nbsp;header&nbsp;to&nbsp;be&nbsp;set&nbsp;(eg.&nbsp;Content-Type)</span></div></li>
+<li><div class="src-line"><a name="a150"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$values&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Value&nbsp;to&nbsp;give&nbsp;this&nbsp;header&nbsp;(eg.&nbsp;text/html;&nbsp;charset=utf-8)</span></div></li>
+<li><div class="src-line"><a name="a151"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a152"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Prepare&nbsp;an&nbsp;HTTP&nbsp;response&nbsp;header.</span></div></li>
+<li><div class="src-line"><a name="a153"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a154"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodsetHeader">setHeader</a><span class="src-sym">(</span><span class="src-var">$header</span><span class="src-sym">,&nbsp;</span><span class="src-var">$value</span>=<span class="src-id">NULL</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a155"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a156"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;content-type</span></div></li>
+<li><div class="src-line"><a name="a157"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$headers">headers</a><span class="src-sym">[</span><span class="src-var">$header</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$value</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a158"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a159"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a160"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a161"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;getHeader(&nbsp;string&nbsp;$header&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a162"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$header&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Name&nbsp;of&nbsp;header&nbsp;to&nbsp;retrieve</span></div></li>
+<li><div class="src-line"><a name="a163"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a164"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;specified&nbsp;header.</span></div></li>
+<li><div class="src-line"><a name="a165"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a166"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodgetHeader">getHeader</a><span class="src-sym">(</span><span class="src-var">$header</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a167"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span>isset<span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$headers">headers</a><span class="src-sym">[</span><span class="src-var">$header</span><span class="src-sym">]</span><span class="src-sym">)&nbsp;</span>?&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$headers">headers</a><span class="src-sym">[</span><span class="src-var">$header</span><span class="src-sym">]&nbsp;</span>:&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a168"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a169"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a170"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a171"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;attachViewToSlot(&nbsp;View&nbsp;$view,&nbsp;string&nbsp;$slotId&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a172"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$view&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;View&nbsp;object&nbsp;to&nbsp;be&nbsp;attached</span></div></li>
+<li><div class="src-line"><a name="a173"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$slotId&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Unique&nbsp;slot&nbsp;identifier</span></div></li>
+<li><div class="src-line"><a name="a174"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a175"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Attaches&nbsp;the&nbsp;View&nbsp;object&nbsp;to&nbsp;the&nbsp;specified&nbsp;slot.</span></div></li>
+<li><div class="src-line"><a name="a176"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a177"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodattachViewToSlot">attachViewToSlot</a><span class="src-sym">(</span><span class="src-var">$view</span><span class="src-sym">,&nbsp;</span><span class="src-var">$slotId</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a178"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a179"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;View</span></div></li>
+<li><div class="src-line"><a name="a180"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$slots">slots</a><span class="src-sym">[</span><span class="src-var">$slotId</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-var">$view</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a181"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a182"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a183"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a184"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;View&nbsp;getSlot(&nbsp;string&nbsp;$slotId&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a185"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$slotId&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ID&nbsp;of&nbsp;the&nbsp;slot&nbsp;you&nbsp;want&nbsp;to&nbsp;retrieve</span></div></li>
+<li><div class="src-line"><a name="a186"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a187"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;the&nbsp;View&nbsp;stored&nbsp;in&nbsp;the&nbsp;specified&nbsp;slot,&nbsp;or&nbsp;an&nbsp;empty&nbsp;View&nbsp;if&nbsp;the&nbsp;slot&nbsp;does&nbsp;not&nbsp;exist.</span></div></li>
+<li><div class="src-line"><a name="a188"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a189"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodgetSlot">getSlot</a><span class="src-sym">(</span><span class="src-var">$slotId</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a190"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a191"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a192"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$slots">slots</a><span class="src-sym">[</span><span class="src-var">$slotId</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a193"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$slots">slots</a><span class="src-sym">[</span><span class="src-var">$slotId</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a194"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a195"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a196"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../Buan/SystemLog.html">SystemLog</a></span><span class="src-sym">::</span><a href="../Buan/SystemLog.html#methodadd">add</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">There&nbsp;is&nbsp;no&nbsp;View&nbsp;object&nbsp;in&nbsp;slot&nbsp;\&quot;{<span class="src-var">$slotId</span><span class="src-sym">}</span>\&quot;</span><span class="src-str">&quot;</span><span class="src-sym">,&nbsp;</span><span class="src-id"><a href="../Buan/SystemLog.html">SystemLog</a></span><span class="src-sym">::</span><span class="src-id">WARNING</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a197"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-key">new&nbsp;</span><span class="src-id"><a href="../Buan/View.html">View</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a198"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a199"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a200"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a201"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a202"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;render()</span></div></li>
+<li><div class="src-line"><a name="a203"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a204"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Renders&nbsp;this&nbsp;View.</span></div></li>
+<li><div class="src-line"><a name="a205"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a206"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../Buan/View.html#methodrender">render</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a207"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a208"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Start&nbsp;output&nbsp;buffering</span></div></li>
+<li><div class="src-line"><a name="a209"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/ob_start">ob_start</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a210"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a211"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Send&nbsp;headers</span></div></li>
+<li><div class="src-line"><a name="a212"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Thanks&nbsp;to&nbsp;output&nbsp;buffering&nbsp;nested&nbsp;Views&nbsp;can&nbsp;set&nbsp;headers&nbsp;too&nbsp;without</span></div></li>
+<li><div class="src-line"><a name="a213"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;worrying&nbsp;about&nbsp;them&nbsp;already&nbsp;having&nbsp;been&nbsp;output.</span></div></li>
+<li><div class="src-line"><a name="a214"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">foreach</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$headers">headers</a>&nbsp;<span class="src-key">as&nbsp;</span><span class="src-var">$header</span>=&gt;<span class="src-var">$value</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a215"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-var">$header</span>.<span class="src-sym">(</span><span class="src-var">$value</span>===<span class="src-id">NULL&nbsp;</span>?&nbsp;<span class="src-str">''&nbsp;</span>:&nbsp;<span class="src-str">&quot;</span><span class="src-str">:&nbsp;{<span class="src-var">$value</span><span class="src-sym">}</span></span><span class="src-str">&quot;</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a216"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a217"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset<span class="src-sym">(</span><span class="src-var">$header</span><span class="src-sym">,&nbsp;</span><span class="src-var">$value</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a218"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a219"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Extract&nbsp;all&nbsp;variables&nbsp;into&nbsp;the&nbsp;local&nbsp;scope</span></div></li>
+<li><div class="src-line"><a name="a220"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.php.net/extract">extract</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$v">v</a><span class="src-sym">,&nbsp;</span><span class="src-id">EXTR_REFS</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a221"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a222"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Include&nbsp;PHP&nbsp;source&nbsp;template</span></div></li>
+<li><div class="src-line"><a name="a223"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$source">source</a>===<span class="src-id">NULL</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a224"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;No&nbsp;external&nbsp;source&nbsp;template&nbsp;has&nbsp;been&nbsp;defined,&nbsp;so&nbsp;check&nbsp;the&nbsp;rawSource</span></div></li>
+<li><div class="src-line"><a name="a225"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$rawSource">rawSource</a>!==<span class="src-id">NULL</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a226"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$rawSource">rawSource</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a227"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a228"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a229"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-key">if</span><span class="src-sym">(</span><a href="http://www.php.net/is_file">is_file</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$source">source</a><span class="src-sym">)&nbsp;</span>&amp;&amp;&nbsp;<span class="src-inc">include</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$source">source</a><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a230"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Successfully&nbsp;included</span></div></li>
+<li><div class="src-line"><a name="a231"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a232"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a233"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../Buan/SystemLog.html">SystemLog</a></span><span class="src-sym">::</span><a href="../Buan/SystemLog.html#methodadd">add</a><span class="src-sym">(</span><span class="src-str">&quot;</span><span class="src-str">View&nbsp;template&nbsp;source&nbsp;is&nbsp;missing:&nbsp;{<span class="src-var">$this</span></span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$source">source</a><span class="src-sym">}</span><span class="src-str"></span><span class="src-str">"</span><span class="src-sym">,</span>&nbsp;<span class="src-id">SystemLog</span><span class="src-sym">::</span><span class="src-id">WARNING</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a234"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a235"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a236"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Read&nbsp;and&nbsp;clean&nbsp;the&nbsp;output&nbsp;buffer</span></span></div></li>
+<li><div class="src-line"><a name="a237"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$buffer</span>&nbsp;=&nbsp;<span class="src-id">ob_get_clean</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a238"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a239"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Remove&nbsp;any&nbsp;UTF-8&nbsp;BOM&nbsp;(Byte&nbsp;Order&nbsp;Mark)&nbsp;from&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the&nbsp;buffer</span></span></div></li>
+<li><div class="src-line"><a name="a240"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;This&nbsp;is&nbsp;required,&nbsp;at&nbsp;least,&nbsp;on&nbsp;child&nbsp;templates&nbsp;because&nbsp;otherwise&nbsp;the</span></span></div></li>
+<li><div class="src-line"><a name="a241"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;BOM&nbsp;is&nbsp;displayed&nbsp;as&nbsp;a&nbsp;visible&nbsp;character&nbsp;in&nbsp;the&nbsp;output.</span></span></div></li>
+<li><div class="src-line"><a name="a242"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$buffer</span>&nbsp;=&nbsp;<span class="src-id">preg_replace</span><span class="src-sym">(</span><span class="src-str">&quot;/^\xef\xbb\xbf/&quot;</span><span class="src-sym">,</span>&nbsp;<span class="src-str">&quot;&quot;</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$buffer</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a243"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a244"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;buffer</span></span></div></li>
+<li><div class="src-line"><a name="a245"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span></span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$buffer">buffer</a>&nbsp;=&nbsp;<span class="src-var">$buffer</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a246"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a247"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Invoke&nbsp;&quot;onrender&quot;&nbsp;event</span></div></li>
+<li><div class="src-line"><a name="a248"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/Object.html#methodinvokeEvent">invokeEvent</a><span class="src-sym">(</span><span class="src-str">'onrender'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a249"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a250"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a251"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$buffer">buffer</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a252"></a>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-str"><span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a253"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a254"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></span></div></li>
+<li><div class="src-line"><a name="a255"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;renderAfter(&nbsp;View&nbsp;$view&nbsp;)</span></span></div></li>
+<li><div class="src-line"><a name="a256"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$view&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;The&nbsp;View&nbsp;after&nbsp;which&nbsp;$this&nbsp;View&nbsp;will&nbsp;be&nbsp;rendered&nbsp;and&nbsp;then&nbsp;substituted&nbsp;into&nbsp;$view</span></span></div></li>
+<li><div class="src-line"><a name="a257"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></span></div></li>
+<li><div class="src-line"><a name="a258"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Tells&nbsp;the&nbsp;rendering&nbsp;queue&nbsp;to&nbsp;wait&nbsp;until&nbsp;$view&nbsp;has&nbsp;been&nbsp;rendered&nbsp;before&nbsp;then&nbsp;rendering&nbsp;$this</span></span></div></li>
+<li><div class="src-line"><a name="a259"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;and&nbsp;substituting&nbsp;the&nbsp;result&nbsp;into&nbsp;$view's&nbsp;output&nbsp;buffer.</span></span></div></li>
+<li><div class="src-line"><a name="a260"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;The&nbsp;returned&nbsp;string&nbsp;is&nbsp;a&nbsp;placeholder&nbsp;tag&nbsp;that&nbsp;will&nbsp;be&nbsp;replaced&nbsp;with&nbsp;$this'&nbsp;rendered&nbsp;output.</span></span></div></li>
+<li><div class="src-line"><a name="a261"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></span></div></li>
+<li><div class="src-line"><a name="a262"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">renderAfter</span><span class="src-sym">(</span><span class="src-var">$view</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a263"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a264"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Add&nbsp;$this&nbsp;View&nbsp;to&nbsp;the&nbsp;$view's&nbsp;&quot;onrender&quot;&nbsp;queue</span></span></div></li>
+<li><div class="src-line"><a name="a265"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span>&nbsp;<span class="src-var">$view</span><span class="src-sym">-&gt;</span><span class="src-id">addToRenderQueue</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a266"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a267"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a268"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></span></div></li>
+<li><div class="src-line"><a name="a269"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;processRenderQueue()</span></span></div></li>
+<li><div class="src-line"><a name="a270"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></span></div></li>
+<li><div class="src-line"><a name="a271"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Renders&nbsp;all&nbsp;Views&nbsp;in&nbsp;$this-&gt;renderQueue,&nbsp;substituting&nbsp;the&nbsp;buffer&nbsp;tags&nbsp;in&nbsp;the&nbsp;calling&nbsp;View</span></span></div></li>
+<li><div class="src-line"><a name="a272"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;with&nbsp;the&nbsp;results&nbsp;of&nbsp;these&nbsp;renders.</span></span></div></li>
+<li><div class="src-line"><a name="a273"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></span></div></li>
+<li><div class="src-line"><a name="a274"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">processRenderQueue</span><span class="src-sym">(</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a275"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a276"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;renders&nbsp;all&nbsp;views&nbsp;in&nbsp;$this-&gt;postRenderViews&nbsp;and&nbsp;substitutes&nbsp;their&nbsp;renderTag&nbsp;in&nbsp;$this-&gt;buffer</span></span></div></li>
+<li><div class="src-line"><a name="a277"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">foreach</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$renderQueue">renderQueue</a>&nbsp;<span class="src-key">as</span>&nbsp;<span class="src-var">$bufferTag</span>=&gt;<span class="src-var">$view</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a278"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$vbuffer</span>&nbsp;=&nbsp;<span class="src-var">$view</span><span class="src-sym">-&gt;</span><span class="src-id">render</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a279"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$buffer">buffer</a>&nbsp;=&nbsp;<span class="src-id">str_replace</span><span class="src-sym">(</span><span class="src-var">$bufferTag</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$vbuffer</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$buffer">buffer</a><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a280"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a281"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a282"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a283"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></span></div></li>
+<li><div class="src-line"><a name="a284"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;addToRenderQueue(&nbsp;View&nbsp;$view&nbsp;)</span></span></div></li>
+<li><div class="src-line"><a name="a285"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$view&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;View&nbsp;instance</span></span></div></li>
+<li><div class="src-line"><a name="a286"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></span></div></li>
+<li><div class="src-line"><a name="a287"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Appends&nbsp;$view&nbsp;to&nbsp;$this-&gt;renderQueue&nbsp;and&nbsp;returns&nbsp;it's&nbsp;allocated&nbsp;buffer-tag.</span></span></div></li>
+<li><div class="src-line"><a name="a288"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></span></div></li>
+<li><div class="src-line"><a name="a289"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">addToRenderQueue</span><span class="src-sym">(</span><span class="src-var">$view</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a290"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$bufferTag</span>&nbsp;=&nbsp;<span class="src-str">&quot;[[buffertag:&quot;</span>.<span class="src-sym">(</span><a href="http://www.php.net/md5">md5</a><span class="src-sym">(</span><a href="http://www.php.net/rand">rand</a><span class="src-sym">(</span><span class="src-num">0</span><span class="src-sym">,</span><span class="src-num">999999</span><span class="src-sym">)))</span>.<span class="src-str">&quot;]]&quot;</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a291"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/View.html#var$renderQueue">renderQueue</a><span class="src-sym">[</span><span class="src-var">$bufferTag</span><span class="src-sym">]</span>&nbsp;=&nbsp;<span class="src-var">$view</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a292"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span>&nbsp;<span class="src-var">$bufferTag</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a293"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a294"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a295"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></span></div></li>
+<li><div class="src-line"><a name="a296"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;View&nbsp;getGlobalView()</span></span></div></li>
+<li><div class="src-line"><a name="a297"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></span></div></li>
+<li><div class="src-line"><a name="a298"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;the&nbsp;singleton&nbsp;instance&nbsp;of&nbsp;the&nbsp;&quot;Global&nbsp;View&quot;&nbsp;object.</span></span></div></li>
+<li><div class="src-line"><a name="a299"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></span></div></li>
+<li><div class="src-line"><a name="a300"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;TODO:</span></span></div></li>
+<li><div class="src-line"><a name="a301"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;It&nbsp;might&nbsp;actually&nbsp;be&nbsp;a&nbsp;good&nbsp;idea&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;global&nbsp;view&nbsp;object&nbsp;afresh&nbsp;each&nbsp;call&nbsp;to&nbsp;this&nbsp;function.</span></span></div></li>
+<li><div class="src-line"><a name="a302"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Keep&nbsp;it&nbsp;as&nbsp;a&nbsp;static&nbsp;class&nbsp;property&nbsp;though&nbsp;because&nbsp;if&nbsp;it&nbsp;does&nbsp;change&nbsp;then&nbsp;all&nbsp;references&nbsp;to&nbsp;it&nbsp;will&nbsp;also&nbsp;change&nbsp;accordingly.</span></span></div></li>
+<li><div class="src-line"><a name="a303"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></span></div></li>
+<li><div class="src-line"><a name="a304"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static</span>&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">getGlobalView</span><span class="src-sym">(</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a305"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a306"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Create&nbsp;the&nbsp;singleton&nbsp;instance</span></span></div></li>
+<li><div class="src-line"><a name="a307"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$globalView</span>===<span class="src-id">NULL</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a308"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$gvCommand</span>&nbsp;=&nbsp;<span class="src-id">UrlCommand</span><span class="src-sym">::</span><span class="src-id">create</span><span class="src-sym">(</span><span class="src-str">'/global-view'</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a309"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$globalView</span>&nbsp;=&nbsp;<span class="src-var">$gvCommand</span><span class="src-sym">-&gt;</span><span class="src-id">execute</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a310"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a311"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a312"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></span></div></li>
+<li><div class="src-line"><a name="a313"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span>&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$globalView</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a314"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a315"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a316"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></span></div></li>
+<li><div class="src-line"><a name="a317"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;setGlobalView(&nbsp;[View&nbsp;$view]&nbsp;)</span></span></div></li>
+<li><div class="src-line"><a name="a318"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$view&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;View&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;the&nbsp;GlobalView</span></span></div></li>
+<li><div class="src-line"><a name="a319"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></span></div></li>
+<li><div class="src-line"><a name="a320"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Allows&nbsp;you&nbsp;to&nbsp;replace&nbsp;the&nbsp;GlobalView&nbsp;with&nbsp;a&nbsp;custom&nbsp;View&nbsp;instance.</span></span></div></li>
+<li><div class="src-line"><a name="a321"></a></span><span class="src-str"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></span></div></li>
+<li><div class="src-line"><a name="a322"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static</span>&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<a href="../Buan/View.html#methodsetGlobalView">setGlobalView</a><span class="src-sym">(</span><span class="src-var">$view</span>=<span class="src-id">NULL</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a323"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a324"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store</span></span></div></li>
+<li><div class="src-line"><a name="a325"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$globalView</span>&nbsp;=&nbsp;<span class="src-var">$view</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a326"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a327"></a></span><span class="src-str"><span class="src-sym">}</span></span></div></li>
+</ol>
+</span></div>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Tue, 04 Aug 2009 19:59:09 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

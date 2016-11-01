@@ -1,0 +1,85 @@
+Copyright (c) James Gauld (http://www.buan.co.uk/, james@jamesgauld.net)
+
+Requirements
+============
+PHP 5.3 with following extensions:
+  pdo
+  pdo_sqlite
+	pdo_* (PDO extension for your chosen DB, eg. pdo_mysql)
+
+Apache HTTPD (with mod_rewrite if you want to use "clean" URLs)
+
+
+Apache configuration
+====================
+1. Add the following to your apache config file (eg. "httpd.conf"):
+
+<Directory "/path/to/your/document/root">
+	AllowOverride All
+  Order allow,deny
+  Allow from all
+</Directory>
+
+
+Installation (quick start)
+==========================
+1. Copy the contents of the "application" folder to your intended application
+folder.
+
+2. If you have copied the files to a subfolder within your document root then
+you will need to adjust and uncomment the relevant lines in ".htaccess"
+
+2. Load up the application in a browser and you should see a welcome screen.
+
+
+Installation (recommended)
+==========================
+1. Copy the contents of the "application" folder to your intended application
+folder. This is probably your document root, but sub-folders within the document
+root can be used too (with some associated adjustments - see below)
+
+2. Move the "app" and "buan" folders to somewhere below your document root.
+
+3. Open "index.php" and make adjustments necessary to tell the system where to
+find the relocated "app" and "buan" folders.
+
+4. Now you need to tell Apache where to redirect/alias calls to "/buan/buan-pub"
+by adding the following to your VirtualHost block:
+
+	Alias /buan/buan-pub /path/to/buan/buan-pub
+	<Directory /path/to/buan/buan-pub>
+	Order allow,deny
+	Allow from all
+	</Directory>
+
+4. Load up the application in a browser and you should see a welcome screen.
+
+
+Troubleshooting
+===============
+If you've followed the above steps and cannot get that welcome message to
+appear, then read through the following tips to try and resolve the issue.
+
+1. I'm getting a "Access Denied"/"Authorization Required" message
+Ensure that all the folders and files within your "buan-core" directory (and the
+directory itself) are readable and executable by the user account under which
+Apache is running, ie:
+
+In linix/unix:
+  $ cd /path/to/buan-core
+  $ chmod -R a+rx *
+
+In Windows XP:
+  - Right click on "buan-core" and go to "Properties" then the "Security" tab.
+    If you can't see the "Security" tab? see:
+    http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/acl_sec_tab.mspx?mfr=true
+  - Click "Add..." and type in the name of the user under which Apache is
+    running, then click "Ok"
+  - Click "Ok" until all dialog windows are closed then retry accessing the site
+
+2. Absolutely nothing appears in the browser!
+Make sure that the php directive "short_open_tag" is set to "Off".
+Some templates use an xml declaration which comprises in part of "<?" (ie.
+"<?xml version="1.0"?>"). If short_open_tag is "On", when the php parser reaches
+this point in the template it throws an error. However, because output buffering
+is enabled you may never see this error get thrown.

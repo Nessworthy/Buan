@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Source for BuanSystemLog.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">Buan<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="../classtrees_Buan.html" class="menu">class tree: Buan</a> ]
+		[ <a href="../elementindex_Buan.html" class="menu">index: Buan</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Buan</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_Buan.html">Buan</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file BuanSystemLog.php</h1>
+<p>Documentation is available at <a href="../Buan/_BuanSystemLog.php.html">BuanSystemLog.php</a></p>
+<div class="src-code"><span class="php">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">*&nbsp;This&nbsp;is&nbsp;the&nbsp;global&nbsp;logging&nbsp;object&nbsp;in&nbsp;which&nbsp;all&nbsp;events,&nbsp;errors,&nbsp;etc&nbsp;are&nbsp;recorded.&nbsp;(static&nbsp;class).</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">*&nbsp;TODO:</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">*&nbsp;Need&nbsp;a&nbsp;method&nbsp;of&nbsp;using&nbsp;a&nbsp;custom&nbsp;logging&nbsp;class,&nbsp;perhaps&nbsp;something&nbsp;like:</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">*&nbsp;&nbsp;&nbsp;&nbsp;SystemLog::addCustomLogger(new&nbsp;MyCustomLogger())</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;Buan</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">*/</span></div></li>
+<li><div class="src-line"><a name="a11"></a>namespace&nbsp;<span class="src-id">Buan</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-key">class&nbsp;</span><a href="../Buan/SystemLog.html">SystemLog</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../Buan/Object.html">Object</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a13"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a14"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@properties&nbsp;Constants&nbsp;for&nbsp;each&nbsp;type&nbsp;of&nbsp;log&nbsp;message</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;TODO:&nbsp;Need&nbsp;to&nbsp;get&nbsp;down&nbsp;a&nbsp;list&nbsp;of&nbsp;where&nbsp;to&nbsp;use&nbsp;each&nbsp;type&nbsp;of&nbsp;log&nbsp;message&nbsp;for&nbsp;some&nbsp;consitency.&nbsp;Also&nbsp;perhaps&nbsp;rename&nbsp;error</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;related&nbsp;messages&nbsp;to&nbsp;&quot;E_*&quot;&nbsp;and&nbsp;feedback/information&nbsp;messages&nbsp;to&nbsp;&quot;I_*&quot;.&nbsp;Also&nbsp;introduce&nbsp;user-defined&nbsp;meesage</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;types&nbsp;prefixed&nbsp;with&nbsp;&quot;U&quot;,&nbsp;eg.&nbsp;&quot;UE_NOTICE&quot;,&nbsp;&quot;UI_ALERT&quot;</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;TYPE_INFO&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;General,&nbsp;non-critical&nbsp;information&nbsp;feedback</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;TYPE_NOTICE&nbsp;&nbsp;&nbsp;&nbsp;=</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;TYPE_WARNING&nbsp;&nbsp;&nbsp;&nbsp;=</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;TYPE_FATAL&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a26"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../Buan/SystemLog.html#constCORE">CORE</a>&nbsp;=&nbsp;<span class="src-num">1</span><span class="src-sym">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-comm">//&nbsp;Internal&nbsp;log&nbsp;message&nbsp;related&nbsp;to&nbsp;the&nbsp;core,&nbsp;eg.&nbsp;general&nbsp;information&nbsp;messages&nbsp;generated&nbsp;within&nbsp;the&nbsp;core</span></div></li>
+<li><div class="src-line"><a name="a27"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../Buan/SystemLog.html#constNOTICE">NOTICE</a>&nbsp;=&nbsp;<span class="src-num">2</span><span class="src-sym">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-comm">//&nbsp;Non-fatal&nbsp;and&nbsp;has&nbsp;no&nbsp;adverse&nbsp;side-effects,&nbsp;eg.&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a28"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../Buan/SystemLog.html#constWARNING">WARNING</a>&nbsp;=&nbsp;<span class="src-num">4</span><span class="src-sym">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-comm">//&nbsp;Non-fatal,&nbsp;but&nbsp;may&nbsp;affect&nbsp;the&nbsp;outcome,&nbsp;eg.&nbsp;View&nbsp;is&nbsp;missing&nbsp;a&nbsp;template&nbsp;source&nbsp;file.</span></div></li>
+<li><div class="src-line"><a name="a29"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../Buan/SystemLog.html#constFATAL">FATAL</a>&nbsp;=&nbsp;<span class="src-num">8</span><span class="src-sym">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-comm">//&nbsp;Fatal&nbsp;error,&nbsp;application&nbsp;will&nbsp;halt&nbsp;immediately</span></div></li>
+<li><div class="src-line"><a name="a30"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">const&nbsp;</span><a href="../Buan/SystemLog.html#constINFO">INFO</a>&nbsp;=&nbsp;<span class="src-num">16</span><span class="src-sym">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-comm">//&nbsp;General&nbsp;information&nbsp;feedback</span></div></li>
+<li><div class="src-line"><a name="a31"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a32"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$typeString</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Holds&nbsp;a&nbsp;more&nbsp;friendly&nbsp;string&nbsp;description&nbsp;of&nbsp;each&nbsp;log&nbsp;message&nbsp;type.</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a36"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static&nbsp;</span><span class="src-key">public&nbsp;</span><a href="../Buan/SystemLog.html#var$typeString">$typeString</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line"><a name="a37"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">CORE</span>=&gt;<span class="src-str">'core'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a38"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">NOTICE</span>=&gt;<span class="src-str">'notice'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">WARNING</span>=&gt;<span class="src-str">'warning'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">FATAL</span>=&gt;<span class="src-str">'fatal'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a41"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-id">INFO</span>=&gt;<span class="src-str">'info'</span></div></li>
+<li><div class="src-line"><a name="a42"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a43"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a44"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$log</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Stores&nbsp;all&nbsp;log&nbsp;data.&nbsp;Each&nbsp;entry&nbsp;is&nbsp;an&nbsp;instance&nbsp;of&nbsp;SystemLogEntry.</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a48"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static&nbsp;</span><span class="src-var">$log&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a49"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a50"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@metho&nbsp;void&nbsp;add(&nbsp;string|array&nbsp;$message,&nbsp;[[int&nbsp;$type],&nbsp;$uniqueCode]&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$message&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Log&nbsp;message</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Message&nbsp;type</span></div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Unique&nbsp;code&nbsp;for&nbsp;this&nbsp;message</span></div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Adds&nbsp;an&nbsp;entry&nbsp;to&nbsp;the&nbsp;message&nbsp;log.</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;If&nbsp;you&nbsp;pass&nbsp;the&nbsp;$message&nbsp;as&nbsp;an&nbsp;array,&nbsp;then&nbsp;the&nbsp;first&nbsp;element&nbsp;in&nbsp;that&nbsp;array</span></div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;is&nbsp;treated&nbsp;as&nbsp;the&nbsp;textual&nbsp;message&nbsp;and&nbsp;all&nbsp;subsequent&nbsp;elements&nbsp;are&nbsp;inserted</span></div></li>
+<li><div class="src-line"><a name="a59"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;into&nbsp;placeholders&nbsp;within&nbsp;that&nbsp;message&nbsp;using&nbsp;sprintf().</span></div></li>
+<li><div class="src-line"><a name="a60"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLog.html#methodadd">add</a><span class="src-sym">(</span><span class="src-var">$message</span><span class="src-sym">,&nbsp;</span><span class="src-var">$type</span>=<span class="src-id">SystemLog</span><span class="src-sym">::</span><span class="src-id">CORE</span><span class="src-sym">,&nbsp;</span><span class="src-var">$code</span>=<span class="src-num">0</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a62"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a63"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Add&nbsp;to&nbsp;the&nbsp;log</span></div></li>
+<li><div class="src-line"><a name="a64"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$log</span><span class="src-sym">[</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id">SystemLogEntry</span><span class="src-sym">(</span><span class="src-var">$message</span><span class="src-sym">,&nbsp;</span><span class="src-var">$type</span><span class="src-sym">,&nbsp;</span><span class="src-var">$code</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a68"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;array&nbsp;getAll()</span></div></li>
+<li><div class="src-line"><a name="a69"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a70"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;all&nbsp;entries&nbsp;in&nbsp;the&nbsp;log</span></div></li>
+<li><div class="src-line"><a name="a71"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a72"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLog.html#methodgetAll">getAll</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a73"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a75"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$log</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a77"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a78"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a79"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;array&nbsp;getLast()</span></div></li>
+<li><div class="src-line"><a name="a80"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a81"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;the&nbsp;last&nbsp;entry&nbsp;that&nbsp;was&nbsp;entered&nbsp;into&nbsp;the&nbsp;log.</span></div></li>
+<li><div class="src-line"><a name="a82"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">static&nbsp;</span><span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLog.html#methodgetLast">getLast</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a85"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a86"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id">count</span><span class="src-sym">(</span><span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$log</span><span class="src-sym">)</span>&gt;<span class="src-num">0&nbsp;</span>?&nbsp;<span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$log</span><span class="src-sym">[</span><span class="src-id">count</span><span class="src-sym">(</span><span class="src-id">self</span><span class="src-sym">::</span><span class="src-var">$log</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">]&nbsp;</span>:&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id">SystemLogEntry</span><span class="src-sym">(</span><span class="src-str">''</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a87"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a88"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a89"></a><span class="src-php">?&gt;</span></div></li>
+</ol>
+</span></div>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Tue, 04 Aug 2009 19:59:08 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

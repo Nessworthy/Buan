@@ -1,0 +1,178 @@
+/*
+# $Id: core.css 68 2007-03-09 17:15:36Z james $
+*/
+
+/*
+# Wrapping block
+*/
+#buancore {
+	font-family: "Trebuchet MS", Georgia, Arial, Helvetica, sans-serif !important;
+	font-size: 1em;
+	border: #CCCCCC 2px solid;
+	padding: 0em 1em 1em 1em;
+	background-image: url('../../images/buancoreBg.jpg');
+	background-repeat: repeat-x;
+}
+
+/*
+# Menu
+*/
+#buancore-menu {
+	margin: 0px;
+	padding: 0px 0px 1em 0px !important;
+	height: 1px;
+}
+#buancore-menu[id] {
+	height: auto;
+	overflow: hidden;
+}
+
+#buancore-menu li {
+	float: left;
+	margin-right: 2px !important;
+	border: none !important;
+	list-style-type: none;
+}
+
+#buancore-menu li a {
+	display: block;
+	white-space: nowrap;
+	background-color: #7CA9B8;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 0.25em 0.5em !important;
+	text-decoration: none;
+	border-bottom: #365965 2px solid !important;
+}
+
+#buancore-menu ul li a:hover {
+	background-color: #A2C1CC !important;
+	text-decoration: none !important;
+}
+
+
+/*
+# Main content block
+*/
+#buancore h1, #buancore h2 {
+	font-family: Georgia, Arial, Helvetica, sans-serif;
+}
+
+#buancore h1 {
+	margin: 0px 0px 0.5em 0px;
+	padding: 0px;
+}
+
+#buancore p {
+	font-size: 0.80em;
+}
+
+#buancore-main ul li,
+#buancore-main ol li {
+	font-size: 0.80em;
+	padding-bottom: 0.25em;
+}
+
+#buancore-main ul li pre,
+#buancore-main ol li pre,
+#buancore-main ul li p,
+#buancore-main ol li p,
+#buancore-main li ul li,
+#buancore-main li ol li {
+	font-size: 1em !important;
+}
+
+#buancore-main li ul,
+#buancore-main li ol {
+	margin-top: 0.5em;
+}
+
+#buancore-main dl dt {
+	font-size: 0.80em;
+}
+
+#buancore table {
+	table-layout: fixed;
+	border: #CCCCCC 1px solid;
+}
+
+#buancore table caption {
+	background-color: #7CA9B8;
+	color: #FFFFFF;
+	font-size: 0.8em;
+	padding: 0.5em;
+	border-bottom: #CCCCCC 1px solid;
+	text-align: left;
+}
+
+#buancore table tbody,
+#buancore table thead,
+#buancore table tfoot {
+	background-color: #FFFFFF;
+}
+
+#buancore table th {
+	padding: 0.5em;
+	text-align: left;
+	font-size: 0.8em;
+}
+
+#buancore table td {
+	padding: 0.5em;
+	text-align: left;
+	vertical-align: top;
+	font-size: 0.8em;
+}
+
+span.path, span.url, span.config {
+	font-family: "Courier New";
+	color: #0000FF;
+	white-space: nowrap;
+}
+
+span.code {
+	font-family: "Courier New";
+	color: #FF0000;
+}
+
+span.keyword {
+	font-family: "Courier New";
+	color: #0000FF;
+	font-weight: bold;
+}
+
+div.figure {
+	text-align: center;
+	margin: 20px 0px;
+}
+div.figure img {
+	border: #999999 1px solid;
+}
+div.figure div.caption {
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+pre {
+	font-family: "Courier New";
+	font-size: 0.80em;
+}
+
+pre.code-block {
+	background-color: #F0F0F0;
+	padding: 20px;
+	margin: 20px 0px;
+}
+
+pre.code-block span.comment {
+	color: #CC6600;
+	font-weight: bold;
+}
+
+#buancore-manual-nav {
+	margin: 1em 0em;
+	border-top: #999999 2px solid;
+	border-bottom: #999999 2px solid;
+	padding: 0.5em 0em;
+	font-size: 0.85em;
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Source for BuanSystemLogEntry.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">Buan<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="../classtrees_Buan.html" class="menu">class tree: Buan</a> ]
+		[ <a href="../elementindex_Buan.html" class="menu">index: Buan</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Buan</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_Buan.html">Buan</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file BuanSystemLogEntry.php</h1>
+<p>Documentation is available at <a href="../Buan/_BuanSystemLogEntry.php.html">BuanSystemLogEntry.php</a></p>
+<div class="src-code"><span class="php">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;Buan</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">*/</span></div></li>
+<li><div class="src-line"><a name="a5"></a>namespace&nbsp;<span class="src-id">Buan</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-key">class&nbsp;</span><a href="../Buan/SystemLogEntry.html">SystemLogEntry</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a7"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a8"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;string&nbsp;$message</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Log&nbsp;message.</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a12"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/SystemLogEntry.html#var$message">$message</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a13"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a14"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$messageVars</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;List&nbsp;of&nbsp;values&nbsp;that&nbsp;will&nbsp;be&nbsp;inserted&nbsp;into&nbsp;the&nbsp;$this-&gt;message&nbsp;at&nbsp;render-time</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;using&nbsp;sprintf().</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a19"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/SystemLogEntry.html#var$messageVars">$messageVars</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a20"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a21"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;int&nbsp;$type</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Type&nbsp;of&nbsp;message.</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a25"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/SystemLogEntry.html#var$type">$type</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a26"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a27"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;string&nbsp;$code</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;A&nbsp;unique&nbsp;code&nbsp;that&nbsp;identifies&nbsp;the&nbsp;message&nbsp;within&nbsp;the&nbsp;system.</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a31"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/SystemLogEntry.html#var$code">$code</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a32"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a33"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@property&nbsp;array&nbsp;$callStack</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Stores&nbsp;the&nbsp;results&nbsp;of&nbsp;debug_backtrace()</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a37"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/SystemLogEntry.html#var$callStack">$callStack</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a38"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a40"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;void&nbsp;__construct(&nbsp;string|array&nbsp;$message,&nbsp;int&nbsp;$type,&nbsp;string&nbsp;$code&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a41"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$message&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Log&nbsp;message</span></div></li>
+<li><div class="src-line"><a name="a42"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Message&nbsp;type</span></div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;A&nbsp;unique&nbsp;identifier&nbsp;for&nbsp;the&nbsp;message</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Creates&nbsp;a&nbsp;new&nbsp;SystemLogEntry&nbsp;object.</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a47"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLogEntry.html#method__construct">__construct</a><span class="src-sym">(</span><span class="src-var">$message</span><span class="src-sym">,&nbsp;</span><span class="src-var">$type</span><span class="src-sym">,&nbsp;</span><span class="src-var">$code</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a48"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a49"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;properties</span></div></li>
+<li><div class="src-line"><a name="a50"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><a href="http://www.php.net/is_array">is_array</a><span class="src-sym">(</span><span class="src-var">$message</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a51"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$message">message</a>&nbsp;=&nbsp;<a href="http://www.php.net/array_shift">array_shift</a><span class="src-sym">(</span><span class="src-var">$message</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a52"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$messageVars">messageVars</a>&nbsp;=&nbsp;<span class="src-var">$message</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a53"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a54"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a55"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$message">message</a>&nbsp;=&nbsp;<span class="src-var">$message</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a56"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$messageVars">messageVars</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a57"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a58"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$type">type</a>&nbsp;=&nbsp;<span class="src-var">$type</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a59"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$code">code</a>&nbsp;=&nbsp;<span class="src-var">$code</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a60"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$callStack">callStack</a>&nbsp;=&nbsp;<a href="http://www.php.net/debug_backtrace">debug_backtrace</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a62"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a63"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a64"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;getMessage(&nbsp;[bool&nbsp;$raw]&nbsp;)</span></div></li>
+<li><div class="src-line"><a name="a65"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;$raw&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;If&nbsp;TRUE&nbsp;then&nbsp;the&nbsp;message&nbsp;is&nbsp;returned&nbsp;with&nbsp;no&nbsp;variable-substitution.</span></div></li>
+<li><div class="src-line"><a name="a66"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a67"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;this&nbsp;entry's&nbsp;message.</span></div></li>
+<li><div class="src-line"><a name="a68"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a69"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLogEntry.html#methodgetMessage">getMessage</a><span class="src-sym">(</span><span class="src-var">$raw</span>=<span class="src-id">FALSE</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a70"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a72"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$raw&nbsp;</span>||&nbsp;<span class="src-key">empty</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$messageVars">messageVars</a><span class="src-sym">)&nbsp;</span>?&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$message">message</a>&nbsp;:&nbsp;<a href="http://www.php.net/vsprintf">vsprintf</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$message">message</a><span class="src-sym">,&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$messageVars">messageVars</a><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a73"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a75"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a76"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;int&nbsp;getType()</span></div></li>
+<li><div class="src-line"><a name="a77"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a78"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;an&nbsp;integer&nbsp;representing&nbsp;this&nbsp;entry's&nbsp;message&nbsp;type&nbsp;(see&nbsp;SystemLog&nbsp;for&nbsp;type&nbsp;constants).</span></div></li>
+<li><div class="src-line"><a name="a79"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLogEntry.html#methodgetType">getType</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$type">type</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a85"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a86"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a87"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;getTypeString()</span></div></li>
+<li><div class="src-line"><a name="a88"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a89"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;a&nbsp;string-version&nbsp;of&nbsp;the&nbsp;message&nbsp;type&nbsp;(see&nbsp;SystemLog&nbsp;for&nbsp;type&nbsp;strings).</span></div></li>
+<li><div class="src-line"><a name="a90"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a91"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLogEntry.html#methodgetTypeString">getTypeString</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a92"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a93"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a94"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-id"><a href="../Buan/SystemLog.html">SystemLog</a></span><span class="src-sym">::</span><span class="src-var">$typeString</span><span class="src-sym">[</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$type">type</a><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a95"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a96"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a97"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a98"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;string&nbsp;getCode()</span></div></li>
+<li><div class="src-line"><a name="a99"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a100"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;the&nbsp;message's&nbsp;unique&nbsp;code.</span></div></li>
+<li><div class="src-line"><a name="a101"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a102"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLogEntry.html#methodgetCode">getCode</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a103"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a104"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;result</span></div></li>
+<li><div class="src-line"><a name="a105"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$code">code</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a106"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a107"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a108"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><a name="a109"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;@method&nbsp;array&nbsp;getCallStack()</span></div></li>
+<li><div class="src-line"><a name="a110"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#</span></div></li>
+<li><div class="src-line"><a name="a111"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Returns&nbsp;the&nbsp;call&nbsp;stack.</span></div></li>
+<li><div class="src-line"><a name="a112"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a113"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/SystemLogEntry.html#methodgetCallStack">getCallStack</a><span class="src-sym">(</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a114"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a115"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Result</span></div></li>
+<li><div class="src-line"><a name="a116"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/SystemLogEntry.html#var$callStack">callStack</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a117"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a118"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a119"></a><span class="src-php">?&gt;</span></div></li>
+</ol>
+</span></div>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Tue, 04 Aug 2009 19:59:08 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

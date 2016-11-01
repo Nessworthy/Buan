@@ -1,0 +1,24 @@
+{
+  "name": "iamsold/Buan",
+  "description": "Underlying framework for most of ISG's applications.",
+  "version": "1.0.0",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "James Gauld",
+      "email": "james@jamesgauld.net",
+      "role": "Original Developer"
+    },
+    {
+      "name": "Sean Nessworthy",
+      "email": "sean.nessworthy@iam-sold.co.uk",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Buan\\": "application/buan/lib/"
+    }
+  }
+}

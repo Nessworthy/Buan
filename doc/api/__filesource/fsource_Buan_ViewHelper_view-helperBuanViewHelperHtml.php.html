@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Source for BuanViewHelperHtml.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">Buan<br /><div class="header-top-right-subpackage">ViewHelper</div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="../classtrees_Buan.html" class="menu">class tree: Buan</a> ]
+		[ <a href="../elementindex_Buan.html" class="menu">index: Buan</a> ]
+            [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Buan</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_Buan.html">Buan</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file BuanViewHelperHtml.php</h1>
+<p>Documentation is available at <a href="../Buan/ViewHelper/_view-helper---BuanViewHelperHtml.php.html">BuanViewHelperHtml.php</a></p>
+<div class="src-code"><span class="php">
+<ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">*&nbsp;Provides&nbsp;a&nbsp;number&nbsp;of&nbsp;methods&nbsp;specific&nbsp;to&nbsp;HTML&nbsp;Views.</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">*&nbsp;Example&nbsp;usage&nbsp;(from&nbsp;with&nbsp;your&nbsp;custom&nbsp;View&nbsp;class'&nbsp;constructor):</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">*&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;html&nbsp;=&nbsp;new&nbsp;Buan\ViewHelper\Html($this);</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">*&nbsp;Example&nbsp;usage&nbsp;to&nbsp;add&nbsp;CSS/JS&nbsp;sources&nbsp;to&nbsp;your&nbsp;template:</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">*&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;html-&gt;addStylesheets('/path/to/file.css',&nbsp;'/path/to/another.css');</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-doc">*&nbsp;Example&nbsp;usage&nbsp;to&nbsp;render&nbsp;the&nbsp;CSS/JS&nbsp;&lt;link&gt;/&lt;script&gt;&nbsp;tags&nbsp;in&nbsp;your&nbsp;template:</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">*&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;$this-&gt;html-&gt;getStylesheetsView()-&gt;renderAfter($this);</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">*</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;Buan</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;ViewHelper</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-doc">*/</span></div></li>
+<li><div class="src-line"><a name="a23"></a>namespace&nbsp;<span class="src-id">Buan</span>\<span class="src-id">ViewHelper</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-key">class&nbsp;</span><a href="../Buan/ViewHelper/Html.html">Html</a>&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a25"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a26"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;List&nbsp;of&nbsp;external&nbsp;Javascript&nbsp;sources&nbsp;(relative&nbsp;to&nbsp;document-root).</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">array&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a31"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><a href="../Buan/ViewHelper/Html.html#var$javascripts">$javascripts</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a32"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a33"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;View&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;render&nbsp;the&nbsp;Javascript&nbsp;sources&nbsp;to&nbsp;$view.&nbsp;The</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;class&nbsp;used&nbsp;by&nbsp;this&nbsp;instance&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;that&nbsp;used&nbsp;by&nbsp;$this-&gt;view.</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">Buan\View&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a39"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/ViewHelper/Html.html#var$javascriptsView">$javascriptsView</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a41"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a42"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;List&nbsp;of&nbsp;external&nbsp;stylesheet&nbsp;sources&nbsp;(relative&nbsp;to&nbsp;document-root).</span></div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">array&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a46"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheets">$stylesheets</a>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a47"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a48"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;View&nbsp;that&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;render&nbsp;the&nbsp;stylesheet&nbsp;sources&nbsp;to&nbsp;$view.&nbsp;The</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;class&nbsp;used&nbsp;by&nbsp;this&nbsp;instance&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;that&nbsp;used&nbsp;by&nbsp;$this-&gt;view.</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">Buan\View&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a54"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheetsView">$stylesheetsView</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a55"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a56"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;you&nbsp;want&nbsp;all&nbsp;URLS&nbsp;generated&nbsp;by&nbsp;::eUrl()&nbsp;to&nbsp;be&nbsp;suffixed&nbsp;with&nbsp;a&nbsp;string</span></div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;(eg.&nbsp;&quot;.html&quot;),&nbsp;then&nbsp;set&nbsp;that&nbsp;suffix&nbsp;here.</span></div></li>
+<li><div class="src-line"><a name="a59"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Note&nbsp;that&nbsp;the&nbsp;suffix&nbsp;will&nbsp;be&nbsp;visible&nbsp;in&nbsp;the&nbsp;[app.command.requested]&nbsp;config</span></div></li>
+<li><div class="src-line"><a name="a60"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;variable&nbsp;so&nbsp;it's&nbsp;your&nbsp;application's&nbsp;responsibility&nbsp;to&nbsp;strip&nbsp;this&nbsp;suffix&nbsp;from</span></div></li>
+<li><div class="src-line"><a name="a61"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;the&nbsp;URL&nbsp;and&nbsp;re-store&nbsp;it&nbsp;in&nbsp;[app.command.requested].</span></div></li>
+<li><div class="src-line"><a name="a62"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a63"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a64"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><a href="../Buan/ViewHelper/Html.html#var$urlSuffix">$urlSuffix</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a68"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;View&nbsp;instance&nbsp;to&nbsp;which&nbsp;this&nbsp;helper&nbsp;is&nbsp;attached.</span></div></li>
+<li><div class="src-line"><a name="a69"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a70"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">Buan\View&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a71"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a72"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">private&nbsp;</span><a href="../Buan/ViewHelper/Html.html#var$view">$view</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a73"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a75"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Constructor</span></div></li>
+<li><div class="src-line"><a name="a76"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a77"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">Buan\View&nbsp;</span><span class="src-doc">The&nbsp;View&nbsp;to&nbsp;which&nbsp;this&nbsp;helper&nbsp;is&nbsp;being&nbsp;attached</span></div></li>
+<li><div class="src-line"><a name="a78"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">Buan\ViewHelper\Html&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a79"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/ViewHelper/Html.html#method__construct">__construct</a><span class="src-sym">(</span><span class="src-var">$view</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Store&nbsp;reference&nbsp;to&nbsp;$view</span></div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$view">view</a>&nbsp;=&nbsp;<span class="src-var">$view</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a85"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a86"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a87"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Echos/returns&nbsp;the&nbsp;given&nbsp;string&nbsp;after&nbsp;converting&nbsp;applicable&nbsp;characters&nbsp;into</span></div></li>
+<li><div class="src-line"><a name="a88"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;their&nbsp;HTML&nbsp;entitiy&nbsp;equivalents.</span></div></li>
+<li><div class="src-line"><a name="a89"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a90"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc">String&nbsp;to&nbsp;encode</span></div></li>
+<li><div class="src-line"><a name="a91"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc">If&nbsp;TRUE&nbsp;the&nbsp;string&nbsp;is&nbsp;echoed&nbsp;to&nbsp;output,&nbsp;or&nbsp;returned&nbsp;otherwise</span></div></li>
+<li><div class="src-line"><a name="a92"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string</span><span class="src-doc">|</span><span class="src-doc-type">void</span></div></li>
+<li><div class="src-line"><a name="a93"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a94"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/ViewHelper/Html.html#methode">e</a><span class="src-sym">(</span><span class="src-var">$str</span><span class="src-sym">,&nbsp;</span><span class="src-var">$echo</span>=<span class="src-id">TRUE</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a95"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$str&nbsp;</span>=&nbsp;<a href="http://www.php.net/htmlentities">htmlentities</a><span class="src-sym">(</span><span class="src-var">$str</span><span class="src-sym">,&nbsp;</span><span class="src-id">ENT_COMPAT</span><span class="src-sym">,&nbsp;</span><span class="src-str">'UTF-8'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a96"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$echo</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a97"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$str</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a98"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a99"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a100"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$str</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a101"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a102"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a103"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a104"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a105"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Echos/returns&nbsp;the&nbsp;given&nbsp;string&nbsp;after&nbsp;converting&nbsp;applicable&nbsp;characters&nbsp;into</span></div></li>
+<li><div class="src-line"><a name="a106"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;their&nbsp;HTML&nbsp;entitiy&nbsp;equivalents&nbsp;and&nbsp;adding&nbsp;the&nbsp;suffix&nbsp;defined&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a107"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;$this-&gt;urlSuffix.</span></div></li>
+<li><div class="src-line"><a name="a108"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a109"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc">String&nbsp;to&nbsp;convert&nbsp;to&nbsp;a&nbsp;URL</span></div></li>
+<li><div class="src-line"><a name="a110"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc">If&nbsp;TRUE&nbsp;the&nbsp;string&nbsp;is&nbsp;echoed&nbsp;to&nbsp;output,&nbsp;or&nbsp;returned&nbsp;otherwise</span></div></li>
+<li><div class="src-line"><a name="a111"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">string</span><span class="src-doc">|</span><span class="src-doc-type">void</span></div></li>
+<li><div class="src-line"><a name="a112"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a113"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public&nbsp;</span><span class="src-key">function&nbsp;</span><a href="../Buan/ViewHelper/Html.html#methodeUrl">eUrl</a><span class="src-sym">(</span><span class="src-var">$str</span><span class="src-sym">,&nbsp;</span><span class="src-var">$echo</span>=<span class="src-id">TRUE</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a114"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$url&nbsp;</span>=&nbsp;<a href="http://www.php.net/htmlentities">htmlentities</a><span class="src-sym">(</span><span class="src-var">$str</span><span class="src-sym">,&nbsp;</span><span class="src-id">ENT_COMPAT</span><span class="src-sym">,&nbsp;</span><span class="src-str">'UTF-8'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a115"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><a href="http://www.php.net/strpos">strpos</a><span class="src-sym">(</span><span class="src-var">$url</span><span class="src-sym">,&nbsp;</span><span class="src-str">&quot;?&quot;</span><span class="src-sym">)</span>!==<span class="src-id">FALSE</span><span class="src-sym">)&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a116"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$url&nbsp;</span>=&nbsp;<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">&quot;?&quot;</span><span class="src-sym">,&nbsp;</span><span class="src-str">&quot;</span>{<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$urlSuffix">urlSuffix</a><span class="src-sym">}</span>?<span class="src-str"><span class="src-str">"</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$url</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a117"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a118"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a119"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$url</span>&nbsp;.=&nbsp;<span class="src-var">$this</span></span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$urlSuffix">urlSuffix</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a120"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str"><span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a121"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a122"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$echo</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a123"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-var">$url</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a124"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a125"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">else</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a126"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span>&nbsp;<span class="src-var">$url</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a127"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a128"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a129"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a130"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><a name="a131"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Adds&nbsp;external&nbsp;Javascript&nbsp;sources&nbsp;to&nbsp;the&nbsp;View.</span></div></li>
+<li><div class="src-line"><a name="a132"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a133"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a134"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;$html-&gt;addJavascripts('/js/resource1.js',&nbsp;'/js/resource2.js');</span></div></li>
+<li><div class="src-line"><a name="a135"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a136"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a137"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$src,...&nbsp;Unlimited&nbsp;list&nbsp;of&nbsp;external&nbsp;Javascript&nbsp;URLs</span></div></li>
+<li><div class="src-line"><a name="a138"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;void</span></div></li>
+<li><div class="src-line"><a name="a139"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a140"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">addJavascripts</span><span class="src-sym">(</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a141"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a142"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Add&nbsp;Javascripts</span></span></div></li>
+<li><div class="src-line"><a name="a143"></a><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$view</span>&nbsp;=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#methodgetJavascriptsView">getJavascriptsView</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a144"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$args</span>&nbsp;=&nbsp;<span class="src-id">func_get_args</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a145"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-key">empty</span><span class="src-sym">(</span><span class="src-var">$args</span><span class="src-sym">))</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a146"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascripts">javascripts</a>&nbsp;=&nbsp;<span class="src-id">array_unique</span><span class="src-sym">(</span><span class="src-id">array_merge</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascripts">javascripts</a><span class="src-sym">,</span>&nbsp;<span class="src-var">$args</span><span class="src-sym">))</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a147"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a148"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a149"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Update&nbsp;the&nbsp;Javascripts&nbsp;View's&nbsp;raw&nbsp;source</span></span></div></li>
+<li><div class="src-line"><a name="a150"></a><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$output</span>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a151"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">foreach</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascripts">javascripts</a>&nbsp;<span class="src-key">as</span>&nbsp;<span class="src-var">$src</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a152"></a><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$output</span>&nbsp;.=&nbsp;<span class="src-str">"</span></span>&lt;script&nbsp;type=\&quot;text/javascript\&quot;&nbsp;src=\&quot;{<span class="src-var">$src</span><span class="src-sym">}</span>\&quot;&gt;&lt;/script&gt;\n<span class="src-str">&quot;</span><span class="src-str"><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a153"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a154"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascriptsView">javascriptsView</a><span class="src-sym">-&gt;</span><span class="src-id">setRawSource</span><span class="src-sym">(</span><span class="src-var">$output</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a155"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a156"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a157"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><a name="a158"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Adds&nbsp;external&nbsp;stylesheet&nbsp;sources&nbsp;to&nbsp;the&nbsp;View.</span></div></li>
+<li><div class="src-line"><a name="a159"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;The&nbsp;first&nbsp;argument&nbsp;given&nbsp;is&nbsp;special&nbsp;and&nbsp;can&nbsp;take&nbsp;the&nbsp;form&nbsp;of&nbsp;either&nbsp;a&nbsp;URL&nbsp;or</span></div></li>
+<li><div class="src-line"><a name="a160"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;one&nbsp;of&nbsp;the&nbsp;following&nbsp;key&nbsp;phrases:&nbsp;screen&nbsp;|&nbsp;print&nbsp;|&nbsp;all&nbsp;|&nbsp;screen,print</span></div></li>
+<li><div class="src-line"><a name="a161"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a162"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;If&nbsp;one&nbsp;of&nbsp;these&nbsp;phrases&nbsp;is&nbsp;used&nbsp;then&nbsp;it&nbsp;will&nbsp;be&nbsp;included&nbsp;in&nbsp;the&nbsp;&quot;media&quot;</span></div></li>
+<li><div class="src-line"><a name="a163"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;attribute&nbsp;of&nbsp;the&nbsp;&lt;link&gt;&nbsp;nodes.</span></div></li>
+<li><div class="src-line"><a name="a164"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a165"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><a name="a166"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;$html-&gt;addStylesheets('/css/resource1.css',&nbsp;'/css/resource2.css');</span></div></li>
+<li><div class="src-line"><a name="a167"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;$html-&gt;addStylesheets('print',&nbsp;'/css/resource3.css');</span></div></li>
+<li><div class="src-line"><a name="a168"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><a name="a169"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a170"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$src,...&nbsp;Unlimited&nbsp;list&nbsp;of&nbsp;external&nbsp;stylesheet&nbsp;URLs</span></div></li>
+<li><div class="src-line"><a name="a171"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;void</span></div></li>
+<li><div class="src-line"><a name="a172"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a173"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">addStylesheets</span><span class="src-sym">(</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a174"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a175"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Determine&nbsp;media</span></span></div></li>
+<li><div class="src-line"><a name="a176"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$args</span>&nbsp;=&nbsp;<span class="src-id">func_get_args</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a177"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$media</span>&nbsp;=&nbsp;<span class="src-str">'all'</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a178"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$medium</span>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'screen'</span><span class="src-sym">,</span>&nbsp;<span class="src-str">'print'</span><span class="src-sym">,</span>&nbsp;<span class="src-str">'screen,print'</span><span class="src-sym">,</span>&nbsp;<span class="src-str">'print,screen'</span><span class="src-sym">,</span>&nbsp;<span class="src-str">'all'</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a179"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><a href="http://www.php.net/in_array">in_array</a><span class="src-sym">(</span><a href="http://www.php.net/strtolower">strtolower</a><span class="src-sym">(</span><a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">&quot;&nbsp;&quot;</span><span class="src-sym">,</span>&nbsp;<span class="src-str">&quot;&quot;</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$args</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$medium</span><span class="src-sym">))</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a180"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$media</span>&nbsp;=&nbsp;<a href="http://www.php.net/array_shift">array_shift</a><span class="src-sym">(</span><span class="src-var">$args</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a181"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a182"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a183"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Add&nbsp;stylesheets</span></span></div></li>
+<li><div class="src-line"><a name="a184"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$view</span>&nbsp;=&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#methodgetStylesheetsView">getStylesheetsView</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a185"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-key">empty</span><span class="src-sym">(</span><span class="src-var">$args</span><span class="src-sym">))</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a186"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-sym">!</span>isset<span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheets">stylesheets</a><span class="src-sym">[</span><span class="src-var">$media</span><span class="src-sym">]</span><span class="src-sym">))</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a187"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheets">stylesheets</a><span class="src-sym">[</span><span class="src-var">$media</span><span class="src-sym">]</span>&nbsp;=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a188"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a189"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheets">stylesheets</a><span class="src-sym">[</span><span class="src-var">$media</span><span class="src-sym">]</span>&nbsp;=&nbsp;<a href="http://www.php.net/array_unique">array_unique</a><span class="src-sym">(</span><a href="http://www.php.net/array_merge">array_merge</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheets">stylesheets</a><span class="src-sym">[</span><span class="src-var">$media</span><span class="src-sym">]</span><span class="src-sym">,</span>&nbsp;<span class="src-var">$args</span><span class="src-sym">))</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a190"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a191"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a192"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;Update&nbsp;the&nbsp;stylesheets&nbsp;View's&nbsp;raw&nbsp;source</span></span></div></li>
+<li><div class="src-line"><a name="a193"></a></span><span class="src-str"><span class="src-comm"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$output</span>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a194"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">foreach</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheets">stylesheets</a>&nbsp;<span class="src-key">as</span>&nbsp;<span class="src-var">$m</span>=&gt;<span class="src-var">$srcs</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a195"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">foreach</span><span class="src-sym">(</span><span class="src-var">$srcs</span>&nbsp;<span class="src-key">as</span>&nbsp;<span class="src-var">$src</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a196"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$output</span>&nbsp;.=&nbsp;<span class="src-str">"</span></span>&lt;link&nbsp;rel=\&quot;stylesheet\&quot;&nbsp;type=\&quot;text/css\&quot;&nbsp;href=\&quot;{<span class="src-var">$src</span><span class="src-sym">}</span>\&quot;&nbsp;media=\&quot;{<span class="src-var">$m</span><span class="src-sym">}</span>\&quot;&nbsp;/&gt;\n<span class="src-str">&quot;</span><span class="src-str"><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a197"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a198"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a199"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheetsView">stylesheetsView</a><span class="src-sym">-&gt;</span><span class="src-id">setRawSource</span><span class="src-sym">(</span><span class="src-var">$output</span><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a200"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a201"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a202"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><a name="a203"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Returns&nbsp;a&nbsp;View&nbsp;that&nbsp;generates&nbsp;the&nbsp;&lt;script&gt;&nbsp;nodes&nbsp;for&nbsp;each&nbsp;Javascript</span></div></li>
+<li><div class="src-line"><a name="a204"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;resource&nbsp;when&nbsp;rendered.</span></div></li>
+<li><div class="src-line"><a name="a205"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a206"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;Buan\View</span></div></li>
+<li><div class="src-line"><a name="a207"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a208"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">getJavascriptsView</span><span class="src-sym">(</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a209"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascriptsView">javascriptsView</a>===<span class="src-id">NULL</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a210"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$className</span>&nbsp;=&nbsp;<span class="src-id">get_class</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$view">view</a><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a211"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascriptsView">javascriptsView</a>&nbsp;=&nbsp;<span class="src-key">new</span>&nbsp;<span class="src-var">$className</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a212"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a213"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span>&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$javascriptsView">javascriptsView</a><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a214"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a215"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a216"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a217"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><a name="a218"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Returns&nbsp;a&nbsp;View&nbsp;that&nbsp;generates&nbsp;the&nbsp;&lt;link&gt;&nbsp;nodes&nbsp;for&nbsp;each&nbsp;stylesheet&nbsp;resource</span></div></li>
+<li><div class="src-line"><a name="a219"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;when&nbsp;rendered.</span></div></li>
+<li><div class="src-line"><a name="a220"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a221"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;Buan\View</span></div></li>
+<li><div class="src-line"><a name="a222"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a223"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">getStylesheetsView</span><span class="src-sym">(</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a224"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheetsView">stylesheetsView</a>===<span class="src-id">NULL</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a225"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$className</span>&nbsp;=&nbsp;<span class="src-id">get_class</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$view">view</a><span class="src-sym">)</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a226"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheetsView">stylesheetsView</a>&nbsp;=&nbsp;<span class="src-key">new</span>&nbsp;<span class="src-var">$className</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a227"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a228"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return</span>&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$stylesheetsView">stylesheetsView</a><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a229"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a230"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a231"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><a name="a232"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Sets&nbsp;the&nbsp;URL&nbsp;suffix&nbsp;that&nbsp;will&nbsp;be&nbsp;appended&nbsp;to&nbsp;URLs&nbsp;generated&nbsp;by&nbsp;$this-&gt;eUrl()</span></div></li>
+<li><div class="src-line"><a name="a233"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a234"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;URL&nbsp;suffix</span></div></li>
+<li><div class="src-line"><a name="a235"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;void</span></div></li>
+<li><div class="src-line"><a name="a236"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a237"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">public</span>&nbsp;<span class="src-key">function</span>&nbsp;<span class="src-id">setUrlSuffix</span><span class="src-sym">(</span><span class="src-var">$suffix</span><span class="src-sym">)</span>&nbsp;<span class="src-sym">{</span></span></div></li>
+<li><div class="src-line"><a name="a238"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../Buan/ViewHelper/Html.html#var$urlSuffix">urlSuffix</a>&nbsp;=&nbsp;<span class="src-var">$suffix</span><span class="src-sym">;</span></span></div></li>
+<li><div class="src-line"><a name="a239"></a></span><span class="src-str">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></span></div></li>
+<li><div class="src-line"><a name="a240"></a></span><span class="src-str"><span class="src-sym">}</span></span></div></li>
+</ol>
+</span></div>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Tue, 04 Aug 2009 19:59:10 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

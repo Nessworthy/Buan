@@ -1,0 +1,75 @@
+/*
+# $Id$
+*/
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+#GlobalHeader {
+	color: #666666;
+	background-color: #F0F0F0;
+	padding: 0.25em 0.5em;
+	border-bottom: #CCCCCC 2px solid;
+	height: 1px;
+}
+#GlobalHeader[id] {
+	height: auto;
+	overflow: hidden;
+}
+
+#GlobalHeader h1 {
+	float: left;
+	font-family: "Trebuchet MS", Georgia, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#GlobalHeader ul {
+	float: right;
+	margin: 0px;
+	padding: 0px;
+}
+
+#GlobalHeader ul li {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0.4em 0px;
+}
+
+#ActionOutput {
+	padding: 1em 0em;
+}
+
+#EventLogOutput {
+	font-family: Courier, sans-serif;
+	font-size: 0.5em;
+}
+
+#EventLogOutput ul {
+	border: #999999 1px dashed;
+	margin: 2em 0px;
+	padding: 0em 1em;
+}
+
+#EventLogOutput ul li {
+	list-style-type: none;
+	padding: 1em;
+	margin: 1em 0px;
+	background-color: #F0F0F0;
+	color: #000000;
+}
+
+#GlobalFooter {
+	font-size: 0.70em;
+	color: #666666;
+	background-color: #F0F0F0;
+	padding: 0.5em;
+	border-top: #CCCCCC 2px solid;
+	text-align: right;
+}

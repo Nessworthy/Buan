@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Todo List</title>
+	<link rel="stylesheet" type="text/css" href="media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">Buan<br /><div class="header-top-right-subpackage">ViewHelper</div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+      
+                        
+                      		[ <a href="classtrees_Buan.html" class="menu">class tree: Buan</a> ]
+		[ <a href="elementindex_Buan.html" class="menu">index: Buan</a> ]
+            [ <a href="elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">Buan</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="li_Buan.html">Buan</a><br />
+      	</div>
+      <br />
+                        <br />
+                      </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<div align="center"><h1>Todo List</h1></div>
+<h2>Buan</h2>
+<h3><a href="Buan/AutoLoader.html#methodaddClassPath">AutoLoader::addClassPath()</a></h3>
+<ul>
+    <li>Could add another parameter here, $regex, which you could use to  indicate what filename matches are stored in the given path, so the  searching routine would only bother searching in $path if the given class  name matches this $regex (if $regex is ommitted then any filename would be  assumed).</li>
+</ul>
+<h3><a href="Buan/_BuanAutoLoader.php.html#functionfAutoLoader">fAutoLoader()</a></h3>
+<ul>
+    <li>The exception handling doesn't seem to work if we register  Buan\AutoLoader::loadClass() directly in spl_autload_register(), but using  this global &quot;inbetweener&quot; function does. Might it be the fact that this  routine defines a new class within the scope of a class method?</li>
+</ul>
+<h3><a href="Buan/Core.html#methodhalt">Core::halt()</a></h3>
+<ul>
+    <li>If any calls to Core::halt() occur within the rendering code or  templates then recursion will appear. How do we get around that? Set a  static var to ensure this is called only once?</li>
+</ul>
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Tue, 04 Aug 2009 19:59:10 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.1</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
