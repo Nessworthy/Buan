@@ -181,13 +181,9 @@ class View extends EventDispatcher {
 		$this->v[$varName] = $varValue;
 	}
 	
-	function getAssetVersion(){
+	function getAssetVersion() {
 		if(is_null($this->assetVersion)){
-			if(file_exists(Config::get('ext.Ias.dir.resources').'/current-version.txt')){
-				$add = "?v=".file_get_contents(Config::get('ext.Ias.dir.resources').'/current-version.txt');
-			} else {
-				$add = "?v=".date('dmy');
-			}
+            $add = "?v=".date('ymd');
 			$this->assetVersion = $add;
 		}
 		return $this->assetVersion;
