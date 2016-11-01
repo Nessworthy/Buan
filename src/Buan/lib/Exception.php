@@ -1,10 +1,11 @@
 <?php
 /**
-* A general Exception class for the Buan environment.
-*
-* @package Buan
-*/
+ * A general Exception class for the Buan environment.
+ *
+ * @package Buan
+ */
 namespace Buan;
-class Exception extends \Exception {
+
+class Exception extends \Exception
+{
 }
-?>

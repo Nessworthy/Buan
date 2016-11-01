@@ -1,8 +1,9 @@
 <?php
 /**
-* @package Buan
-*/
+ * @package Buan
+ */
 namespace Buan;
-class ControllerException extends Exception {
+
+class ControllerException extends Exception
+{
 }
-?>

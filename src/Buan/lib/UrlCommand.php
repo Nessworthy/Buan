@@ -104,7 +104,7 @@ class UrlCommand {
 	* finally be executed.
 	*
 	* @param function|array Function to execute (closure | param for call_user_func_array())
-	* @return NULL|Buan\UrlCommand
+	* @return NULL|UrlCommand
 	*/
 	static public function addRoute($router) {
 		self::$routes[] = $router;
@@ -115,7 +115,7 @@ class UrlCommand {
 	* attributes determined by the command string.
 	*
 	* @param string Command in the format "controller/action/param1/param2/..."
-	* @return Buan\UrlCommand
+	* @return UrlCommand
 	*/
 	static public function create($commandString) {
 
@@ -395,7 +395,7 @@ class UrlCommand {
 	/**
 	* Executes the command and returns the resulting View object.
 	*
-	* @return Buan\View
+	* @return View
 	*/
 	public function execute() {
         

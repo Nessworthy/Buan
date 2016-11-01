@@ -1,108 +1,115 @@
 <?php
 /**
-* A method for storing and retrieving application-wide configuration variables.
-* Variables are accessed through a dot-notation syntax.
-*
-* @package Buan
-*/
+ * A method for storing and retrieving application-wide configuration variables.
+ * Variables are accessed through a dot-notation syntax.
+ *
+ * @package Buan
+ */
 namespace Buan;
-class Config {
 
-	/**
-	* Stores an in-memory cache of the results of all calls to Config::get() in
-	* order to speed things up. This entire cache is cleared whenever a call to
-	* Config::set() is made.
-	*
-	* @var array
-	*/
-	static protected $_getCache = array();
+class Config
+{
 
-	/**
-	* Stores all variables in an associative array.
-	*
-	* @var array
-	*/
-	static protected $var = array();
+    /**
+     * Stores an in-memory cache of the results of all calls to Config::get() in
+     * order to speed things up. This entire cache is cleared whenever a call to
+     * Config::set() is made.
+     *
+     * @var array
+     */
+    static protected $_getCache = [];
 
-	/**
-	* Creates the specified namespace tree and returns a reference to it.
-	*
-	* @param string Namespace to create (dot-notation, eg. "app.dir.views")
-	* @return array
-	*/
-	static public function createNamespace($namespace) {
+    /**
+     * Stores all variables in an associative array.
+     *
+     * @var array
+     */
+    static protected $var = [];
 
-		// Create all specified namespace nodes
-		return eval("return self::\$var['".str_replace('.', "']['", $namespace)."'] = array();");
-	}
+    /**
+     * Creates the specified namespace tree and returns a reference to it.
+     *
+     * @param string $namespace Namespace to create (dot-notation, eg. "app.dir.views")
+     * @return array
+     */
+    static public function createNamespace($namespace)
+    {
 
-	/**
-	* Determines if the specified variable exists.
-	*
-	* @param string Check if this variable exists (dot-notation, eg. "app.dir.views")
-	* @return bool
-	*/
-	static public function is_set($path) {
-		$arrayPath = is_null($path) ? '' : "['".implode("']['", explode(".", $path))."']";
-		eval('$isset = isset(self::$var'.$arrayPath.') ? TRUE : FALSE;');
-		return $isset;
-	}
+        // Create all specified namespace nodes
+        return eval("return self::\$var['" . str_replace('.', "']['", $namespace) . "'] = array();");
+    }
 
-	/**
-	* Returns a config variable or a namespace tree
-	*
-	* @param string Variable to retreive (dot-notation)
-	* @return mixed
-	*/
-	static public function get($path=NULL) {
+    /**
+     * Determines if the specified variable exists.
+     *
+     * @param string $path Check if this variable exists (dot-notation, eg. "app.dir.views")
+     * @return bool
+     */
+    static public function is_set($path)
+    {
+        $arrayPath = is_null($path) ? '' : "['" . implode("']['", explode(".", $path)) . "']";
+        eval('$isset = isset(self::$var' . $arrayPath . ') ? TRUE : FALSE;');
+        return $isset;
+    }
 
-		// Check memory cache first
-		if(isset(self::$_getCache[$path])) return self::$_getCache[$path];
+    /**
+     * Returns a config variable or a namespace tree
+     *
+     * @param string Variable to retreive (dot-notation)
+     * @return mixed
+     */
+    static public function get($path = null)
+    {
 
-		// Find and return the specified variable/namespace tree
-		$arrayPath = $path===NULL ? '' : "['".str_replace('.', "']['", $path)."']";
-		return eval('return isset(self::$var'.$arrayPath.') ? self::$_getCache[$path] = self::$var'.$arrayPath.' : NULL;');
-	}
+        // Check memory cache first
+        if (isset(self::$_getCache[$path])) {
+            return self::$_getCache[$path];
+        }
 
-	/**
-	* Sets the specified config variable.
-	*
-	* Example:
-	* <code>
-	* \Buan\Config::set('app.dir', array('views'=>'A'));
-	* \Buan\Config::get('app.dir.views')==='A';
-	* </code>
-	*
-	* @param string Variable to set (dot-notation, eg. "app.dir.views")
-	* @param mixed Value to store.
-	* @return bool
-	*/
-	static public function set($varName, $varValue) {
+        // Find and return the specified variable/namespace tree
+        $arrayPath = $path === null ? '' : "['" . str_replace('.', "']['", $path) . "']";
+        return eval('return isset(self::$var' . $arrayPath . ') ? self::$_getCache[$path] = self::$var' . $arrayPath . ' : NULL;');
+    }
 
-		// Separate the namespace from the given variable name
-		$lastDot = strrpos($varName, '.');
-		if($lastDot===FALSE) {
-			self::$var[$varName] = $varValue;
-			return TRUE;
-		}
-		$namespace = substr($varName, 0, $lastDot);
-		$varName = substr($varName, $lastDot+1);
+    /**
+     * Sets the specified config variable.
+     *
+     * Example:
+     * <code>
+     * \Buan\Config::set('app.dir', array('views'=>'A'));
+     * \Buan\Config::get('app.dir.views')==='A';
+     * </code>
+     *
+     * @param string $varName Variable to set (dot-notation, eg. "app.dir.views")
+     * @param mixed $varValue Value to store.
+     * @return bool
+     */
+    static public function set($varName, $varValue)
+    {
 
-		// Get a reference to the namespace's tree
-		$arrayPath = "['".str_replace('.', "']['", $namespace)."']";
-		eval('$ns =& self::$var'.$arrayPath.';');
-		if($ns===NULL) {
+        // Separate the namespace from the given variable name
+        $lastDot = strrpos($varName, '.');
+        if ($lastDot === false) {
+            self::$var[$varName] = $varValue;
+            return true;
+        }
+        $namespace = substr($varName, 0, $lastDot);
+        $varName = substr($varName, $lastDot + 1);
 
-			// Create namespace
-			$ns = self::createNamespace($namespace);
-		}
+        // Get a reference to the namespace's tree
+        $arrayPath = "['" . str_replace('.', "']['", $namespace) . "']";
+        eval('$ns =& self::$var' . $arrayPath . ';');
+        if ($ns === null) {
 
-		// Clear cache
-		self::$_getCache = array();
+            // Create namespace
+            $ns = self::createNamespace($namespace);
+        }
 
-		// Set the variable
-		$ns[$varName] = self::$_getCache["{$namespace}.{$varName}"] = $varValue;
-		return TRUE;
-	}
+        // Clear cache
+        self::$_getCache = [];
+
+        // Set the variable
+        $ns[$varName] = self::$_getCache["{$namespace}.{$varName}"] = $varValue;
+        return true;
+    }
 }
-?>
