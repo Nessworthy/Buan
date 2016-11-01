@@ -1,12 +1,14 @@
 <?php
 /**
-* This class provides a means to encapsulate an SQL query within an object.
-*
-* @package Buan
-*/
+ * This class provides a means to encapsulate an SQL query within an object.
+ *
+ * @package Buan
+ */
 namespace Buan;
 use \StdClass;
-class ModelCriteria {
+
+class ModelCriteria
+{
 
 	/*
 	# @constant-group Operators
@@ -46,14 +48,14 @@ class ModelCriteria {
 	# If neither any fields or any tables exist then SELECT will not be included
 	# in the rendered SQL, only the remaining criteria elements.
 	*/
-	private $selects = array('fields'=>array(), 'tables'=>array());
+	private $selects = ['fields' => [], 'tables' => []];
 
 	/*
 	# @property ModelCriteriaGroup $whereGroup
 	# This is the root clause group of which all other clause groups are
 	# children.
 	*/
-	private $whereGroup = NULL;
+	private $whereGroup = null;
 
 	/*
 	# @property array $leftJoins
@@ -69,7 +71,7 @@ class ModelCriteria {
 	#		...
 	#	);
 	*/
-	private $leftJoins = array();
+	private $leftJoins = [];
 
 	/*
 	# @property array $rightJoins
@@ -85,7 +87,7 @@ class ModelCriteria {
 	#		...
 	#	);
 	*/
-	private $rightJoins = array();
+	private $rightJoins = [];
 
 	/*
 	# @property array $groupBys
@@ -94,14 +96,14 @@ class ModelCriteria {
 	# Format:
 	#	$groupBys = array('[field-name]', ...);
 	*/
-	private $groupBys = array();
+	private $groupBys = [];
 
 	/*
 	# @property array $havingGroup
 	# A ModelCriteriaGroup object that contains sub-groups that will be rendered
 	# in the HAVING portion of the query, rather than the WHERE portion.
 	*/
-	private $havingGroup = array();
+	private $havingGroup = [];
 
 	/*
 	# @property array $orders
@@ -117,7 +119,7 @@ class ModelCriteria {
 	#		...
 	#	);
 	*/
-	private $orders = array();
+	private $orders = [];
 
 	/*
 	# @property array $limit
@@ -129,15 +131,15 @@ class ModelCriteria {
 	#		'recordCount'=>[max number of records to return]
 	#	);
 	*/
-	private $limit = NULL;
+	private $limit = null;
 
 	/*
 	 # @property string $useIndex
 	 # Contains the USE INDEX clause index list.
 	 # 
 	*/
-	private $useIndex = array();
-	
+	private $useIndex = [];
+
 	/*
 	 # @property bool $value
 	 # If true, disables database cache; for perf. testing
@@ -151,12 +153,13 @@ class ModelCriteria {
 	 # Contains actual subquery instances
 	 #
 	*/
-	private $aggregateSubqueries = array();
+	private $aggregateSubqueries = [];
 
 	/*
 	# @method void __construct()
 	*/
-	public function __construct() {
+	public function __construct()
+	{
 
 		// Create the root clause group
 		$this->whereGroup = new ModelCriteriaGroup();
@@ -169,36 +172,38 @@ class ModelCriteria {
 	#
 	# Generate and return a clause group.
 	*/
-	public function addGroup($logic=ModelCriteria::LOGIC_AND, $type=ModelCriteria::WHERE) {
+	public function addGroup($logic = ModelCriteria::LOGIC_AND, $type = ModelCriteria::WHERE)
+	{
 
 		// Generate and return
-		return $type==self::WHERE ? $this->whereGroup->addGroup($logic) : ($type==self::HAVING ? $this->havingGroup->addGroup($logic) : NULL);
+		return $type == self::WHERE ? $this->whereGroup->addGroup($logic) : ($type == self::HAVING ? $this->havingGroup->addGroup($logic) : null);
 	}
 
 	/**
-	* Runs $this criteria over the given Models and returns a ModelCollection
-	* containing all that satisfied the criteria.
-	*
-	* This only works for very simple criteria and clauses in the WHERE group.
-	*
-	* @todo Whilst the clause stuff is handled by ModelCriteriaGroup::applyTo(),
-	* the ordering and range criteria will have to be handled here.
-	*
-	* @param Model|ModelCollection Models to which $this criteria will be applied
-	* @return ModelCollection
-	*/
-	public function applyTo($models) {
+	 * Runs $this criteria over the given Models and returns a ModelCollection
+	 * containing all that satisfied the criteria.
+	 *
+	 * This only works for very simple criteria and clauses in the WHERE group.
+	 *
+	 * @todo Whilst the clause stuff is handled by ModelCriteriaGroup::applyTo(),
+	 * the ordering and range criteria will have to be handled here.
+	 *
+	 * @param Model|ModelCollection Models to which $this criteria will be applied
+	 * @return ModelCollection
+	 */
+	public function applyTo($models)
+	{
 
 		// Apply criteria to elements in the WHERE group
 		$matches = $this->whereGroup->applyTo($models)->asArray();
 
 		// Apply ordering
-		foreach($this->orders as $order) {
-			usort($matches, function($a, $b) use ($order) {
+		foreach ($this->orders as $order) {
+			usort($matches, function ($a, $b) use ($order) {
 				$av = $a->{$order['fieldName']};
 				$bv = $b->{$order['fieldName']};
-				$result = $av>$bv ? 1 : ($av<$bv ? -1 : 0);
-				return $order['direction']=='desc' ? -1*$result : $result;
+				$result = $av > $bv ? 1 : ($av < $bv ? -1 : 0);
+				return $order['direction'] == 'desc' ? -1 * $result : $result;
 			});
 		}
 
@@ -210,12 +215,13 @@ class ModelCriteria {
 	}
 
 	/**
-	* Returns TRUE if any SELECT fields have been defined.
-	*
-	* @return bool
-	*/
-	public function hasSelectFields() {
-		return empty($this->selects['fields']) ? FALSE : TRUE;
+	 * Returns TRUE if any SELECT fields have been defined.
+	 *
+	 * @return bool
+	 */
+	public function hasSelectFields()
+	{
+		return empty($this->selects['fields']) ? false : true;
 	}
 
 	/*
@@ -229,18 +235,18 @@ class ModelCriteria {
 	# You can actual insert a subquery by specifying $field as a ModelCriteria
 	# object.
 	*/
-	public function selectField($field, $alias=NULL) {
-		$fObj = new StdClass();
+	public function selectField($field, $alias = null)
+	{
+		$fObj = new \stdClass();
 		$fObj->alias = $alias;
-		if($field instanceof ModelCriteria) {
+		if ($field instanceof ModelCriteria) {
 			$sql = $field->sql();
 			$fObj->query = "({$sql->query})";
 			$fObj->bindings = $sql->bindings;
-		}
-		else {
+		} else {
 			$fObj->query = $field;
-			$fObj->bindings = NULL;
-		} 
+			$fObj->bindings = null;
+		}
 		$this->selects['fields'][] = $fObj;
 	}
 
@@ -261,28 +267,29 @@ class ModelCriteria {
 	# Add a table to the FROM portion of the query.
 	# Duplicates will be ignored.
 	*/
-	public function selectTable($table, $alias=NULL) {
+	public function selectTable($table, $alias = null)
+	{
 
 		// Handle ModelCriteria - ie a subquery
-		if($table instanceof ModelCriteria) {
+		if ($table instanceof ModelCriteria) {
 			$tSql = $table->sql();
-			$this->selects['tables'][] = (object)array(
-				'table'=>"({$tSql->query})",
-				'alias'=>$alias,
-				'bindings'=>$tSql->bindings
-			);
+			$this->selects['tables'][] = (object) [
+				'table' => "({$tSql->query})",
+				'alias' => $alias,
+				'bindings' => $tSql->bindings
+			];
 			return;
 		}
 
 		// Wrap a simple table name in ` marks.
 		// As $table can be, for example, "tablename AS tb", then we need to
 		// ignore such cases and put to onus onto the user.
-		if(!preg_match("/[^0-9a-z_]/i", $table)) {
-			$table = substr($table, 0, 1)!="`" ? "`{$table}`" : $table;
+		if (!preg_match("/[^0-9a-z_]/i", $table)) {
+			$table = substr($table, 0, 1) != "`" ? "`{$table}`" : $table;
 		}
 
 		// Add to list, ensuring duplicates aren't added
-		if(!in_array($table, $this->selects['tables'])) {
+		if (!in_array($table, $this->selects['tables'])) {
 			$this->selects['tables'][] = $table;
 		}
 	}
@@ -296,13 +303,13 @@ class ModelCriteria {
 	#
 	# Add a clause to the WHERE portion of the query.
 	*/
-	public function addClause($clause, $fieldName, $fieldValue=NULL, $valueIsReference=FALSE) {
+	public function addClause($clause, $fieldName, $fieldValue = null, $valueIsReference = false)
+	{
 
 		// Add the clause to the root clause group
-		if(func_num_args()<3) {
+		if (func_num_args() < 3) {
 			return $this->whereGroup->addClause($clause, $fieldName);
-		}
-		else {
+		} else {
 			return $this->whereGroup->addClause($clause, $fieldName, $fieldValue, $valueIsReference);
 		}
 	}
@@ -315,7 +322,8 @@ class ModelCriteria {
 	# as "WHERE table1.id=table2.other_id ...". This method allows you to define
 	# such clauses.
 	*/
-	public function addClauseLiteral($clause) {
+	public function addClauseLiteral($clause)
+	{
 		return $this->whereGroup->addClauseLiteral($clause);
 	}
 
@@ -328,7 +336,8 @@ class ModelCriteria {
 	#
 	# Add a clause to the HAVING portion of the query.
 	*/
-	public function addHavingClause($clause, $fieldName, $fieldValue, $valueIsReference=FALSE) {
+	public function addHavingClause($clause, $fieldName, $fieldValue, $valueIsReference = false)
+	{
 		return $this->havingGroup->addClause($clause, $fieldName, $fieldValue, $valueIsReference);
 	}
 
@@ -339,24 +348,25 @@ class ModelCriteria {
 	#
 	# Sets the limiting clause. Omit both arguments to clear an existing range.
 	*/
-	public function setRange($start=NULL, $recordCount=NULL) {
-		if($start===NULL && $recordCount===NULL) {
-			$this->limit = NULL;
-		}
-		else {
-			$this->limit = array(
-				'start'=>$start,
-				'recordCount'=>$recordCount-$start
-			);
+	public function setRange($start = null, $recordCount = null)
+	{
+		if ($start === null && $recordCount === null) {
+			$this->limit = null;
+		} else {
+			$this->limit = [
+				'start' => $start,
+				'recordCount' => $recordCount - $start
+			];
 		}
 	}
 
 	/**
-	* Returns the defined range.
-	*
-	* @return NULL|array
-	*/
-	public function getRange() {
+	 * Returns the defined range.
+	 *
+	 * @return NULL|array
+	 */
+	public function getRange()
+	{
 		return $this->limit;
 	}
 
@@ -367,11 +377,12 @@ class ModelCriteria {
 	#
 	# Adds an ordering clause.
 	*/
-	public function addOrder($fieldName, $direction='ASC') {
-		$this->orders[] = array(
-			'fieldName'=>$fieldName,
-			'direction'=>$direction
-		);
+	public function addOrder($fieldName, $direction = 'ASC')
+	{
+		$this->orders[] = [
+			'fieldName' => $fieldName,
+			'direction' => $direction
+		];
 	}
 
 	/*
@@ -381,11 +392,12 @@ class ModelCriteria {
 	#
 	# LEFT JOIN the specified table.
 	*/
-	public function leftJoin($table, $clause) {
-		$this->leftJoins[] = array(
-			'table'=>$table,
-			'clause'=>$clause
-		);
+	public function leftJoin($table, $clause)
+	{
+		$this->leftJoins[] = [
+			'table' => $table,
+			'clause' => $clause
+		];
 	}
 
 	/*
@@ -395,31 +407,32 @@ class ModelCriteria {
 	#
 	# RIGHT JOIN the specified table.
 	*/
-	public function rightJoin($table, $clause) {
-		$this->rightJoins[] = array(
-			'table'=>$table,
-			'clause'=>$clause
-		);
+	public function rightJoin($table, $clause)
+	{
+		$this->rightJoins[] = [
+			'table' => $table,
+			'clause' => $clause
+		];
 	}
 
 	public function leftJoinSubquery(ModelCriteria $criteria, $alias, $clause)
 	{
 		$sql = $criteria->sql();
-		$this->leftJoins[] = array(
+		$this->leftJoins[] = [
 			'table' => sprintf('(%s) AS %s', $sql->query, $alias),
 			'clause' => $clause,
 			'bindings' => $sql->bindings
-		);
+		];
 	}
 
 	public function rightJoinSubquery(ModelCriteria $criteria, $alias, $clause)
 	{
 		$sql = $criteria->sql();
-		$this->rightJoins[] = array(
+		$this->rightJoins[] = [
 			'table' => sprintf('(%s) AS %s', $sql->query, $alias),
 			'clause' => $clause,
 			'bindings' => $sql->bindings
-		);
+		];
 	}
 
 	/*
@@ -431,27 +444,29 @@ class ModelCriteria {
 	# $clause is a literal string, meaning it will be added to the SQL exactly
 	# as provided here.
 	*/
-	public function innerJoin($table, $clause) {
+	public function innerJoin($table, $clause)
+	{
 		$this->selectTable($table);
 		$this->addClauseLiteral($clause);
 	}
 
 	/**
-	* Returns a JSON representation of this instance for portability.
-	*
-	* @return string
-	*/
-	public function exportJson() {
-		return json_encode((object)array(
-			'selects'=>$this->selects,
-			'whereGroup'=>$this->whereGroup->exportJson(),
-			'leftJoins'=>$this->leftJoins,
-			'rightJoins'=>$this->rightJoins,
-			'groupBys'=>$this->groupBys,
-			'havingGroup'=>$this->havingGroup->exportJson(),
-			'order'=>$this->orders,
-			'limit'=>$this->limit
-		));
+	 * Returns a JSON representation of this instance for portability.
+	 *
+	 * @return string
+	 */
+	public function exportJson()
+	{
+		return json_encode((object) [
+			'selects' => $this->selects,
+			'whereGroup' => $this->whereGroup->exportJson(),
+			'leftJoins' => $this->leftJoins,
+			'rightJoins' => $this->rightJoins,
+			'groupBys' => $this->groupBys,
+			'havingGroup' => $this->havingGroup->exportJson(),
+			'order' => $this->orders,
+			'limit' => $this->limit
+		]);
 	}
 
 	/*
@@ -460,7 +475,8 @@ class ModelCriteria {
 	#
 	# Adds a GROUP BY clause.
 	*/
-	public function groupBy($field) {
+	public function groupBy($field)
+	{
 		$this->groupBys[] = $field;
 	}
 
@@ -472,7 +488,8 @@ class ModelCriteria {
 	 #
 	 # Warning: MySQL specific code
 	*/
-	public function useIndex($index) {
+	public function useIndex($index)
+	{
 		$this->useIndex[] = $index;
 	}
 
@@ -496,12 +513,12 @@ class ModelCriteria {
 	# Removes a GROUP BY clause, or if $field is not omitted then all GROUP BY
 	# clauses are removed.
 	*/
-	public function ungroupBy($field=NULL) {
-		if($field===NULL) {
-			$this->groupBys = array();
-		}
-		else {
-			$this->groupBys = array_diff($this->groupBys, array($field));
+	public function ungroupBy($field = null)
+	{
+		if ($field === null) {
+			$this->groupBys = [];
+		} else {
+			$this->groupBys = array_diff($this->groupBys, [$field]);
 		}
 	}
 
@@ -518,64 +535,62 @@ class ModelCriteria {
 	#		)
 	#	}
 	*/
-	public function sql() {
+	public function sql()
+	{
 
 		// Vars
-		$sql = new StdClass();
+		$sql = new \stdClass();
 		$sql->query = '';
-		$sql->bindings = array();
+		$sql->bindings = [];
 
 		// Generate WHERE portion from the root clause group and all sub-groups
 		$whereSql = $this->whereGroup->sql();
 		$whereSql->query = str_replace("()", "", $whereSql->query);
-		if($whereSql->query!='') {
+		if ($whereSql->query != '') {
 			$whereSql->query = preg_replace("/\((.*)\)$/", "$1", $whereSql->query);
 			$sql->query = " WHERE {$whereSql->query}";
 			$sql->bindings = array_merge($sql->bindings, $whereSql->bindings);
 		}
 
 		// Add GROUP BYs
-		if(!empty($this->groupBys)) {
-			$sql->query .= ' GROUP BY '.implode(", ", $this->groupBys);
+		if (!empty($this->groupBys)) {
+			$sql->query .= ' GROUP BY ' . implode(", ", $this->groupBys);
 		}
 
 		// Add HAVING clauses
 		$havingSql = $this->havingGroup->sql();
 		$havingSql->query = str_replace("()", "", $havingSql->query);
-		if($havingSql->query!='') {
+		if ($havingSql->query != '') {
 			$sql->query .= " HAVING {$havingSql->query}";
 			$sql->bindings = array_merge($sql->bindings, $havingSql->bindings);
 		}
 
 		// Add ORDER BYs
-		if(count($this->orders)>0) {
+		if (count($this->orders) > 0) {
 			$sql->query .= ' ORDER BY ';
-			$orders = array();
-			foreach($this->orders as $order) {
-				$orders[] = $order['fieldName'].' '.$order['direction'];
+			$orders = [];
+			foreach ($this->orders as $order) {
+				$orders[] = $order['fieldName'] . ' ' . $order['direction'];
 			}
 			$sql->query .= implode(", ", $orders);
 		}
 
 		// Add LIMIT
-		if(!is_null($this->limit)) {
-			$sql->query .= ' LIMIT '.$this->limit['recordCount'].' OFFSET '.$this->limit['start'];
+		if (!is_null($this->limit)) {
+			$sql->query .= ' LIMIT ' . $this->limit['recordCount'] . ' OFFSET ' . $this->limit['start'];
 		}
 
 		// Process aggregate subqueries
-		if(!empty($this->aggregateSubqueries))
-		{
+		if (!empty($this->aggregateSubqueries)) {
 			$queries = $this->aggregateSubqueries;
-			foreach($queries as $query)
-			{
-				$sql->query = ' LEFT JOIN ('.$query->sql()->query.') AS ' .
+			foreach ($queries as $query) {
+				$sql->query = ' LEFT JOIN (' . $query->sql()->query . ') AS ' .
 					$query->getName() . ' ON ' . $query->getJoinCriterion() .
 					$sql->query;
 
 				$fields = $query->getFields();
 
-				foreach($fields as $field)
-				{
+				foreach ($fields as $field) {
 					$this->selectField("COALESCE(" . $query->getName() . '.' .
 						$field['name'] . ", 0)", $field['name']);
 				}
@@ -583,21 +598,21 @@ class ModelCriteria {
 		}
 
 		// Add LEFT JOINs
-		if(!empty($this->leftJoins)) {
+		if (!empty($this->leftJoins)) {
 			$joins = array_reverse($this->leftJoins);
-			foreach($joins as $join) {
-				$sql->query = ' LEFT JOIN '.$join['table'].' ON '. $join['clause'].' '.$sql->query;
+			foreach ($joins as $join) {
+				$sql->query = ' LEFT JOIN ' . $join['table'] . ' ON ' . $join['clause'] . ' ' . $sql->query;
 				if (isset($join['bindings'])) {
 					$sql->bindings = array_merge($sql->bindings, $join['bindings']);
 				}
 			}
 		}
-		
+
 		// Add RIGHT JOINs
-		if(!empty($this->rightJoins)) {
+		if (!empty($this->rightJoins)) {
 			$joins = array_reverse($this->rightJoins);
-			foreach($joins as $join) {
-				$sql->query = ' RIGHT JOIN '.$join['table'].' ON '.$join['clause'].' '.$sql->query;
+			foreach ($joins as $join) {
+				$sql->query = ' RIGHT JOIN ' . $join['table'] . ' ON ' . $join['clause'] . ' ' . $sql->query;
 				if (isset($join['bindings'])) {
 					$sql->bindings = array_merge($sql->bindings, $join['bindings']);
 				}
@@ -605,40 +620,38 @@ class ModelCriteria {
 		}
 
 		// Add a USE INDEX list if any indices exist
-		if(!empty($this->useIndex))
-		{
+		if (!empty($this->useIndex)) {
 			$useIndexList = '';
-			$useIndexList = ' USE INDEX (' . implode(", ", $this->useIndex). ') ';
+			$useIndexList = ' USE INDEX (' . implode(", ", $this->useIndex) . ') ';
 			$sql->query = $useIndexList . $sql->query;
 		}
 
 		// Add SELECT fields
-		if(!empty($this->selects['fields'])) {
-			$fields = array();
-			foreach($this->selects['fields'] as $field) {
-				$fields[] = "{$field->query} ".($field->alias===NULL ? '' : " AS {$field->alias}");
-				if($field->bindings!==NULL) {
+		if (!empty($this->selects['fields'])) {
+			$fields = [];
+			foreach ($this->selects['fields'] as $field) {
+				$fields[] = "{$field->query} " . ($field->alias === null ? '' : " AS {$field->alias}");
+				if ($field->bindings !== null) {
 					$sql->bindings = array_merge($sql->bindings, $field->bindings);
 				}
 			}
-			$tables = array();
-			if(!empty($this->selects['tables'])) {
-				foreach($this->selects['tables'] as $t) {
-					if($t instanceOf StdClass) {
-						$tables[] = "{$t->table} ".(!empty($t->alias) ? " AS {$t->alias}" : '');
-						if($t->bindings!==NULL) {
+			$tables = [];
+			if (!empty($this->selects['tables'])) {
+				foreach ($this->selects['tables'] as $t) {
+					if ($t instanceOf StdClass) {
+						$tables[] = "{$t->table} " . (!empty($t->alias) ? " AS {$t->alias}" : '');
+						if ($t->bindings !== null) {
 							$sql->bindings = array_merge($sql->bindings, $t->bindings);
 						}
-					}
-					else {
+					} else {
 						$tables[] = $t;
 					}
 				}
 			}
 			$noCache = $this->disableCache ? 'SQL_NO_CACHE ' : '';
-			
+
 			//$sql->query = 'SELECT '.implode(", ", $fields).' '.(!empty($this->selects['tables']) ? 'FROM '.implode(", ", $this->selects['tables']).' ' : '').$sql->query;
-			$sql->query = 'SELECT '.$noCache.implode(", ", $fields).' '.(!empty($tables) ? 'FROM '.implode(", ", $tables).' ' : '').$sql->query;
+			$sql->query = 'SELECT ' . $noCache . implode(", ", $fields) . ' ' . (!empty($tables) ? 'FROM ' . implode(", ", $tables) . ' ' : '') . $sql->query;
 		}
 
 		// Result
@@ -650,9 +663,11 @@ class ModelCriteria {
 	#
 	# Clone properties.
 	*/
-	public function __clone() {
+	public function __clone()
+	{
 		$this->whereGroup = clone $this->whereGroup;
 		$this->havingGroup = clone $this->havingGroup;
 	}
 }
+
 ?>

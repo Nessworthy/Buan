@@ -1,42 +1,43 @@
 <?php
 /**
-* Iterface that all view-renderer classes should implement.
-*
-* @package Ias
-*/
+ * Iterface that all view-renderer classes should implement.
+ *
+ * @package Ias
+ */
 namespace Buan;
-interface IViewEngine {
 
-	/**
-	* Return the View instance that this engine will be rendering.
-	*
-	* @return Buan\View
-	*/
-	public function getView();
+interface IViewEngine
+{
 
-	/**
-	* Perform some actions when the specified helper is loaded.
-	* This method should never be called directly, but instead the
-	* Buan\View::loadHelper() is called which in turn calls this method.
-	*
-	* @param string Helper identifier
-	* @return void
-	*/
-	public function loadHelper($helper);
+    /**
+     * Return the View instance that this engine will be rendering.
+     *
+     * @return View
+     */
+    public function getView();
 
-	/**
-	* Renders the view and returns the result.
-	*
-	* @return string
-	*/
-	public function render();
+    /**
+     * Perform some actions when the specified helper is loaded.
+     * This method should never be called directly, but instead the
+     * Buan\View::loadHelper() is called which in turn calls this method.
+     *
+     * @param string $helper Helper identifier
+     * @return void
+     */
+    public function loadHelper($helper);
 
-	/**
-	* Store the View instance that this engine will be rendering.
-	*
-	* @param Buan\View View instance
-	* @return void
-	*/
-	public function setView(View $view);
+    /**
+     * Renders the view and returns the result.
+     *
+     * @return string
+     */
+    public function render();
+
+    /**
+     * Store the View instance that this engine will be rendering.
+     *
+     * @param View View instance
+     * @return void
+     */
+    public function setView(View $view);
 }
-?>
