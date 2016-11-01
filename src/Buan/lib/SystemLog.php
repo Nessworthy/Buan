@@ -15,7 +15,7 @@ class SystemLog {
 	# @properties Constants for each type of log message
 	#
 	# TODO: Need to get down a list of where to use each type of log message for some consitency. Also perhaps rename error
-	#	related messages to "E_*" and feedback/information messages to "I_*". Also introduce user-defined meesage
+	#	related messages to "E_*" and feedback/information messages to "I_*". Also introduce user-defined message
 	#	types prefixed with "U", eg. "UE_NOTICE", "UI_ALERT"
 	#
 	# TYPE_INFO	= General, non-critical information feedback
@@ -47,21 +47,22 @@ class SystemLog {
 	*/
 	static $log = array();
 
-	/*
-	# @metho void add( string|array $message, [[int $type], $uniqueCode] )
-	# $message	= Log message
-	# $type		= Message type
-	# $code		= Unique code for this message
-	#
-	# Adds an entry to the message log.
-	# If you pass the $message as an array, then the first element in that array
-	# is treated as the textual message and all subsequent elements are inserted
-	# into placeholders within that message using sprintf().
+	/**
+	* Adds an entry to the message log.
+	* If you pass the $message as an array, then the first element in that array
+	* is treated as the textual message and all subsequent elements are inserted
+	* into placeholders within that message using sprintf().
+	*
+	* @param string Log message
+	* @param int Message type
+	* @param int Unique code for this message
+	* @param bool If TRUE then the message will be treated as containing HTML
+	* @return void
 	*/
-	static function add($message, $type=SystemLog::CORE, $code=0) {
+	static function add($message, $type=SystemLog::CORE, $code=0, $isHtml=FALSE) {
 
 		// Add to the log
-		self::$log[] = new SystemLogEntry($message, $type, $code);
+		self::$log[] = new SystemLogEntry($message, $type, $code, $isHtml);
 	}
 
 	/*

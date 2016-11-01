@@ -4,7 +4,7 @@
 *
 * Specify the raw source via $view->setSource('...template source here...').
 *
-* @package Scribble
+* @package Ias
 */
 namespace Buan;
 class StringViewEngine implements IViewEngine {

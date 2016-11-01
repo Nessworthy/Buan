@@ -75,7 +75,7 @@ class ExtensionManager {
 					'controllers'=>NULL
 				),
 				'docRoot'=>dirname($class),
-				'urlRoot'=>"/".dirname($class)
+				'urlRoot'=>"/".basename(dirname($class))
 			));
 		}
 	}

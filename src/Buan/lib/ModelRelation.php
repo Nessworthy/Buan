@@ -184,7 +184,7 @@ class ModelRelation {
 		$this->limit = $cardinality==ModelRelation::ONE_TO_MANY ? (isset($limit) ? (int)$limit : NULL) : NULL;
 		$this->nativeKey = !isset($nativeKey) ? ($cardinality==self::MANY_TO_ONE ? Inflector::modelName_dbTableName($modelTarget).'_id' : 'id') : $nativeKey;
 		$this->foreignKey = !isset($foreignKey) ? ($cardinality==self::ONE_TO_MANY ? Inflector::modelName_dbTableName($modelSource).'_id' : 'id') : $foreignKey;
-		$this->options = !isset($options) ? array() : $options;
+		$this->options = !isset($options) ? array() : (!is_array($options) ? explode(",", $options) : $options);
 
 		// Determine if this is a recursive relationship
 		$this->isRecursive = $this->modelSource==$this->modelTarget ? TRUE : FALSE;
@@ -261,6 +261,12 @@ class ModelRelation {
 			$mLink = preg_replace("/\(.+$/", "", $components[1]);
 			$mTarget = preg_replace("/\(.+$/", "", $components[2]);
 			$mSourceKey = $mTargetKey = NULL;
+			if(strpos($mSource, ".")) {
+				list($mSource, $mSourceKey) = explode(".", $mSource);
+			}
+			if(strpos($mTarget, ".")) {
+				list($mTarget, $mTargetKey) = explode(".", $mTarget);
+			}
 			$mLinkSourceKey = Inflector::modelName_dbTableName($mSource).'_id';
 			$mLinkTargetKey = Inflector::modelName_dbTableName($mTarget).'_id';
 			if(strpos($mSource, ".")!==FALSE) {
@@ -278,14 +284,18 @@ class ModelRelation {
 				'modelSource'=>$mSource,
 				'modelTarget'=>$mTarget,
 				'cardinality'=>ModelRelation::MANY_TO_MANY,
-				'modelLink'=>$mLink
+				'modelLink'=>$mLink,
+				'nativeKey'=>$mSourceKey,
+				'foreignKey'=>$mTargetKey
 			));
 			if($mSource!=$mTarget) {
 				self::$relationships[$mTarget][$mSource][$relationRef] = new ModelRelation(array(
 					'modelSource'=>$mTarget,
 					'modelTarget'=>$mSource,
 					'cardinality'=>ModelRelation::MANY_TO_MANY,
-					'modelLink'=>$mLink
+					'modelLink'=>$mLink,
+					'nativeKey'=>$mSourceKey,
+					'foreignKey'=>$mTargetKey
 				));
 
 				self::define("{$components[0]}:{$mLink}.{$mLinkSourceKey}(M)", $options, $relationRef, $mTarget);
@@ -299,7 +309,9 @@ class ModelRelation {
 					'modelTarget'=>$mTarget,
 					'cardinality'=>ModelRelation::MANY_TO_MANY,
 					'modelLink'=>$mLink,
-					'reference'=>self::REF_CHILD
+					'reference'=>self::REF_CHILD,
+					'nativeKey'=>$mSourceKey,
+					'foreignKey'=>$mTargetKey
 				));
 
 				self::define("{$components[0]}:{$mLink}.{$mLinkSourceKey}(M)", $options, self::REF_PARENT);
@@ -499,7 +511,7 @@ class ModelRelation {
 		}
 
 		// Try to construct a M:M relationship 
-		if(isset(self::$relationships[$modelSource])) {
+		/*if(isset(self::$relationships[$modelSource])) {
 			$relationRef = $relationRef===NULL ? self::REF_DEFAULT : $relationRef;
 			foreach(self::$relationships[$modelSource] as $linkModel=>$relation) {
 				if(isset(self::$relationships[$linkModel][$modelTarget][$relationRef])) {
@@ -512,7 +524,7 @@ class ModelRelation {
 						));
 				}
 			}
-		}
+		}*/
 
 		// If all else fails, return a ModelRelation with NONE cardinality
 		SystemLog::add("No relationship has been defined for {$modelSource}:{$modelTarget}", SystemLog::CORE);
@@ -681,6 +693,10 @@ class ModelRelation {
 		return $this->cardinality==self::MANY_TO_MANY;
 	}
 
+	public function isNone() {
+		return $this->cardinality===self::NONE;
+	}
+
 	public function getManyToManyRelation() {
 
 		return $this->getLinkModel()===NULL ? new ModelRelation() : ModelRelation::getRelation($this->isOneToMany() ? $this->modelSource : $this->modelTarget, $this->modelLink);
@@ -744,6 +760,20 @@ class ModelRelation {
 				'modelTarget'=>$modelSource, 
 				'cardinality'=>self::NONE
 			));
+		}
+	}
+
+	/**
+	* Undefines a relationship.
+	*
+	* @param string
+	* @param string
+	* @param string
+	* @return void
+	*/
+	public static function undefine($modelSource, $modelTarget, $relationRef) {
+		if(isset(self::$relationships[$modelSource][$modelTarget][$relationRef])) {
+			unset(self::$relationships[$modelSource][$modelTarget][$relationRef]);
 		}
 	}
 }

@@ -40,19 +40,24 @@ class Html {
 
 	/**
 	* Echos/returns the given string after converting applicable characters into
-	* their HTML entitiy equivalents.
+	* their HTML entity equivalents.
 	*
 	* @param string String to encode
 	* @param bool If TRUE the string is echoed to output, or returned otherwise
 	* @return string|void
 	*/
 	public function e($str, $echo=TRUE) {
-		$str = htmlentities($str, ENT_COMPAT, 'UTF-8');
+		$strc = htmlentities($str, ENT_COMPAT, 'UTF-8');
+
+		if(empty($strc) && !empty($str)) {
+			error_log('Bad UTF8 decoding: [' . $_SERVER['REQUEST_URI'] .']');
+			$strc = htmlentities(utf8_encode($str), ENT_COMPAT, 'UTF-8');
+		}
 		if($echo) {
-			echo $str;
+			echo $strc;
 		}
 		else {
-			return $str;
+			return $strc;
 		}
 	}
 
@@ -67,7 +72,10 @@ class Html {
 	*/
 	public function eUrl($str, $echo=TRUE) {
 		$url = htmlentities($str, ENT_COMPAT, 'UTF-8');
-		if(strpos($url, "?")!==FALSE) {
+		if($url[0]=='#') {
+			return $url;
+		}
+		else if(strpos($url, "?")!==FALSE) {
 			$url = str_replace("?", "{$this->urlSuffix}?", $url);
 		}
 		else {

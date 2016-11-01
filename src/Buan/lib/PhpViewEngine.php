@@ -2,7 +2,7 @@
 /**
 * Renderer for PHP templates.
 *
-* @package Scribble
+* @package Ias
 */
 namespace Buan;
 class PhpViewEngine implements IViewEngine {

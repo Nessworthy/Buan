@@ -7,7 +7,14 @@
 namespace Buan;
 class Inflector {
 
-	/*------------------------------------------------------------ GENERIC METHODS
+	/*-------------------------------------------------------- GENERIC CONVERSIONS
+	# These methods take any string and convert to a format.
+	*/
+	static public function toLowerHyphenated($input) {
+		return str_replace(" ", "-", preg_replace("/[^a-z0-9\-]+/i", " ", strtolower($input)));
+	}
+
+	/*------------------------------------------------------- SPECIFIC CONVERSIONS
 	# These methods are generic conversions that are used by the more specific
 	# methods described further below.
 	*/

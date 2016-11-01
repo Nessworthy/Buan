@@ -21,7 +21,7 @@ class ModelManager {
 	* ModelManager::create()
 	*
 	* @param string Name of the Model for which this is the ModelManager
-	* @return Buan\ModelManager
+	* @return \Buan\ModelManager
 	*/
 	public function __construct($modelName) {
 
@@ -34,7 +34,7 @@ class ModelManager {
 	* that is used for performing CRUD actions on Models of the type specified.
 	*
 	* @param string The name of the Model whose manager we want to retrieve
-	* @return Buan\ModelManager
+	* @return \Buan\ModelManager
 	*/
 	final static public function create($modelName) {
 
@@ -65,7 +65,7 @@ class ModelManager {
 	*
 	* @todo There's question of recursion happening. Suck it and see.
 	*
-	* @param Buan\Model Model to be deleted
+	* @param \Buan\Model Model to be deleted
 	* @return bool
 	*/
 	public function delete($model) {
@@ -93,7 +93,7 @@ class ModelManager {
 		$original_isInDatabase = $model->isInDatabase();
 		$original_hasChanged = $model->hasChanged();
 		try {
-			// Prepare and execute
+			// Delete the model itself from the db
 			$sql = 'DELETE FROM `'.$model->getDbTableName().'` WHERE '.$model->getPrimaryKey().'=?';
 			$stmt = $DB->prepare($sql);
 			$stmt->execute(array($model->getPrimaryKeyValue()));
@@ -117,6 +117,7 @@ class ModelManager {
 								if(!$rModel->getModelManager()->delete($rModel)) {
 									// TODO: Do we rollback here?
 								}
+								//$model->disownRelatives($rModel);
 							}
 						}
 
@@ -143,8 +144,11 @@ class ModelManager {
 					case ModelRelation::MANY_TO_ONE:
 
 						// Break relation between Models
-						$relatedModel = $model->findRelatives($relation->getTargetModel(), $relation->getReference())->get(0);
-						if($relatedModel!==NULL) {
+						//$relatedModel = $model->findRelatives($relation->getTargetModel(), $relation->getReference())->get(0);
+						$relatedModel = $model->findRelatives($relation->getTargetModel(), $relation->getReference());
+						//if($relatedModel!==NULL) {
+						if(!$relatedModel->isEmpty()) {
+							//$model->disownRelatives($relatedModel);
 							$model->disownRelatives($relatedModel);
 						}
 						break;
@@ -201,7 +205,7 @@ class ModelManager {
 	* Returns TRUE on a successful load, FALSE otherwise. Throws an Exception if
 	* anything unexpected happens.
 	*
-	* @param Buan\Model This instance will be populated with content from the db
+	* @param \Buan\Model This instance will be populated with content from the db
 	* @return bool
 	*/
 	public function load($model) {
@@ -263,7 +267,7 @@ class ModelManager {
 	/**
 	* Refresh the Model by reloading it's field data from the database.
 	*
-	* @param Buan\Model Model to be re-loaded.
+	* @param \Buan\Model Model to be re-loaded.
 	* @return bool
 	*/
 	public function refresh($model) {
@@ -279,7 +283,7 @@ class ModelManager {
 	*
 	* Returns TRUE on a successful save, FALSE otherwise.
 	*
-	* @param Buan\Model Model to save
+	* @param \Buan\Model Model to save
 	* @param bool
 	*/
 	public function save($model) {
@@ -419,6 +423,10 @@ class ModelManager {
 			catch(PDOException $e) {
 				SystemLog::add($e->getMessage(), SystemLog::WARNING);
 			}
+
+			// Log it too, please.
+			error_log($e->getMessage());
+
 			return FALSE;
 		}
 	}
@@ -427,8 +435,8 @@ class ModelManager {
 	* Returns an array of Models of the specified type, according to any given criteria.
 	*
 	* @param string Name of the Model type to be selected
-	* @param Buan\ModelCriteria Filter resluts on this criteria
-	* @return Buan\ModelCollection
+	* @param \Buan\ModelCriteria Filter resluts on this criteria
+	* @return \Buan\ModelCollection
 	*/
 	static public function select($modelName, $criteria=NULL) {
 
@@ -479,7 +487,7 @@ class ModelManager {
 	* use it instead of the fetchAll() solution.
 	*
 	* @param string Name of the Model type to be selected
-	* @param Buan\ModelCriteria Filter by this criteria
+	* @param \Buan\ModelCriteria Filter by this criteria
 	* @return int
 	*/
 	static public function selectCount($modelName, $criteria=NULL) {
@@ -567,11 +575,11 @@ class ModelManager {
 	* Just try to keep all database code within your Model or ModelManager
 	* classes.
 	*
-	* @param string|Buan\ModelCriteria The query to execute
+	* @param string|\Buan\ModelCriteria The query to execute
 	* @param array Parameters to bind to the query
 	* @param string The DB connection through which the query will be executed
-	* @return PDOStatement
-	* @throws PDOException
+	* @return \PDOStatement
+	* @throws \PDOException
 	*/
 	static public function sqlQuery($sql, $params=array(), $connection=NULL) {
 
@@ -621,7 +629,7 @@ class ModelManager {
 	/**
 	* Updates an existing Model.
 	*
-	* @param Buan\Model Model to be updated
+	* @param \Buan\Model Model to be updated
 	* @param bool
 	*/
 	public function update($model) {

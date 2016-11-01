@@ -92,7 +92,9 @@ class Database {
 		try {
 			// Construct DSN if it hasn't been explicitly defined in $connection
 			if(isset($connection['dsn'])) {
-				// do nothing
+				if(preg_match("/dbname=([a-z0-9_]+)?$/i", $connection['dsn'], $m)) {
+					$connection['database'] = $m[1];
+				}
 			}
 			else if($connection['driver']=='mysql') {
 				$connection['dsn'] = 'mysql:host='.$connection['host'].';dbname='.$connection['database'];
@@ -108,6 +110,7 @@ class Database {
 			else {
 				throw new Exception('Database DSN cannot be resolved.');
 			}
+			self::$connections[$connectionName] = $connection;
 
 			// Attempt connection
 			$connResource = new PdoWrapper($connection['dsn'], @$connection['username'], @$connection['password'], @$connection['options']);

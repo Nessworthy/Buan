@@ -61,6 +61,8 @@ class View extends EventDispatcher {
 	*/
 	private $javascripts = array();
 
+	private $javascriptsLoader = NULL;
+
 	/**
 	* The View that will be used to render the Javascript sources to $this. The
 	* class used by this instance is the same as that used by $this.
@@ -114,6 +116,11 @@ class View extends EventDispatcher {
 	* @var array
 	*/
 	private $v = array();
+	
+	/**
+	 *  Holds the file version for the current asset tag to use.
+	 */
+	private $assetVersion;
 
 	/**
 	* Constructor.
@@ -173,6 +180,18 @@ class View extends EventDispatcher {
 	function __set($varName, $varValue) {
 		$this->v[$varName] = $varValue;
 	}
+	
+	function getAssetVersion(){
+		if(is_null($this->assetVersion)){
+			if(file_exists(Config::get('ext.Ias.dir.resources').'/current-version.txt')){
+				$add = "?v=".file_get_contents(Config::get('ext.Ias.dir.resources').'/current-version.txt');
+			} else {
+				$add = "?v=".date('dmy');
+			}
+			$this->assetVersion = $add;
+		}
+		return $this->assetVersion;
+	}
 
 	/**
 	* Adds external Javascript sources to the View.
@@ -187,28 +206,59 @@ class View extends EventDispatcher {
 	*/
 	public function addJavascripts() {
 
-		// Add Javascripts
+		// Get unique list of new javascripts to be added
 		$view = $this->getJavascriptsView();
 		$args = func_get_args();
-		if(!empty($args)) {
-			$this->javascripts = array_unique(array_merge($this->javascripts, $args));
+		if(empty($args)) {
+			return;
 		}
-
-		// Update the Javascripts View's source
-		$output = '';
-		foreach($this->javascripts as $src) {
-			$output .= "<script type=\"text/javascript\" src=\"{$src}\"></script>\n";
+		$toAdd = array_diff($args, $this->javascripts);
+		$src = $this->javascriptsView->getSource();
+		
+		$add = $this->getAssetVersion();
+		
+		// Add scripts to the js loader
+		if(($loader = $this->getJavascriptsLoader())!==NULL) {
+			if(empty($src)) {
+				if(substr($s, 0, 4)=='http' || substr($s, 0, 2)=='//') {
+					// Don't add variable to external scripts
+					$src = "<script src=\"{$loader}?\" type=\"text/javascript\"></script>\n";
+				} else {
+					$src = "<script src=\"{$loader}{$add}?\" type=\"text/javascript\"></script>\n";
+				}
+			}
+			foreach($toAdd as $s) {
+				if(substr($s, 0, 4)=='http' || substr($s, 0, 2)=='//') {
+					$src = "<script type=\"text/javascript\" src=\"{$s}\"></script>\n{$src}";
+				} else {
+					$src = str_replace('" type=', 's[]='.urlencode($s).'?'.$add.'&" type=', $src);
+				}
+			}
+			$this->javascriptsView->setSource($src);
+		} else {
+			// Add individual <script> tags for each source
+			foreach($toAdd as $s) {
+				if(substr($s, 0, 4)=='http' || substr($s, 0, 2)=='//') {
+					// don't add variable to external scripts.
+					$src .= "<script type=\"text/javascript\" src=\"{$s}\"></script>\n";
+				} else {
+					$src .= "<script type=\"text/javascript\" src=\"{$s}{$add}\"></script>\n";
+				}
+			}
+			$this->javascriptsView->setSource($src);
 		}
-		$this->javascriptsView->setSource($output);
 	}
 
 	/**
 	* Adds external stylesheet sources to the View.
-	* The first argument given is special and can take the form of either a URL or
-	* one of the following key phrases: screen | print | all | screen,print
+	* The first argument given is special and can take the form of either a URL, a
+	* conditional IE statement or one of the following key phrases:
+	*		screen | print | all | screen,print
 	*
 	* If one of these phrases is used then it will be included in the "media"
 	* attribute of the <link> nodes.
+	*
+	* If a conditional statement
 	*
 	* @example From within a PHP template:
 	* <code>
@@ -221,28 +271,52 @@ class View extends EventDispatcher {
 	*/
 	public function addStylesheets() {
 
-		// Determine media
+		// Determine conditional
 		$args = func_get_args();
+		$conditional = strpos($args[0], " IE ")!==FALSE ? array_shift($args) : NULL;
+        
+		// Determine media
 		$media = 'all';
 		$medium = array('screen', 'print', 'screen,print', 'print,screen', 'all');
 		if(in_array(strtolower(str_replace(" ", "", $args[0])), $medium)) {
 			$media = array_shift($args);
 		}
-
+		
+		$add = $this->getAssetVersion();
+		
 		// Add stylesheets
 		$view = $this->getStylesheetsView();
 		if(!empty($args)) {
-			if(!isset($this->stylesheets[$media])) {
+			/*if(!isset($this->stylesheets[$media])) {
 				$this->stylesheets[$media] = array();
 			}
-			$this->stylesheets[$media] = array_unique(array_merge($this->stylesheets[$media], $args));
+			$this->stylesheets[$media] = array_unique(array_merge($this->stylesheets[$media], $args));*/
+			foreach($args as $a) {
+				$this->stylesheets[] = (object)array(
+					'conditional'=>$conditional,
+					'media'=>$media,
+					'url'=>$a
+				);
+			}
 		}
 
 		// Update the stylesheets View's source
 		$output = '';
-		foreach($this->stylesheets as $m=>$srcs) {
-			foreach($srcs as $src) {
-				$output .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"{$src}\" media=\"{$m}\" />\n";
+		$done = array();
+		foreach($this->stylesheets as $m=>$src) {
+			if(!isset($done[$src->url])) {
+				if(substr($src->url, 0, 4)=='http' || substr($src->url, 0, 2)=='//') {
+					// Don't add the variable if we're loading a remote script.
+					$thisSrc = $src->url;
+				} else {
+					if(substr($src->url,-4)==".css"){
+						$thisSrc = $src->url.$add;
+					} else {
+						$thisSrc = $src->url;
+					}
+				}
+				$output .= $src->conditional!==NULL ? "<!--[if {$src->conditional}]><link rel=\"stylesheet\" type=\"text/css\" href=\"{$thisSrc}\" media=\"{$src->media}\"  /><![endif]-->\n" : "<link rel=\"stylesheet\" type=\"text/css\" href=\"{$thisSrc}\" media=\"{$src->media}\" />\n";
+				$done[$src->url] = TRUE;
 			}
 		}
 		$this->stylesheetsView->setSource($output);
@@ -299,6 +373,10 @@ class View extends EventDispatcher {
 		return isset($this->headers[$header]) ? $this->headers[$header] : '';
 	}
 
+	public function getJavascriptsLoader() {
+		return $this->javascriptsLoader;
+	}
+
 	/**
 	* Returns a View that generates the <script> nodes for each Javascript
 	* resource when rendered.
@@ -307,9 +385,9 @@ class View extends EventDispatcher {
 	*/
 	public function getJavascriptsView() {
 		if($this->javascriptsView===NULL) {
-			//$className = get_class($this);
 			$this->javascriptsView = new View(new StringViewEngine());
 		}
+        
 		return $this->javascriptsView;
 	}
 
@@ -318,7 +396,7 @@ class View extends EventDispatcher {
 	* slot does not exist.
 	*
 	* @param string ID of the slot you want to retrieve
-	* @return Buan\View
+	* @return \Buan\View
 	*/
 	public function getSlot($slotId) {
 		if(isset($this->slots[$slotId])) {
@@ -328,6 +406,18 @@ class View extends EventDispatcher {
 			SystemLog::add("There is no View object in slot \"{$slotId}\"", SystemLog::WARNING);
 			return new View();
 		}
+	}
+
+	/**
+	 * Check whether there's a view stored for a specific slot.
+	 * @param string $slotId The ID of the slot to check against.
+	 * @return bool True if there is a view, false if not.
+	 */
+	public function hasSlot($slotId) {
+		if(isset($this->slots[$slotId])) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -410,6 +500,9 @@ class View extends EventDispatcher {
 	* @return string
 	*/
 	function render() {
+        
+		// Invoke "onprerender" event
+		$this->dispatchEvent(new Event('onprerender'));
 
 		// Send headers
 		// Thanks to output buffering nested Views can set headers too without
@@ -423,10 +516,10 @@ class View extends EventDispatcher {
 
 		// Invoke the rendering engine
 		$this->buffer = $this->engine->render();
-
+        
 		// Invoke "onrender" event
 		$this->dispatchEvent(new Event('onrender'));
-
+        
 		// Result
 		return $this->buffer;
 	}
@@ -479,6 +572,20 @@ class View extends EventDispatcher {
 	*/
 	function setHeader($header, $value=NULL) {
 		$this->headers[$header] = $value;
+	}
+
+	/**
+	* Define a script that will be used to load all external javascript sources
+	* in one HTTP request.
+	*
+	* NOTE: Any js sources beginning with "http" will NOT be sent to the loader
+	* script.
+	*
+	* @param string Absolute URL to the loader script
+	* @return void
+	*/
+	function setJavascriptsLoader($loader) {
+		$this->javascriptsLoader = $loader;
 	}
 
 	/**

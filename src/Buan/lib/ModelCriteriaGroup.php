@@ -62,7 +62,7 @@ class ModelCriteriaGroup {
 	# $fieldValue as a 2-element array; the first is the actual value, and the
 	# second is the data-type.
 	#
-	# Special case, ModelCriteria::IN ...
+	# Special case, ModelCriteria::IN, ModelCriteria::NOT_IN ...
 	# When using this clause type, $fieldValue is expected to be an array. The
 	# elements in this array are all assumed to be PDO::PARAM_STR (strings) and
 	# will be concatenated in the generated SQL as a comma separate list of
@@ -74,7 +74,7 @@ class ModelCriteriaGroup {
 
 		// TODO:
 		// Allow $fieldValue to be an array if you want to specify a datatype, $fieldValue = (value, dataType (PDO const)
-		// What about ModelCriteria::IN clause types - they use an array already (so should FIND_IN_SET for consistency.
+		// What about ModelCriteria::IN and ModelCriteria::NOT_IN clause types - they use an array already (so should FIND_IN_SET for consistency.
 		// Therefore, first check the clause type, then $fieldValue type.
 		// Or, perhaps, if clause type is an array, first change it to a comma-separated list of parameter bindings, each one
 		// being treated as a string (the default)
@@ -87,7 +87,7 @@ class ModelCriteriaGroup {
 		}
 		else {
 			$clause->binding = new StdClass();
-			if($type===ModelCriteria::IN) {
+			if($type===ModelCriteria::IN || $type===ModelCriteria::NOT_IN) {
 				$clause->binding = array();
 				$paramPrefix = ':p'.md5(uniqid(rand()));
 				$value = array();
@@ -100,6 +100,21 @@ class ModelCriteriaGroup {
 					$value[] = $nb->parameter;
 				}
 				$value = implode(", ", $value);
+			}
+			else if ($type===ModelCriteria::BETWEEN) {
+				$clause->binding = array();
+				$paramPrefix = ':p'.md5(uniqid(rand()));
+				$value = array();
+				$fieldValue = array_splice($fieldValue, 0, 2);
+				foreach($fieldValue as $i=>$v) {
+					$nb = new StdClass();
+					$nb->value = $v;
+					$nb->dataType = PDO::PARAM_STR;
+					$nb->parameter = $paramPrefix.'_'.$i;
+					$clause->binding[] = $nb;
+					$value[] = $nb->parameter;
+				}
+				$value = implode(" AND ", $value);
 			}
 			else if(is_array($fieldValue)) {
 				$clause->binding->value = $fieldValue[0];
@@ -133,6 +148,9 @@ class ModelCriteriaGroup {
 			case ModelCriteria::GREATER_THAN:
 				$clause->expression = "$fieldName>$value";
 				break;
+			case ModelCriteria::GREATER_THAN_OR_EQUAL:
+				$clause->expression = "$fieldName>=$value";
+				break;
 			case ModelCriteria::LESS_THAN:
 				$clause->expression = "$fieldName<$value";
 				break;
@@ -150,6 +168,12 @@ class ModelCriteriaGroup {
 				break;
 			case ModelCriteria::IN:
 				$clause->expression = "$fieldName IN ($value)";
+				break;
+			case ModelCriteria::NOT_IN:
+				$clause->expression = "$fieldName NOT IN ($value)";
+				break;
+			case ModelCriteria::BETWEEN:
+				$clause->expression = "$fieldName BETWEEN $value";
 				break;
 			default:
 				return;
@@ -253,6 +277,9 @@ class ModelCriteriaGroup {
 					case ModelCriteria::IN:
 						// TODO
 						break;
+					case ModelCriteria::NOT_IN:
+						// TODO
+						break;
 					default:
 						return;
 						break;
@@ -309,7 +336,7 @@ class ModelCriteriaGroup {
 			$clauseExpressions[] = $clause->expression;
 			if($clause->binding!==NULL) {
 				if(is_array($clause->binding)) {
-					// ie. ModelCriteria::IN has been used
+					// ie. ModelCriteria::IN or ModelCriteria::NOT_IN has been used
 					foreach($clause->binding as $b) {
 						$sql->bindings[$b->parameter] = $b;
 					}

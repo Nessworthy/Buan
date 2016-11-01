@@ -30,6 +30,13 @@ class SystemLogEntry {
 	*/
 	private $code;
 
+	/**
+	* Defines whether or not the message contains HTML markup.
+	*
+	* @var string
+	*/
+	private $isHtml;
+
 	/*
 	# @property array $callStack
 	# Stores the results of debug_backtrace()
@@ -44,7 +51,7 @@ class SystemLogEntry {
 	#
 	# Creates a new SystemLogEntry object.
 	*/
-	public function __construct($message, $type, $code) {
+	public function __construct($message, $type, $code, $isHtml) {
 
 		// Store properties
 		if(is_array($message)) {
@@ -57,6 +64,7 @@ class SystemLogEntry {
 		}
 		$this->type = $type;
 		$this->code = $code;
+		$this->isHtml = $isHtml;
 		$this->callStack = debug_backtrace();
 	}
 
@@ -103,6 +111,16 @@ class SystemLogEntry {
 
 		// result
 		return $this->code;
+	}
+
+	/**
+	* Returns whether or not this message is in HTML format (ie. contains markup
+	* That should not be escaped when output.)
+	*
+	* @param bool
+	*/
+	public function isMessageHtml() {
+		return $this->isHtml;
 	}
 
 	/*

@@ -98,6 +98,19 @@ class PdoWrapper extends PDO {
 		}
 	}
 
+	/**
+	* Cache prepared statements
+	*
+	* @return PDOStatement
+	*/
+	public function prepare($query, $options=array()) {
+		static $cache = NULL;
+		if(!isset($cache[$query])) {
+			$cache[$query] = parent::prepare($query, $options);
+		}
+		return $cache[$query];
+	}
+
 	/*
 	# @method bool rollBack()
 	#

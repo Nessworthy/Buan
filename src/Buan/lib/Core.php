@@ -111,14 +111,23 @@ class Core {
 			$cr = Config::get('app.command.requested');
 			$urlPath = $cr=='' ? Config::get('app.command.default') : $cr;
 		}
+        
+        // Check if the site is default - if not, modify the views directory so we serve the new templates
+        $site = \SiteManager::getCurrentSite();
+        if (!$site->isdefault) {
+            Config::set('app.dir.views', Config::get('app.dir.views') . '-new');
+        }
 
 		// Create and execute the command then attach the resulting View to the
 		// GlobalView's "action" slot.
 		$command = UrlCommand::create($urlPath);
-		$commandView = $command->execute();
-		$globalView = View::getGlobalView();
-		$globalView->attachViewToSlot($commandView, 'action');
 
+		$commandView = $command->execute();
+
+		$globalView = View::getGlobalView();
+
+		$globalView->attachViewToSlot($commandView, 'action');
+        
 		// Render the GlobalView
 		echo $globalView->render();
 	}

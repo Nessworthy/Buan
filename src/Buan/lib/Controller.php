@@ -106,17 +106,17 @@ class Controller {
 	* @return Buan\View
 	*/
 	final public function invokeAction($actionCommand) {
-
+        
 		// Convert the action name to the format used for class method names
 		// (ie. ActionName)
 		$actionMethodName = Inflector::actionCommand_actionMethod($actionCommand);
-
+        
 		// Disregard this invocation if the $actionMethodName is listed in the
 		// $allPrivateMethods array
 		if(in_array($actionMethodName, $this->allPrivateMethods)) {
 			return $this->unknown($this->params, $actionMethodName);
 		}
-
+        
 		// Invoke the method (ensuring it's "public"), or the 'unknown' method
 		// if it doesn't exist
 		if(method_exists($this, $actionMethodName)) {

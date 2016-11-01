@@ -46,7 +46,7 @@ class Model {
 	* ProductCategoryModel class.
 	*
 	* @param string Name of the Model you want to create (UpperCamelCaps format)
-	* @return Buan\Model
+	* @return \Buan\Model
 	*/
 	static public function create($modelName=NULL) {
 
@@ -88,7 +88,7 @@ class Model {
 	* - The initial primary key value(s) (if applicable)
 	*
 	* @param string Name of the Model you want to create (UpperCamelCaps format)
-	* @return Buan\Model
+	* @return \Buan\Model
 	*/
 	public function __construct($modelName=NULL) {
 
@@ -269,10 +269,13 @@ class Model {
 	* will be linked via the $relationRef reference, and $model will be linked
 	* via the $invRelationRef.
 	*
+	* If adding a M:M relation, the linking model will be returned.
+	*
 	* @param Model|ModelCollection Model(s) to add
 	* @param string Relationship reference under which models will be added
 	* @param string $invRelationRef Inverse relationship (only required for
 	*		recursive M:M relationships)
+	* @return \Buan\Model|NULL
 	*/
 	public function addRelatives($model, $relationRef=ModelRelation::REF_DEFAULT, $invRelationRef=NULL) {
 
@@ -284,7 +287,6 @@ class Model {
 			}
 			return;
 		}
-
 		// Determine the relationship between $this and $model
 		$relation = ModelRelation::getRelation($this->modelName, $model->modelName, $relationRef);
 		if($invRelationRef!==NULL) {
@@ -297,23 +299,31 @@ class Model {
 		// both those relationships.
 		if($relation->isManyToMany()) {
 
+			// Create an instance of the linking model
+			$linkModel = Model::create($relation->getLinkModel());
+
 			// If $this and $model are both persistent then there's chance that a
 			// linking model also exists in the db, so look for it. We also look at
 			// in-memory Models already related to $this to see if any of them fit the
 			// request
-			$linkModel = Model::create($relation->getLinkModel());
-			$c = new ModelCriteria();
+			/*$c = new ModelCriteria();
 			$c->addClause(ModelCriteria::EQUALS, $linkModel->getForeignKey($this), $this->getPrimaryKeyValue());
 			$c->addClause(ModelCriteria::EQUALS, $linkModel->getForeignKey($model), $model->getPrimaryKeyValue());
 			$links = $this->findRelatives($linkModel->modelName, $c, $relation->getReference());
 			if(!$links->isEmpty()) {
 				// A link already exists so don't do anything
 				return;
-			}
+			}*/
+
+			// TODO: Have commented out the above, so it's up to the user to first
+			// determine if another linking model already exists that satisfies the
+			// relationships. HOWEVER, we need to implement a check if there is a
+			// "limit" on the M:M relationship - ie. if only one link can exist
+			// between 2 models then enforce that limit.
 
 			// Nope? Ok, if the relationship is non-recursive then create simple
 			// reference to each other
-			else if(!$relation->isRecursive()) {
+			if(!$relation->isRecursive()) {
 				$linkModel->addRelatives($this, $relation->getReference());
 				$linkModel->addRelatives($model, $relation->getReference());
 			}
@@ -347,7 +357,7 @@ class Model {
 					SystemLog::add('When adding a related Model via a M:M relationship, you must specify the reverse relation reference (usually REF_PARENT or REF_CHILD).', SystemLog::CORE);
 				}
 			}
-			return;
+			return $linkModel;
 		}
 
 		// 1:M (and 1:1, ie. 1:M,1)
@@ -463,16 +473,18 @@ class Model {
 	*
 	* @param Model|ModelCollection|array Model(s) to disown
 	* @param string $relationRef Relationship reference to use when disowning
+	* @param ModelCollection Any linking models that should be manually removed
 	*/
 	public function disownRelatives($model, $relationRef=NULL) {
 
 		// If a collection or an array of models has been specified, disown each one
 		// individually
+		$linkCollection = new ModelCollection();
 		if(is_array($model) || $model instanceof ModelCollection) {
 			foreach($model as $m) {
-				$this->disownRelatives($m, $relationRef);
+				$linkCollection->append($this->disownRelatives($m, $relationRef));
 			}
-			return;
+			return $linkCollection;
 		}
 
 		// Handle multiple relationship references by calling each one
@@ -481,9 +493,9 @@ class Model {
 		if(is_array($relation)) {
 			$processed = array();
 			foreach($relation as $rel) {
-				$this->disownRelatives($model, $rel->getReference());
+				$linkCollection->append($this->disownRelatives($model, $rel->getReference()));
 			}
-			return;
+			return $linkCollection;
 		}
 
 		// Act on relationship
@@ -547,6 +559,11 @@ class Model {
 					}
 				}
 
+				// As well as the above, return a list of persistent linking models that
+				// should be removed in order to disband the relationship between $this
+				// and $model
+				$linkCollection->append($this->findLinkingRelatives($model));
+
 				// Done
 				break;
 
@@ -554,17 +571,40 @@ class Model {
 			default:
 				break;
 		}
+
+		return $linkCollection;
 	}
 
 	/**
 	* Returns a collection of "linking models" that link $this with $model.
 	*
-	* @param Buan\Model Find models that link $this with $model
-	* @return Buan\ModelCollection
+	* @param \Buan\Model Find models that link $this with $model
+	* @return \Buan\ModelCollection
 	*/
 	public function findLinkingRelatives($model, $criteriaOrRelationRef=NULL, $relationRef=NULL) {
 
-		// TODO
+		$criteria = new ModelCriteria();
+		if(is_string($criteriaOrRelationRef)) {
+			$relationRef = $criteriaOrRelationRef;
+		}
+		else if($criteriaOrRelationRef instanceof ModelCriteria) {
+			$criteria = $criteriaOrRelationRef;
+		}
+
+		$relation = ModelRelation::getRelation($this->modelName, $model->modelName, $relationRef);
+		if(is_array($relation)) {
+			$result = array();
+			foreach($relation as $r) {
+				$results[$r->getReference()] = $this->findLinkingRelatives($model, $criteriaOrRelationRef, $r->getReference());
+			}
+			return $result;
+		}
+
+		$linkModel = Model::create($relation->getLinkModel());
+
+		//$criteria->addClause(ModelCriteria::EQUALS, $linkModel->getForeignKey($this), $this->getPrimaryKeyValue());
+		$criteria->addClause(ModelCriteria::EQUALS, $linkModel->getForeignKey($model), $model->getPrimaryKeyValue());
+		return $this->findRelatives($linkModel->modelName, $criteria, $relation->getReference());
 	}
 	
 
@@ -636,7 +676,7 @@ class Model {
 		}
 		$relation = ModelRelation::getRelation($this->modelName, $modelName, $relationRef);
 
-		// If mutliple relations are available between $this and $modelName, and the
+		// If multiple relations are available between $this and $modelName, and the
 		// caller hasn't specified which of these relationships to use (ie.
 		// $relationRef===NULL) then assume we're dealing with a recursive
 		// relationship and return an array of ModelCollections for each
@@ -701,20 +741,26 @@ class Model {
 					$targetModelName = $relation->getTargetModel();
 					$targetModel = Model::create($targetModelName);
 					if($criteria===NULL) {
+						$pkv = $this->{$relation->getNativeKey()}; //$this->getPrimaryKeyValue();
 						$c = new ModelCriteria();
 						$c->addClause(ModelCriteria::EQUALS,
 							"`{$targetModel->getDbTableName()}`.".$targetModel->getForeignKey($this, $relation->getReference()),
-							$this->getPrimaryKeyValue()
+							$pkv
 						);
-						$collection->append(ModelManager::select($targetModelName, $c));
+						try {
+							$collection->append(ModelManager::select($targetModelName, $c));
+						}
+						catch(Exception $e) {
+						}
 					}
 
 					// But if given some criteria then we need to apply it, but modify it
 					// a little to ensure it includes the foreign-key clause
 					else {
+						$pkv = $this->{$relation->getNativeKey()}; //$this->getPrimaryKeyValue();
 						$criteria->addClause(ModelCriteria::EQUALS,
 							"`{$targetModel->getDbTableName()}`.".$targetModel->getForeignKey($this, $relation->getReference()),
-							$this->getPrimaryKeyValue()
+							$pkv
 						);
 						$collection->append(ModelManager::select($targetModelName, $criteria));
 					}
@@ -751,23 +797,43 @@ class Model {
 				// TODO: Implement support for composite FKs
 				else {
 					$fk = $this->getForeignKey($tm, $rr);
-					if($this->{$fk}!==NULL && $this->{$fk}!==0 && $this->{$fk}!=='0') {
-						$target = Model::create($tm);
-						$mmTarget = ModelManager::create($tm);
-						$target->setPrimaryKeyValue($this->{$fk});
-						if($mmTarget->load($target)) {
-							$col = new ModelCollection($target);
+					//if($this->{$fk}!==NULL && $this->{$fk}!==0 && $this->{$fk}!=='0') {
+					if(!empty($this->{$fk})) {
 
-							// If the relationship is recursive, then remember we can only
-							// add recursive related Models via 1:M relationships, so we have
-							// to reverse the way we add a related Model here.
-							if($relation->isRecursive()) {
-								$ir = $relation->getInverseRelation();
-								$cd = $ir->getCardinality();
-								$target->relatives[$cd][$tm][$ir->getReference()][] = $this;
-							}
-							else {
-								$this->relatives[$cd][$tm][$rr] = $target;
+						// If the foreign key does not match the target model's primary key
+						// do some manual labour
+						if($relation->getForeignKey()!==Model::create($tm)->getPrimaryKey()) {
+							$criteria = $criteria===NULL ? new ModelCriteria() : $criteria;
+							$target = Model::create($tm);
+							$criteria->addClause(ModelCriteria::EQUALS, $target->getDbTableName() . '.' . $relation->getForeignKey(), $this->{$fk});
+							$col = ModelManager::select($tm, $criteria);
+						}
+
+						// Otherwise, load the single parent using the PK->FK match
+						else {
+							$target = Model::create($tm);
+							$criteria = $criteria===NULL ? new ModelCriteria() : $criteria;
+							$criteria->addClause(ModelCriteria::EQUALS, $target->getDbTableName() . '.' . $target->getPrimaryKey(), $this->{$fk});
+							$col = ModelManager::select($tm, $criteria);
+							if(!$col->isEmpty()) {
+								$target = $col->get(0);
+							/*$target = Model::create($tm);
+							$mmTarget = ModelManager::create($tm);
+							$target->setPrimaryKeyValue($this->{$fk});
+							if($mmTarget->load($target)) {
+								$col = new ModelCollection($target);*/
+	
+								// If the relationship is recursive, then remember we can only
+								// add recursive related Models via 1:M relationships, so we have
+								// to reverse the way we add a related Model here.
+								if($relation->isRecursive()) {
+									$ir = $relation->getInverseRelation();
+									$cd = $ir->getCardinality();
+									$target->relatives[$cd][$tm][$ir->getReference()][] = $this;
+								}
+								else {
+									$this->relatives[$cd][$tm][$rr] = $target;
+								}
 							}
 						}
 					}
@@ -812,7 +878,8 @@ class Model {
 				$collection = new ModelCollection();
 				$r = $relation->isRecursive() ? $relation->getInverseRelation() : $relation;
 				foreach($links as $l) {
-					$collection->append($l->findRelatives($r->getTargetModel(), $r->getReference()));
+					$crt = $criteria!==NULL ? clone $criteria : NULL;
+					$collection->append($l->findRelatives($r->getTargetModel(), $crt, $r->getReference()));
 				}
 
 				// Result
@@ -824,8 +891,8 @@ class Model {
 IT AND PICK OUT WHAT'S NEEDED AS NECESSARY */
 				// Find any linking models in the db
 				$c = new ModelCriteria();
-				$c->addClause(ModelCriteria::EQUALS, $linkModel->getForeignKey($this), $this->getPrimaryKeyValue());
-				$c->addClause(ModelCriteria::EQUALS, $linkModel->getForeignKey($model), $model->getPrimaryKeyValue());
+				$c->addClause(ModelCriteria::EQUALS, $linkModel->getDbTableName() . '.' . $linkModel->getForeignKey($this), $this->getPrimaryKeyValue());
+				$c->addClause(ModelCriteria::EQUALS, $linkModel->getDbTableName() . '.' . $linkModel->getForeignKey($model), $model->getPrimaryKeyValue());
 				$collection = ModelManager::select($linkModel->modelName, $c);
 
 				if(!$links->isEmpty()) {
@@ -840,8 +907,9 @@ IT AND PICK OUT WHAT'S NEEDED AS NECESSARY */
 				// to the target model, NOT the linking model.
 				$linkModelName = $relation->getLinkModel();
 				$linkForeignKey = Model::create($linkModelName)->getForeignKey($this, $relation->getReference());
+				$linkDbTableName = Model::create($linkModelName)->getDbTableName();
 				$c = new ModelCriteria();
-				$c->addClause(ModelCriteria::EQUALS, $linkForeignKey, $this->getPrimaryKeyValue());
+				$c->addClause(ModelCriteria::EQUALS, $linkDbTableName . '.' . $linkForeignKey, $this->getPrimaryKeyValue());
 				$linkModels = ModelManager::select($linkModelName, $c);
 
 				// TODO: WHAT IS THIS BIT FOR? COMMENTS JAMES, USEFUL COMMENTS!!
@@ -965,7 +1033,7 @@ IT AND PICK OUT WHAT'S NEEDED AS NECESSARY */
 	* Returns an instance of the ModelManager that is used to manage Models of
 	* $this type.
 	*
-	* @return Buan\ModelManager
+	* @return \Buan\ModelManager
 	*/
 	function getModelManager() {
 		return ModelManager::create($this->modelName);

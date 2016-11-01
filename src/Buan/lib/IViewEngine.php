@@ -2,7 +2,7 @@
 /**
 * Iterface that all view-renderer classes should implement.
 *
-* @package Scribble
+* @package Ias
 */
 namespace Buan;
 interface IViewEngine {

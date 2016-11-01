@@ -23,7 +23,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable {
 	/**
 	* The iterable element currently in focus.
 	*
-	* @var array|Buan\ModelCollection|StdClass
+	* @var array|\Buan\ModelCollection|StdClass
 	*/
 	protected $active;
 
@@ -79,8 +79,8 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable {
 	*		new ModelCriteria($modelName, $stmt)
 	*
 	* @param string|array|Buan\ModelCollection ** see description above **
-	* @param Buan\PdoStatement $stmt A PDO result to traverse over
-	* @return Buan\ModelCollection
+	* @param \Buan\PdoStatement $stmt A PDO result to traverse over
+	* @return \Buan\ModelCollection
 	*/
 	public function __construct($modelsOrName=array(), $stmt=NULL) {
 		$this->active = NULL;
@@ -122,7 +122,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable {
 	/**
 	* Merge $this collection with the specified collection(s).
 	*
-	* @param Buan\ModelCollection Collection to add
+	* @param \Buan\ModelCollection Collection to add
 	* @return void
 	*/
 	public function append(ModelCollection $collection) {
@@ -141,11 +141,25 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable {
 	}
 
 	/**
+	* Returns the whole collection as an array of raw db data, rather than models.
+	*
+	* @return array
+	*/
+	public function asDbDataArray() {
+		$this->exhaust();
+		$models = array();
+		foreach($this->models as $k=>$m) {
+			$models[$k] = $m->getDbData();
+		}
+		return $models;
+	}
+
+	/**
 	* Determine if $this collection contains the specified Model, $model.
 	* We have to cycle through the whole collection to determine this, so if you
 	* expect the collection to be very large do something different!
 	*
-	* @param Buan\Model $model
+	* @param \Buan\Model $model
 	* @return bool
 	*/
 	public function contains($model) {
@@ -171,7 +185,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable {
 	}
 
 	/**
-	* @return Buan\Model
+	* @return \Buan\Model
 	*/
 	public function current() {
 		return current($this->models);

@@ -47,7 +47,7 @@ class EventDispatcher {
 	* Note that any additional arguments you pass to this method will be passed as
 	* values and NOT as references.
 	*
-	* @param ScribbleEvent Event to dispatch
+	* @param IasEvent Event to dispatch
 	* @params mixed You can pass any number of arguments that will be passed to
 	*		the listeners
 	* @return void
