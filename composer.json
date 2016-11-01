@@ -1,5 +1,5 @@
 {
-  "name": "iamsold/Buan",
+  "name": "isg/buan",
   "description": "Underlying framework for most of ISG's applications.",
   "version": "1.0.0",
   "minimum-stability": "stable",
@@ -18,7 +18,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Buan\\": "application/buan/lib/"
+      "Buan\\": "src/Buan/lib/"
     }
   }
 }
