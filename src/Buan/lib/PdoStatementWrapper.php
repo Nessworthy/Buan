@@ -1,27 +1,29 @@
 <?php
 /**
-* @package Buan
-*/
+ * @package Buan
+ */
 namespace Buan;
+
 use \PDO;
-class PdoStatementWrapper extends PDOStatement {
 
-	/*
-	# @property PDO $pdo
-	# PDO instance.
-	*/
-	public $dbh;
+class PdoStatementWrapper extends PDOStatement
+{
 
-	/*
-	# @method void __construct( PDO $pdo )
-	# $pdo	= PDO resource
-	#
-	# Construct the instance.
-	*/
-    protected function __construct($pdo) {
+    /*
+     * @property PDO $pdo
+     * PDO instance.
+     */
+    public $dbh;
 
-		// Store properties
+    /*
+     * @method void __construct( PDO $pdo )
+     * $pdo	= PDO resource
+     *
+     * Construct the instance.
+     */
+    protected function __construct($pdo)
+    {
+        // Store properties
         $this->pdo = $pdo;
     }
 }
-?>

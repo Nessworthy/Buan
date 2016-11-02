@@ -1,173 +1,176 @@
 <?php
 /**
  * @package Buan
- */
+  */
 namespace Buan;
 
 class ModelRelation
 {
 
     /*
-    # @constant int NONE
-    # Describes a non-existent relationship.
-    */
+     * @constant int NONE
+     * Describes a non-existent relationship.
+     */
     const NONE = 0;
 
     /*
-    # @constant int ONE_TO_ONE
-    # Describes a 1:1 relationship.
-    */
+     * @constant int ONE_TO_ONE
+     * Describes a 1:1 relationship.
+     */
     const ONE_TO_ONE = 1;
 
     /*
-    # @constant int ONE_TO_MANY
-    # Describes a 1:M relationship.
-    */
+     * @constant int ONE_TO_MANY
+     * Describes a 1:M relationship.
+     */
     const ONE_TO_MANY = 2;
 
     /*
-    # @constant int MANY_TO_ONE
-    # Describes a M:1 relationship.
-    */
+     * @constant int MANY_TO_ONE
+     * Describes a M:1 relationship.
+     */
     const MANY_TO_ONE = 3;
 
     /*
-    # @constant int MANY_TO_MANY
-    # Describes a M:M relationship.
-    */
+     * @constant int MANY_TO_MANY
+     * Describes a M:M relationship.
+     */
     const MANY_TO_MANY = 4;
 
     /*
-    # @constant string REF_DEFAULT
-    # Default reference to use in relationships.
-    */
+     * @constant string REF_DEFAULT
+     * Default reference to use in relationships.
+     */
     const REF_DEFAULT = '__default__';
 
     /*
-    # @constant string REF_PARENT
-    # Reference used in the 1:M side of a recursive 1:M relationship.
-    # This is just a convenience alias for self::REF_DEFAULT, and is meant
-    # to provide code clarity in some situations.
-    */
+     * @constant string REF_PARENT
+     * Reference used in the 1:M side of a recursive 1:M relationship.
+     * This is just a convenience alias for self::REF_DEFAULT, and is meant
+     * to provide code clarity in some situations.
+     */
     const REF_PARENT = '__default__';
 
     /*
-    # @constant string REF_CHILD
-    # Reference used in the M:1 side of a recursive 1:M relationship.
-    */
+     * @constant string REF_CHILD
+     * Reference used in the M:1 side of a recursive 1:M relationship.
+     */
     const REF_CHILD = '__child__';
 
     /*
-    # @property int $cardinality
-    # The cardinality of $this relationship (one of the class constants)
-    */
+     * @property int $cardinality
+     * The cardinality of $this relationship (one of the class constants)
+     */
     private $cardinality = null;
 
     /*
-    # @property bool isRecursive
-    # Indicates if this is a recursive relationship.
-    # A recursive relationship is when a Model has a foreign-key pointing to an
-    # instance of the same Model. This would be common in a nested directory
-    # structure, for example.
-    */
+     * @property bool isRecursive
+     * Indicates if this is a recursive relationship.
+     * A recursive relationship is when a Model has a foreign-key pointing to an
+     * instance of the same Model. This would be common in a nested directory
+     * structure, for example.
+     */
     private $isRecursive = false;
 
     /*
-    # @property int $limit
-    # In a 1:M relationship, this defines the limit of Models on the "M" side of
-    # the relationship
-    */
+     * @property int $limit
+     * In a 1:M relationship, this defines the limit of Models on the "M" side of
+     * the relationship
+     */
     private $limit = null;
 
     /*
-    # @property string $modelSource
-    # The name of the Model on the LEFT of a relationship (ie. the "1" in a
-    # "1:M" relationship)
-    */
+     * @property string $modelSource
+     * The name of the Model on the LEFT of a relationship (ie. the "1" in a
+     * "1:M" relationship)
+     */
     private $modelSource = null;
 
     /*
-    # @property string $modelTarget
-    # The name of the Model on the RIGHT of a relationship (ie. the "M" in a
-    # "1:M" relationship)
-    */
+     * @property string $modelTarget
+     * The name of the Model on the RIGHT of a relationship (ie. the "M" in a
+     * "1:M" relationship)
+     */
     private $modelTarget = null;
 
     /*
-    # @property string $modelLink
-    # The name of the Model that links $modelSource and $modelTarget in a M:M
-    # relationship.
-    # Can also be used in 1:M and M:1 relationships that are part of a M:M
-    # relationship to hold the name of the Model that features in the other
-    # "half" of the relationship.
-    */
+     * @property string $modelLink
+     * The name of the Model that links $modelSource and $modelTarget in a M:M
+     * relationship.
+     * Can also be used in 1:M and M:1 relationships that are part of a M:M
+     * relationship to hold the name of the Model that features in the other
+     * "half" of the relationship.
+     */
     private $modelLink = null;
 
     /*
-    # @property string $reference
-    # Custom reference for this relationship.
-    # Used if several table columns from Model A all point to Model B.
-    */
+     * @property string $reference
+     * Custom reference for this relationship.
+     * Used if several table columns from Model A all point to Model B.
+     */
     private $reference = null;
 
     /*
-    # @property string $nativeKey
-    # Holds the name of the field involved in the LEFT side of the relationship.
-    */
+     * @property string $nativeKey
+     * Holds the name of the field involved in the LEFT side of the relationship.
+     */
     private $nativeKey = null;
 
     /*
-    # @property string $foreignKey
-    # Hodls the name of the field involved in the RIGHT side of the relationship.
-    */
+     * @property string $foreignKey
+     * Hodls the name of the field involved in the RIGHT side of the relationship.
+     */
     private $foreignKey = null;
 
     /*
-    # @property array $options
-    # Holds a list of options that have been set on this relationship.
-    # Valid options are:
-    # nocascade	= Used in 1:M relationships. Prevents the Model instances on the
-    # "M" side from being deleted when the "1" side is deleted.
-    */
+     * @property array $options
+     * Holds a list of options that have been set on this relationship.
+     * Valid options are:
+     * nocascade	= Used in 1:M relationships. Prevents the Model instances on the
+     * "M" side from being deleted when the "1" side is deleted.
+     */
     private $options = [];
 
     /*
-    # @property array $relationships
-    # Stores ModelRelation objects that describe the relationships between any
-    # two Models.
-    # This is a multi-dimensional array with indexes in the format:
-    #	['model-source']['model-target'] = ModelRelation instance
-    # eg:
-    #	['Book']['Author'] = [object describing this M:M relationship]
-    */
+     * @property array $relationships
+     * Stores ModelRelation objects that describe the relationships between any
+     * two Models.
+     * This is a multi-dimensional array with indexes in the format:
+     *	['model-source']['model-target'] = ModelRelation instance
+     * eg:
+     *	['Book']['Author'] = [object describing this M:M relationship]
+     */
     static public $relationships = [];
 
     /*
-    # @method void __construct( array $params )
-    # $params		= Contains following elements (* = required):
-    #	$modelSource*	= Name of Model on the LEFT side of the relationship
-    #	$modelTarget*	= Name of Model on the RIGHT side of the relationship
-    #	$cardinality*	= The cardinality of the relationship (see constants)
-    #	$modelLink		= Name of Model that links source and target, if the cardinality is M:M
-    #	$reference		= Custom reference for this relationship (defaults to self::REF_DEFAULT)
-    #	$limit			= For 1:M relationships you can define a limit for M (for example, a 1:1 relation is just a 1:M with limit of 1)
-    #	$nativeKey		= Name of the field used by the Model in the LEFT side of the relationship
-    #	$foreignKey		= Name of the field used by the Model in the RIGHT side of teh relationship
-    #	$options		= List of options to be set on this relationship (see below)
-    #
-    # Creates a new ModelRelation instance.
-    # The possible options that can be set are:
-    #	nocascade		= Prevents Models on the "M" side of a "1:M" relationship being deleted when the "1" side is deleted.
-    #	nocascadedelete	= Prevents Models on the "M" side of a "1:M" relationship being deleted when the "1" side is deleted.
-    #	nocascadesave	= Prevents Models on the "M" side of a "1:M" relationship being saved when the "1" side is saved.
-    #
-    # TODO: Remove support for "nocascade" and replace with "nocascadedelete" - need to change all existing applications that use this.
-    */
+     * @method void __construct( array $params )
+     * $params		= Contains following elements (* = required):
+     *	$modelSource*	= Name of Model on the LEFT side of the relationship
+     *	$modelTarget*	= Name of Model on the RIGHT side of the relationship
+     *	$cardinality*	= The cardinality of the relationship (see constants)
+     *	$modelLink		= Name of Model that links source and target, if the cardinality is M:M
+     *	$reference		= Custom reference for this relationship (defaults to self::REF_DEFAULT)
+     *	$limit			= For 1:M relationships you can define a limit for M (for example, a 1:1 relation is just a 1:M with limit of 1)
+     *	$nativeKey		= Name of the field used by the Model in the LEFT side of the relationship
+     *	$foreignKey		= Name of the field used by the Model in the RIGHT side of teh relationship
+     *	$options		= List of options to be set on this relationship (see below)
+     *
+     * Creates a new ModelRelation instance.
+     * The possible options that can be set are:
+     *	nocascade		= Prevents Models on the "M" side of a "1:M" relationship being deleted when the "1" side is deleted.
+     *	nocascadedelete	= Prevents Models on the "M" side of a "1:M" relationship being deleted when the "1" side is deleted.
+     *	nocascadesave	= Prevents Models on the "M" side of a "1:M" relationship being saved when the "1" side is saved.
+     *
+     * TODO: Remove support for "nocascade" and replace with "nocascadedelete" - need to change all existing applications that use this.
+     */
     private function __construct($params)
     {
+        $cardinality = null;
+        $modelTarget = null;
 
-        // Extract params
+        // Extract params TODO: Purge this to the depths of hell.
         extract($params);
+
         if (!isset($modelSource) || !isset($modelTarget) || !isset($cardinality)) {
             throw new Exception('Required parameters not defined for this Model Relationship.');
         }
@@ -199,45 +202,45 @@ class ModelRelation
     }
 
     /*
-    # @method void define( string $relationship, [string $options, [string $relationRef, [string $manyToManyPartial]]] )
-    # $relationship			= The relationship definition between 2 or more Models
-    # $options				= A comma-separated list of options to set on this relationship
-    # $relationRef			= String to identify the particulat relationship between source and target Models
-    # $manyToManyPartial	= Name of the linking Model that joins source and target in a M:M relationship (INTERNAL USE ONLY)
-    #
-    # Parses the given definition into several ModelRelation objects which, when combined with
-    # all other ModelRelations, starts to build a comprehensive relationship mapping.
-    # $relationship is in the form:
-    #		ModelA[.nativeKey](cardinalityA,[limitA]):ModelB[.foreignKey](cardinalityB,[limitB])
-    # or	ModelA[.nativeKey](cardinalityA,[limitA]):ModelAB[.foreignKeyA][.foreignKeyB](cardinalityB,[limitB]):ModelB[.nativeKey](cardinalityB,[limitB])
-    #
-    # eg.	Blog(1):BlogEntry(M)
-    # eg.	Book(1):BookAuthor(M):Author(1)						// here, "BookAuthor" is a Model that links two other Models, thus creating a M:M relationship
-    # eg.	Book(M):Author(M)									// This is a shortcut for the preceding definition. The system will assume linking table is "BookAuthor"
-    # eg.	Husband(1):Wife(1)
-    # eg.	Husband(1):Wife(M,1)								// This is an alternative way of writing the preceding definition
-    # eg.	Person.id(1):Hobby.person_id(M)						// This shows the optional ability to define custom native and foreign-keys in a relationship
-    # eg.	Book(1):BookAuthor.book_id.author_id(M):Author(1)	// Note the double foreign-key in this special defintion type
-    #
-    # The $relationRef parameter is only required if you are defining the same relationship several times, but
-    # on different table columns. For example:
-    #		User(1):Bug.reporter_id(M)	- Could use, for example, a $relationRef of "reporter"
-    #		User(1):Bug.assigned_id(M)	- Could use, for example, a $relationRef of "assigned"
-    #
-    # Below are listed the methods for defining different relationshsips ...
-    # 1:M
-    #		Blog(1):BlogEntry(M)
-    #		Husband(1):Wife(1)
-    #		Husband(1):Wife(M,1)	- Same as previous definition
-    #
-    #	M:M
-    #		Book(1):BookAuthor(M):Author(1)	- BookAuthor is the "link model" between Books and Authors
-    #
-    # M:M recursive
-    #		Person(1):Friend.fk1_id.fk2_id(M):Person(1)	- You MUST define the foreign
-    #			keys used in the link model otherwise the system assumes they are both
-    #			the same (person_id in this example) which is no help at all!
-    */
+     * @method void define( string $relationship, [string $options, [string $relationRef, [string $manyToManyPartial]]] )
+     * $relationship			= The relationship definition between 2 or more Models
+     * $options				= A comma-separated list of options to set on this relationship
+     * $relationRef			= String to identify the particulat relationship between source and target Models
+     * $manyToManyPartial	= Name of the linking Model that joins source and target in a M:M relationship (INTERNAL USE ONLY)
+     *
+     * Parses the given definition into several ModelRelation objects which, when combined with
+     * all other ModelRelations, starts to build a comprehensive relationship mapping.
+     * $relationship is in the form:
+     *		ModelA[.nativeKey](cardinalityA,[limitA]):ModelB[.foreignKey](cardinalityB,[limitB])
+     * or	ModelA[.nativeKey](cardinalityA,[limitA]):ModelAB[.foreignKeyA][.foreignKeyB](cardinalityB,[limitB]):ModelB[.nativeKey](cardinalityB,[limitB])
+     *
+     * eg.	Blog(1):BlogEntry(M)
+     * eg.	Book(1):BookAuthor(M):Author(1)						// here, "BookAuthor" is a Model that links two other Models, thus creating a M:M relationship
+     * eg.	Book(M):Author(M)									// This is a shortcut for the preceding definition. The system will assume linking table is "BookAuthor"
+     * eg.	Husband(1):Wife(1)
+     * eg.	Husband(1):Wife(M,1)								// This is an alternative way of writing the preceding definition
+     * eg.	Person.id(1):Hobby.person_id(M)						// This shows the optional ability to define custom native and foreign-keys in a relationship
+     * eg.	Book(1):BookAuthor.book_id.author_id(M):Author(1)	// Note the double foreign-key in this special defintion type
+     *
+     * The $relationRef parameter is only required if you are defining the same relationship several times, but
+     * on different table columns. For example:
+     *		User(1):Bug.reporter_id(M)	- Could use, for example, a $relationRef of "reporter"
+     *		User(1):Bug.assigned_id(M)	- Could use, for example, a $relationRef of "assigned"
+     *
+     * Below are listed the methods for defining different relationshsips ...
+     * 1:M
+     *		Blog(1):BlogEntry(M)
+     *		Husband(1):Wife(1)
+     *		Husband(1):Wife(M,1)	- Same as previous definition
+     *
+     *	M:M
+     *		Book(1):BookAuthor(M):Author(1)	- BookAuthor is the "link model" between Books and Authors
+     *
+     * M:M recursive
+     *		Person(1):Friend.fk1_id.fk2_id(M):Person(1)	- You MUST define the foreign
+     *			keys used in the link model otherwise the system assumes they are both
+     *			the same (person_id in this example) which is no help at all!
+     */
     static public function define($relationship, $options = null, $relationRef = null, $manyToManyPartial = null)
     {
 
@@ -345,7 +348,7 @@ class ModelRelation
 
         // Extract components of the relationship into an ordered array
         preg_match_all("/([^:]*?)\((.*?)\)/", $relationship, $m);
-        $m_all = $m[0];
+        // $m_all = $m[0];
         $m_model = $m[1];
         $m_card = $m[2];
         $m_key = [null, null];
@@ -478,7 +481,7 @@ class ModelRelation
      * @param string $modelTarget Name of the Model on the RIGHT side of the relationship
      * @param string $relationRef The specific relationship to return
      * @return ModelRelation[]
-     */
+      */
     static public function getRelation($modelSource, $modelTarget = null, $relationRef = null)
     {
 
@@ -545,6 +548,10 @@ class ModelRelation
     {
         $relations = [];
         $relationMap = isset(self::$relationships[$modelSource]) ? self::$relationships[$modelSource] : [];
+        /**
+         * @var string $modelTarget
+         * @var ModelRelation[] $targetRelations
+          */
         foreach ($relationMap as $modelTarget => $targetRelations) {
             foreach ($targetRelations as $ref => $rel) {
                 if ($rel->getCardinality() == $cardinality) {
@@ -556,10 +563,10 @@ class ModelRelation
     }
 
     /*
-    # @method string getSourceModel()
-    #
-    # Returns $this->modelSource
-    */
+     * @method string getSourceModel()
+     *
+     * Returns $this->modelSource
+     */
     public function getSourceModel()
     {
 
@@ -568,10 +575,10 @@ class ModelRelation
     }
 
     /*
-    # @method string getTargetModel()
-    #
-    # Returns $this->modelTarget
-    */
+     * @method string getTargetModel()
+     *
+     * Returns $this->modelTarget
+     */
     public function getTargetModel()
     {
 
@@ -580,10 +587,10 @@ class ModelRelation
     }
 
     /*
-    # @method string getLinkModel()
-    #
-    # Returns $this->modelLink
-    */
+     * @method string getLinkModel()
+     *
+     * Returns $this->modelLink
+     */
     public function getLinkModel()
     {
 
@@ -592,10 +599,10 @@ class ModelRelation
     }
 
     /*
-    # @method string getReference()
-    #
-    # Returns $this->reference
-    */
+     * @method string getReference()
+     *
+     * Returns $this->reference
+     */
     public function getReference()
     {
 
@@ -604,10 +611,10 @@ class ModelRelation
     }
 
     /*
-    # @method int getCardinality()
-    #
-    # Returns $this->cardinality
-    */
+     * @method int getCardinality()
+     *
+     * Returns $this->cardinality
+     */
     public function getCardinality()
     {
 
@@ -616,10 +623,10 @@ class ModelRelation
     }
 
     /*
-    # @method int getLimit()
-    #
-    # Returns $this->limit
-    */
+     * @method int getLimit()
+     *
+     * Returns $this->limit
+     */
     public function getLimit()
     {
 
@@ -638,11 +645,11 @@ class ModelRelation
     }
 
     /*
-    # @method bool getOption( string $option )
-    # $option	= Name of the option to find
-    #
-    # Returns TRUE if the specified option has been set, FALSE otherwise.
-    */
+     * @method bool getOption( string $option )
+     * $option	= Name of the option to find
+     *
+     * Returns TRUE if the specified option has been set, FALSE otherwise.
+     */
     public function getOption($option)
     {
 
@@ -651,10 +658,10 @@ class ModelRelation
     }
 
     /*
-    # @method bool isRecursive()
-    #
-    # Returns $this->isRecursive
-    */
+     * @method bool isRecursive()
+     *
+     * Returns $this->isRecursive
+     */
     public function isRecursive()
     {
 
@@ -668,10 +675,10 @@ class ModelRelation
     }
 
     /*
-    # @method bool isOneToOne()
-    #
-    # Returns TRUE if this is a 1:1 relationship.
-    */
+     * @method bool isOneToOne()
+     *
+     * Returns TRUE if this is a 1:1 relationship.
+     */
     public function isOneToOne()
     {
 
@@ -680,10 +687,10 @@ class ModelRelation
     }
 
     /*
-    # @method bool isOneToMany()
-    #
-    # Returns TRUE if this is a 1:M relationship.
-    */
+     * @method bool isOneToMany()
+     *
+     * Returns TRUE if this is a 1:M relationship.
+     */
     public function isOneToMany()
     {
 
@@ -692,10 +699,10 @@ class ModelRelation
     }
 
     /*
-    # @method bool isManyToOne()
-    #
-    # Returns TRUE if this is a M:1 relationship.
-    */
+     * @method bool isManyToOne()
+     *
+     * Returns TRUE if this is a M:1 relationship.
+     */
     public function isManyToOne()
     {
 
@@ -704,10 +711,10 @@ class ModelRelation
     }
 
     /*
-    # @method bool isManyToMany()
-    #
-    # Returns TRUE if this is a M:M relationship.
-    */
+     * @method bool isManyToMany()
+     *
+     * Returns TRUE if this is a M:M relationship.
+     */
     public function isManyToMany()
     {
 
@@ -723,14 +730,14 @@ class ModelRelation
     public function getManyToManyRelation()
     {
 
-        return $this->getLinkModel() === null ? new ModelRelation() : ModelRelation::getRelation($this->isOneToMany() ? $this->modelSource : $this->modelTarget, $this->modelLink);
+        return $this->getLinkModel() === null ? new ModelRelation([]) : ModelRelation::getRelation($this->isOneToMany() ? $this->modelSource : $this->modelTarget, $this->modelLink);
     }
 
     /*
-    # @method ModelRelation getInverseRelation()
-    #
-    # Returns a ModelRelation object that describes the inverse relationship of $this.
-    */
+     * @method ModelRelation getInverseRelation()
+     *
+     * Returns a ModelRelation object that describes the inverse relationship of $this.
+     */
     public function getInverseRelation()
     {
 
@@ -783,16 +790,17 @@ class ModelRelation
                 ]);
             }
         }
+        return null;
     }
 
     /**
-     * Undefines a relationship.
+     * Un-defines a relationship.
      *
      * @param string
      * @param string
      * @param string
      * @return void
-     */
+      */
     public static function undefine($modelSource, $modelTarget, $relationRef)
     {
         if (isset(self::$relationships[$modelSource][$modelTarget][$relationRef])) {

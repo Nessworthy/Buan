@@ -1,8 +1,9 @@
 <?php
 /**
-* @package Buan
-*/
+ * @package Buan
+ */
 namespace Buan;
-class ViewException extends Exception {
+
+class ViewException extends Exception
+{
 }
-?>

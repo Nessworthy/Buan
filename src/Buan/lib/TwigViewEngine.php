@@ -21,15 +21,14 @@ class TwigViewEngine implements IViewEngine {
 	/**
 	* The view attached to this engine.
 	*
-	* @var Buan\View
+	* @var View
 	*/
 	private $view;
 
 	/**
 	* Constructor.
 	*
-	* @param \Twig_Environment The environment to use
-	* @return Buan\TwigViewEngine
+	* @param \Twig_Environment $twigEnvironment The environment to use
 	*/
 	public function __construct($twigEnvironment) {
 		$this->twigEnvironment = $twigEnvironment;
@@ -38,7 +37,7 @@ class TwigViewEngine implements IViewEngine {
 	/**
 	* Return the View
 	*
-	* @return Buan\View
+	* @return View
 	*/
 	public function getView() {
 		return $this->view;
@@ -47,7 +46,7 @@ class TwigViewEngine implements IViewEngine {
 	/**
 	* Load helpers.
 	*
-	* @param string Helper id
+	* @param string $helper Helper id
 	* @return void
 	*/
 	public function loadHelper($helper) {
@@ -68,7 +67,7 @@ class TwigViewEngine implements IViewEngine {
 	/**
 	* Set the View
 	*
-	* @param Buan\View View instance
+	* @param View $view View instance
 	* @return void
 	*/
 	public function setView(View $view) {

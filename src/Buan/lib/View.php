@@ -21,14 +21,14 @@ class View extends EventDispatcher
     /**
      * The Controller to which this View has access, if required.
      *
-     * @var Buan\Controller
+     * @var Controller
      */
     private $controller = null;
 
     /**
      * The instance of the rendering engine that will render this view.
      *
-     * @var Buan\IViewEngine
+     * @var IViewEngine
      */
     private $engine;
 
@@ -38,7 +38,7 @@ class View extends EventDispatcher
      * property. Any subsequent calls to self::getGlobalView() will return this
      * cached instance.
      *
-     * @var Buan\View
+     * @var View
      */
     static private $globalView = null;
 
@@ -69,7 +69,7 @@ class View extends EventDispatcher
      * The View that will be used to render the Javascript sources to $this. The
      * class used by this instance is the same as that used by $this.
      *
-     * @var Buan\View
+     * @var View
      */
     private $javascriptsView;
 
@@ -108,7 +108,7 @@ class View extends EventDispatcher
      * The View that will be used to render the stylesheet sources to $this. The
      * class used by this instance is the same as that used by $this.
      *
-     * @var Buan\View
+     * @var View
      */
     private $stylesheetsView;
 
@@ -128,7 +128,7 @@ class View extends EventDispatcher
      * Constructor.
      *
      * @param IViewEngine Rendering engine to use for this view.
-     * @return Buan\View
+     * @return View
      */
     function __construct($engine = null)
     {
@@ -223,6 +223,7 @@ class View extends EventDispatcher
         // Add scripts to the js loader
         if (($loader = $this->getJavascriptsLoader()) !== null) {
             if (empty($src)) {
+                // TODO: Wat?
                 if (substr($s, 0, 4) == 'http' || substr($s, 0, 2) == '//') {
                     // Don't add variable to external scripts
                     $src = "<script src=\"{$loader}?\" type=\"text/javascript\"></script>\n";
@@ -344,7 +345,7 @@ class View extends EventDispatcher
     /**
      * Attaches the View object to the specified slot.
      *
-     * @param Buan\View View to be attached
+     * @param View View to be attached
      * @param string Slot to which the $view will be attached
      * @return void
      */
@@ -564,7 +565,7 @@ class View extends EventDispatcher
     /**
      * Allows you to replace the GlobalView with a custom View instance.
      *
-     * @param Buan\View View to be used as the GlobalView
+     * @param View View to be used as the GlobalView
      * @return void
      */
     static public function setGlobalView($view = null)
@@ -575,7 +576,7 @@ class View extends EventDispatcher
     /**
      * Define the Controller to which this View has direct access.
      *
-     * @param Buan\Controller Controller instance
+     * @param Controller Controller instance
      * @return void
      */
     public function setController($controller)
@@ -621,5 +622,3 @@ class View extends EventDispatcher
         $this->source = $templatePath;
     }
 }
-
-?>

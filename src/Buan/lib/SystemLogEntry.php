@@ -1,137 +1,144 @@
 <?php
 /**
-* @package Buan
-*/
+ * @package Buan
+  */
 namespace Buan;
-class SystemLogEntry {
 
-	/*
-	# @property string $message
-	# Log message.
-	*/
-	private $message;
+class SystemLogEntry
+{
 
-	/*
-	# @property array $messageVars
-	# List of values that will be inserted into the $this->message at render-time
-	# using sprintf().
-	*/
-	private $messageVars;
+    /*
+     * @property string $message
+     * Log message.
+     */
+    private $message;
 
-	/*
-	# @property int $type
-	# Type of message.
-	*/
-	private $type;
+    /*
+     * @property array $messageVars
+     * List of values that will be inserted into the $this->message at render-time
+     * using sprintf().
+     */
+    private $messageVars;
 
-	/*
-	# @property string $code
-	# A unique code that identifies the message within the system.
-	*/
-	private $code;
+    /*
+     * @property int $type
+     * Type of message.
+     */
+    private $type;
 
-	/**
-	* Defines whether or not the message contains HTML markup.
-	*
-	* @var string
-	*/
-	private $isHtml;
+    /*
+     * @property string $code
+     * A unique code that identifies the message within the system.
+     */
+    private $code;
 
-	/*
-	# @property array $callStack
-	# Stores the results of debug_backtrace()
-	*/
-	private $callStack;
+    /**
+     * Defines whether or not the message contains HTML markup.
+     *
+     * @var string
+      */
+    private $isHtml;
 
-	/*
-	# @method void __construct( string|array $message, int $type, string $code )
-	# $message	= Log message
-	# $type		= Message type
-	# $code		= A unique identifier for the message
-	#
-	# Creates a new SystemLogEntry object.
-	*/
-	public function __construct($message, $type, $code, $isHtml) {
+    /*
+     * @property array $callStack
+     * Stores the results of debug_backtrace()
+     */
+    private $callStack;
 
-		// Store properties
-		if(is_array($message)) {
-			$this->message = array_shift($message);
-			$this->messageVars = $message;
-		}
-		else {
-			$this->message = $message;
-			$this->messageVars = array();
-		}
-		$this->type = $type;
-		$this->code = $code;
-		$this->isHtml = $isHtml;
-		$this->callStack = debug_backtrace();
-	}
+    /*
+     * @method void __construct( string|array $message, int $type, string $code )
+     * $message	= Log message
+     * $type		= Message type
+     * $code		= A unique identifier for the message
+     *
+     * Creates a new SystemLogEntry object.
+     */
+    public function __construct($message, $type, $code, $isHtml = false)
+    {
 
-	/*
-	# @method string getMessage( [bool $raw] )
-	# $raw	= If TRUE then the message is returned with no variable-substitution.
-	#
-	# Returns this entry's message.
-	*/
-	public function getMessage($raw=FALSE) {
+        // Store properties
+        if (is_array($message)) {
+            $this->message = array_shift($message);
+            $this->messageVars = $message;
+        } else {
+            $this->message = $message;
+            $this->messageVars = [];
+        }
+        $this->type = $type;
+        $this->code = $code;
+        $this->isHtml = $isHtml;
+        $this->callStack = debug_backtrace();
+    }
 
-		// Result
-		return $raw || empty($this->messageVars) ? $this->message : vsprintf($this->message, $this->messageVars);
-	}
+    /*
+     * @method string getMessage( [bool $raw] )
+     * $raw	= If TRUE then the message is returned with no variable-substitution.
+     *
+     * Returns this entry's message.
+     */
+    public function getMessage($raw = false)
+    {
 
-	/*
-	# @method int getType()
-	#
-	# Returns an integer representing this entry's message type (see SystemLog for type constants).
-	*/
-	public function getType() {
+        // Result
+        return $raw || empty($this->messageVars) ? $this->message : vsprintf($this->message, $this->messageVars);
+    }
 
-		// Result
-		return $this->type;
-	}
+    /*
+     * @method int getType()
+     *
+     * Returns an integer representing this entry's message type (see SystemLog for type constants).
+     */
+    public function getType()
+    {
 
-	/*
-	# @method string getTypeString()
-	#
-	# Returns a string-version of the message type (see SystemLog for type strings).
-	*/
-	public function getTypeString() {
+        // Result
+        return $this->type;
+    }
 
-		// Result
-		return SystemLog::$typeString[$this->type];
-	}
+    /*
+     * @method string getTypeString()
+     *
+     * Returns a string-version of the message type (see SystemLog for type strings).
+     */
+    public function getTypeString()
+    {
 
-	/*
-	# @method string getCode()
-	#
-	# Returns the message's unique code.
-	*/
-	public function getCode() {
+        // Result
+        return SystemLog::$typeString[$this->type];
+    }
 
-		// result
-		return $this->code;
-	}
+    /*
+     * @method string getCode()
+     *
+     * Returns the message's unique code.
+     */
+    public function getCode()
+    {
 
-	/**
-	* Returns whether or not this message is in HTML format (ie. contains markup
-	* That should not be escaped when output.)
-	*
-	* @param bool
-	*/
-	public function isMessageHtml() {
-		return $this->isHtml;
-	}
+        // result
+        return $this->code;
+    }
 
-	/*
-	# @method array getCallStack()
-	#
-	# Returns the call stack.
-	*/
-	public function getCallStack() {
+    /**
+     * Returns whether or not this message is in HTML format (ie. contains markup
+     * That should not be escaped when output.)
+     *
+     * @return bool
+     */
+    public function isMessageHtml()
+    {
+        return $this->isHtml;
+    }
 
-		// Result
-		return $this->callStack;
-	}
+    /*
+     * @method array getCallStack()
+     *
+     * Returns the call stack.
+     */
+    public function getCallStack()
+    {
+
+        // Result
+        return $this->callStack;
+    }
 }
-?>
