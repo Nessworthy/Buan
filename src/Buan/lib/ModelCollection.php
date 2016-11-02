@@ -18,15 +18,13 @@
  */
 namespace Buan;
 
-use Buan\Model;
-
 class ModelCollection implements \Iterator, \ArrayAccess, \Countable
 {
 
     /**
      * The iterable element currently in focus.
      *
-     * @var array|\Buan\ModelCollection|StdClass
+     * @var array|\Buan\ModelCollection|\stdClass
      */
     protected $active;
 
@@ -82,8 +80,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
      *        new ModelCriteria($modelName, $stmt)
      *
      * @param string|array|ModelCollection $modelsOrName ** see description above **
-     * @param \Buan\PdoStatement $stmt A PDO result to traverse over
-     * @return \Buan\ModelCollection
+     * @param \PDOStatement $stmt A PDO result to traverse over
      */
     public function __construct($modelsOrName = [], $stmt = null)
     {
@@ -97,7 +94,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
             $this->queue[] = [$modelsOrName];
         } else {
             if (is_string($modelsOrName) && $stmt !== null) {
-                $obj = new \StdClass();
+                $obj = new \stdClass();
                 $obj->modelName = $modelsOrName;
                 $obj->stmt = $stmt;
                 $this->queue[] = $obj;
@@ -117,7 +114,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
     public function __destruct()
     {
         foreach ($this->queue as $q) {
-            if ($q instanceof \StdClass) {
+            if ($q instanceof \stdClass) {
                 if ($q->stmt !== null) {
                     $q->stmt->closeCursor();
                     unset($q->stmt);
@@ -225,6 +222,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
     /**
      * Alias for ::offsetGet()
      *
+     * @param mixed $index
      * @return mixed
      */
     public function get($index)
@@ -254,8 +252,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
 
     /**
      * Prepare the next item in our collection.
-     *
-     * @return void
+     * @return null
      */
     public function next()
     {
@@ -293,7 +290,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
                 // It's a stream so try and load it's next result and add to $models, if
                 // it's not already in there.
                 else {
-                    if ($this->active instanceof \StdClass) {
+                    if ($this->active instanceof \stdClass) {
                         if ($record = $this->active->stmt->fetch(\PDO::FETCH_ASSOC)) {
                             $model = Model::create($this->active->modelName);
                             $model->populateFromArray($record);
@@ -323,7 +320,8 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
                                 $this->active->next();
                                 $pId = $data->isInDatabase() ? $data->getPersistentId() : null;
                                 if ($this->isUnique && $pId !== null && isset($this->persistentModels[$pId])) {
-                                    return $this->next();
+                                    $this->next();
+                                    return null;
                                 } else {
                                     $this->models[] = $data;
                                 }
@@ -345,6 +343,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
                 }
             }
         }
+        return null;
     }
 
     public function offsetExists($o)
@@ -360,6 +359,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
     /**
      * Return the element at position $o, or NULL if it doesn't exist.
      *
+     * @param mixed $o
      * @return mixed
      */
     public function offsetGet($o)
@@ -396,7 +396,7 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
     /**
      * Get/set this collection "unique" flag.
      *
-     * @param bool State to set
+     * @param bool $state State to set
      * @return bool
      */
     public function unique($state = null)
@@ -413,15 +413,11 @@ class ModelCollection implements \Iterator, \ArrayAccess, \Countable
     {
         if (current($this->models)) {
             return true;
-        } else {
-            if ($this->active !== null || !empty($this->queue)) {
-                $this->next();
-                return $this->valid();
-            }
         }
+        if ($this->active !== null || !empty($this->queue)) {
+            $this->next();
+            return $this->valid();
+        }
+        return false;
     }
-
-
 }
-
-?>

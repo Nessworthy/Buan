@@ -1,8 +1,9 @@
 <?php
 /**
-* @package Buan
-*/
+ * @package Buan
+ */
 namespace Buan;
-class ModelException extends Exception {
+
+class ModelException extends Exception
+{
 }
-?>

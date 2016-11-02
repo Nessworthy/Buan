@@ -22,8 +22,8 @@ use Buan\Config as Config;
 # Enable output buffering (if it's not too late!)
 */
 $ini_ob = (int) ini_get('output_buffering');
-if($ini_ob <= 0) {
-	ob_start();
+if ($ini_ob <= 0) {
+    ob_start();
 }
 
 /*
@@ -33,31 +33,31 @@ $cwd = str_replace("\\", "/", dirname(__FILE__));
 
 
 $dr = isset($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['DOCUMENT_ROOT']) ? str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']) : dirname($cwd);
-$cwu = strpos(dirname($cwd), $dr)!==FALSE ? str_replace($dr, '', dirname($cwd)) : '';
+$cwu = strpos(dirname($cwd), $dr) !== false ? str_replace($dr, '', dirname($cwd)) : '';
 
-Config::set('timeStarted', microtime(TRUE));
-Config::set('core', array(
-	/* Custom URL routes */
-	'customUrlRoutes'=>array(),
+Config::set('timeStarted', microtime(true));
+Config::set('core', [
+    /* Custom URL routes */
+    'customUrlRoutes' => [],
 
-	/* Directory and URL locations */
-	'dir' => array(
-		'controllers' => $cwd.'/controllers',
-		'resources' => $cwd.'/buan-pub',
-		'views' => $cwd.'/views'
-	),
-	'docRoot' => $cwd,
-	'url' => array(
-		'resources'=>"{$cwu}/buan/buan-pub"	// Absolute URL to public resources folder
-	),
+    /* Directory and URL locations */
+    'dir' => [
+        'controllers' => $cwd . '/controllers',
+        'resources' => $cwd . '/buan-pub',
+        'views' => $cwd . '/views'
+    ],
+    'docRoot' => $cwd,
+    'url' => [
+        'resources' => "{$cwu}/buan/buan-pub"    // Absolute URL to public resources folder
+    ],
 
-	/* Version information */
-	'version'=>array(
-		'major' => 1,
-		'minor' => 1,
-		'revision' => 0
-	)
-));
+    /* Version information */
+    'version' => [
+        'major' => 1,
+        'minor' => 1,
+        'revision' => 2
+    ]
+]);
 
 /*
 # Clean up
