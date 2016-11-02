@@ -147,6 +147,7 @@ class ModelCriteria
       *
      */
     private $disableCache = false;
+    private $calcRows = false;
 
     /*
       * @property array $aggregateSubqueries
@@ -494,25 +495,33 @@ class ModelCriteria
         $this->useIndex[] = $index;
     }
 
-    /*
-      * @method disableCache( bool $value )
-      * $value	= Boolean value
-      *
-      * When true, sets caching disabled.
-      *
-      * Warning: MySQL specific code
+    /**
+     * When true, sets caching disabled.
+     *
+     * Warning: MySQL specific code
+     * @param bool $setting
      */
-    public function disableCache($setting)
+    public function disableCache($setting = true)
     {
         $this->disableCache = $setting;
     }
 
-    /*
-     * @method void ungroupBy( [string $field] )
-     * $field	= Field name (eg. "age" or "table_name.age"
+    /**
+     * Switch to calculate the total rows for this query.
+     * Useful for paginations, etc.
+     * Warning: MySQL only.
      *
+     * @param bool $setting
+     */
+    public function calculateRows($setting = true)
+    {
+        $this->calcRows = $setting;
+    }
+
+    /**
      * Removes a GROUP BY clause, or if $field is not omitted then all GROUP BY
      * clauses are removed.
+     * @param string $field Field name (eg. "age" or "table_name.age"
      */
     public function ungroupBy($field = null)
     {
@@ -649,9 +658,12 @@ class ModelCriteria
                 }
             }
             $noCache = $this->disableCache ? 'SQL_NO_CACHE ' : '';
+            $calcRows = $this->calcRows ? 'SQL_CALC_FOUND_ROWS' : '';
 
-            //$sql->query = 'SELECT '.implode(", ", $fields).' '.(!empty($this->selects['tables']) ? 'FROM '.implode(", ", $this->selects['tables']).' ' : '').$sql->query;
-            $sql->query = 'SELECT ' . $noCache . implode(", ", $fields) . ' ' . (!empty($tables) ? 'FROM ' . implode(", ", $tables) . ' ' : '') . $sql->query;
+            $sql->query = 'SELECT ' . trim($calcRows . ' ' . $noCache)
+                . ' ' . implode(", ", $fields) . ' '
+                . (!empty($tables) ? 'FROM ' . implode(", ", $tables) . ' ' : '')
+                . $sql->query;
         }
 
         // Result
