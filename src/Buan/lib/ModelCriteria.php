@@ -3,14 +3,14 @@
  * This class provides a means to encapsulate an SQL query within an object.
  *
  * @package Buan
-  */
+ */
 namespace Buan;
 use \stdClass;
 
 class ModelCriteria
 {
 
-    /*
+    /**
      * @constant-group Operators
      * These constants represent the operators in an equation.
      */
@@ -29,20 +29,20 @@ class ModelCriteria
     const NOT_IN = 4096;
     const BETWEEN = 8192;
 
-    /*
+    /**
      * @constant-group Logic strings
      * Logic strings.
      */
     const LOGIC_OR = "OR";
     const LOGIC_AND = "AND";
 
-    /*
+    /**
      * @constant-group Others
      */
     const WHERE = "WHERE";
     const HAVING = "HAVING";
 
-    /*
+    /**
      * @property array $selects
      * List of fields and tables used in the SELECT portion of the query.
      * If neither any fields or any tables exist then SELECT will not be included
@@ -50,14 +50,14 @@ class ModelCriteria
      */
     private $selects = ['fields' => [], 'tables' => []];
 
-    /*
+    /**
      * @property ModelCriteriaGroup $whereGroup
      * This is the root clause group of which all other clause groups are
      * children.
      */
     private $whereGroup = null;
 
-    /*
+    /**
      * @property array $leftJoins
      * Holds all LEFT JOINs. The order they appear in this array is the order
      * in which they are added to the generated SQL query.
@@ -73,7 +73,7 @@ class ModelCriteria
      */
     private $leftJoins = [];
 
-    /*
+    /**
      * @property array $rightJoins
      * Holds all RIGHT JOINs. The order they appear in this array is the order
      * in which they are added to the generated SQL query.
@@ -89,7 +89,7 @@ class ModelCriteria
      */
     private $rightJoins = [];
 
-    /*
+    /**
      * @property array $groupBys
      * List of fields that will be added to a GROUP BY clause.
      *
@@ -98,14 +98,14 @@ class ModelCriteria
      */
     private $groupBys = [];
 
-    /*
+    /**
      * @property array $havingGroup
      * A ModelCriteriaGroup object that contains sub-groups that will be rendered
      * in the HAVING portion of the query, rather than the WHERE portion.
      */
     private $havingGroup = [];
 
-    /*
+    /**
      * @property array $orders
      * Holds any ORDER clauses. The order they appear in this array is the order
      * in which they are added to the generated SQL query.
@@ -121,7 +121,7 @@ class ModelCriteria
      */
     private $orders = [];
 
-    /*
+    /**
      * @property array $limit
      * Holds the LIMIT clause criteria.
      *
@@ -133,31 +133,31 @@ class ModelCriteria
      */
     private $limit = null;
 
-    /*
+    /**
       * @property string $useIndex
       * Contains the USE INDEX clause index list.
       *
      */
     private $useIndex = [];
 
-    /*
-      * @property bool $value
-      * If true, disables database cache; for perf. testing
-      * only.
-      *
+    /**
+     * @property bool $value
+     * If true, disables database cache; for perf. testing
+     * only.
+     *
      */
     private $disableCache = false;
     private $calcRows = false;
 
-    /*
-      * @property array $aggregateSubqueries
-      * Contains actual subquery instances
-      *
+    /**
+     * @property array $aggregateSubqueries
+     * Contains actual sub-query instances
+     *
      */
     private $aggregateSubqueries = [];
 
-    /*
-     * @method void __construct()
+    /**
+     * ModelCriteria constructor.
      */
     public function __construct()
     {
@@ -167,11 +167,11 @@ class ModelCriteria
         $this->havingGroup = new ModelCriteriaGroup();
     }
 
-    /*
-     * @method ModelCriteriaGroup addGroup( [string $logic] )
-     * $logic	= Evaluation logic used to join clauses in this new group
-     *
+    /**
      * Generate and return a clause group.
+     * @param string $logic Evaluation logic used to join clauses in this new group
+     * @param string $type
+     * @return null
      */
     public function addGroup($logic = ModelCriteria::LOGIC_AND, $type = ModelCriteria::WHERE)
     {
